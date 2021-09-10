@@ -1,0 +1,15 @@
+#example thead{
+    text-align: center;
+    background-color: #05b3df;
+    /* color: white; */
+  }
+
+#example tr:nth-child(even){background-color: #f2f2f2;}
+#example td:hover {background-color: #ddd;}
+
+#example tfoot{
+  text-align: center;
+  background-color: #c7c7c7;
+  /* color: white; */
+}
+
