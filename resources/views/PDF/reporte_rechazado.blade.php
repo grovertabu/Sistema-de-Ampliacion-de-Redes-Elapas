@@ -1,12 +1,12 @@
 @php
-    $meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+setlocale(LC_TIME,"es_ES");
     $fecha=strtotime($solicitud->fecha_sol);
     $anio=date("Y",$fecha);
     $mes=date("M", $fecha);
     $dia=date("d", $fecha);
-    setlocale(LC_TIME, "spanish");
+    setlocale(LC_TIME,"es_ES");
 			
-    $Mes_ = strftime("%B", strtotime($mes));    
+    $Mes_ = strftime("%B", strtotime($mes));   
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +20,10 @@
 </head>
 
 <style>
+    p{
+        padding: 10px;
+        font-size: 16px;
+    }
     th{
         padding: 10px;
     }
@@ -46,54 +50,24 @@
 
     </style>
 <body>
-<table id="table1">
-    <tr >
-        <th colspan="4">INFORME DE SOLICITUD RECHAZADA</th>
-    </tr>
-    <tr>
-        <td colspan="4"><strong>NOMBRE Y APELLIDO:</strong> {{$solicitud->nombre_sol}}</td>
-    </tr>
-    <tr>
-        <td colspan="4"><strong>CALLE:</strong> {{$solicitud->calle_sol}}</td>
-    </tr>
-    <tr>
-        <td colspan="4"><strong>ZONA:</strong> {{$solicitud->zona_sol}}</td>
-    </tr>
-    <tr>
-        <td class="centrar" rowspan="2"><strong>FECHA DE SOLICITUD</strong></td>
-        <th class="centrar">AÑO</th>
-        <th class="centrar">MES</th>
-        <th class="centrar">DIA</th>
-      
-    </tr>
-    <tr>
-        <td>{{$anio}}</td>
-        <td>{{$Mes_}}</td>
-        <td>{{$dia}}</td>
-    </tr>
-    <tr>
-        <td colspan="4" class="centrar">
-        <img src="https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/static/pin-s+FF0000({{$solicitud->y_aprox}},{{$solicitud->x_aprox}})/{{$solicitud->y_aprox}},{{$solicitud->x_aprox}},17/680x400?access_token=pk.eyJ1IjoiZ3JvdmVydDEyIiwiYSI6ImNrbnExMm1kZjAxbTEycXFxdWJlM2QyOWoifQ._OTf1cgFjXutCJPx2zMl1w" >
-        </td>
-    </tr>
-    <tr>
-        <td colspan="4" >
-            <strong>Observaciones: </strong> {{$solicitud->observaciones}}
-        </td>
-    </tr>
 
-    
-    
-</table>
-<br><br><br>
-<div class="firma">............................................
+        <h3 class="centrar">INFORME DE SOLICITUD RECHAZADA</h3>
+        <p>Estimado usuario <strong>{{$solicitud->nombre_sol}}</strong>, en respuesta a su solicitud realiazada el dia {{$dia}} de {{$Mes_}} de {{$anio}}  le imformamos que lamentablemente no se no se podrá realiazar la instalación de agua potable en su domicilio ubicado en la calle <strong>{{$solicitud->calle_sol}}</strong> zona <strong>{{$solicitud->zona_sol}}</strong> debido al siguiente mottivo: <br><br> {{$solicitud->observaciones}}
+        </p>
+
+
+
+<br><br>
+<div class="firma">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    ......................................
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    ..............................................
 </div>
-<div class="firma">FIRMA DEL INSPECTOR
+<div class="firma">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     FIRMA JEFE DE RED
 </div>
 </body>
