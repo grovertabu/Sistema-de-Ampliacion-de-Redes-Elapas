@@ -37,9 +37,9 @@ Route::get('solicitud/{solicitud}/edit', [SolicitudController::class, 'edit'])->
 Route::put('solicitud/{solicitud}', [SolicitudController::class, 'update'])->middleware('can:solicitud.edit')->name('solicitud.update');
 Route::delete('solicitud/{solicitud}', [SolicitudController::class, 'destroy'])->middleware('can:solicitud.delete')->name('solicitud.destroy');
 Route::get('solicitud/{solicitud}/aprobar', [SolicitudController::class, 'aprobar'])->middleware('can:jefe-red')->name('solicitud.aprobar');
-Route::get('solicitud/{solicitud}/rechazar', [SolicitudController::class, 'rechazar'])->middleware('can:jefe-red')->name('solicitud.rechazar');
+Route::post('solicitud/{solicitud}/rechazar', [SolicitudController::class, 'rechazar'])->middleware('can:jefe-red')->name('solicitud.rechazar');
 Route::get('Solicitudes_rechazadas', [SolicitudController::class, 'reject'])->middleware('can:jefe-red')->name('solicitud.reject');
-
+Route::get('solicitud/{solicitud}/reporte_rechazado', [SolicitudController::class, 'PDF_rechazado'])->middleware('can:jefe-red')->name('solicitud.PDFrechazado');
 // Crud solicitud
 
 // Route::resource('informes', InformeController::class);

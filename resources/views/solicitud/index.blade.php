@@ -60,12 +60,14 @@
                         class='d-inline btn btn-info btn-icon btn-xs'>Editar <i class="fas fa-pencil-alt"></i></a>
                         @endcan
                         @can('jefe-red')
+                        <br>
                         <a href='{{route('solicitud.aprobar',$sol)}}' 
-                        class='d-inline btn btn-success btn-icon btn-xs'>Aprobar <i class="fas fa-pencil-alt"></i></a>
+                        class='d-inline btn btn-success btn-icon btn-xs boton-aprobar'>Aprobar <i class="fas fa-check"></i></a>
                         @endcan
                         @can('jefe-red')
-                        <a href='{{route('solicitud.rechazar',$sol)}}' 
-                        class='d-inline btn btn-danger btn-icon btn-xs'>Rechazar <i class="fas fa-pencil-alt"></i></a>
+                        <br>
+                        <a type="button" data-toggle="modal" data-toggle="modal" data-target="#exampleModal" onclick="modalObservaciones({{$sol->id }})"
+                        class='d-inline btn btn-danger btn-icon btn-xs'>Rechazar <i class="fas fa-times"></i></a>
                         @endcan 
                         @can('solicitud.delete')       
                         <form action="{{route('solicitud.destroy',$sol)}}" class="d-inline elimina" method="POST">
@@ -74,7 +76,12 @@
                             <button class='btn btn-danger btn-icon btn-xs' type="submit">Eliminar  <i class="fas fa-trash"></i></button>
                         </form>
                         @endcan
+                        @else
+                        <br>
+                        <a href='{{route('solicitud.PDFrechazado',$sol)}}' target='_blank'
+                            class='d-inline btn btn-danger btn-icon btn-xs'>Reporte <i class="fas fa-file"></i></a>  
                         @endif
+
                     </td>
                 </tr>
             @endforeach
@@ -97,12 +104,45 @@
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div id="map" class="modal-content">
-      
     </div>
   </div>
 </div>
 
 {{-- Modal fin --}}
+
+@can('jefe-red')
+{{-- Modal para el registrar coordenadas --}}
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Observaciones (opcional)</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form  id="formObservaciones" method="post">
+            @csrf
+            <div class="form-group">
+                <textarea class="form-control" name="observaciones" id="observaciones" rows="3"></textarea>
+                <input type="hidden"  id="id_ruta" name="id_ruta">
+            </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="submit"  class="btn btn-danger">Rechazar</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  @endcan
+  {{-- Modal fin --}}
+
+
+
 
 <script type="text/javascript"
         src="https://maps.googleapis.com/maps/api/js?language=en&key=AIzaSyBUW9zimMRIYLdOBY4FrSyqd13IaJ7N4Y0">
@@ -125,6 +165,17 @@
             )
     </script>
     @endif
+    //Mensaje solicitud aprobada
+    @if(session('aprobar')=='Ok')
+    <script>
+        Swal.fire(
+            'Aprobado!',
+            'La solicitud ha sido aprobada.',
+            'success'
+            )
+    </script>
+    @endif
+
     <script>
          function mimapa(x_aprox,y_aprox){
             var lati= x_aprox;
@@ -140,8 +191,47 @@
                position:coord,
                map:map,
            });
+        
         }
 
+        function modalObservaciones(ruta){
+            document.querySelector('#id_ruta').value = 'solicitud/'+ ruta +'/rechazar';
+            document.querySelector('#observaciones').value = "";
+        }
+        // manda form observaciones 
+        document.querySelector('#formObservaciones').addEventListener('submit', (e)=>{
+        e.preventDefault();
+        var formData = new FormData(e.target);
+        
+        $.ajax({
+                url: document.querySelector('#id_ruta').value,
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function(data) {
+                      window.location.reload();
+                }
+        });
+        });
+        // aprobar solicitud
+        document.querySelector('.boton-aprobar').addEventListener('click', (e)=>{
+          e.preventDefault();
+          Swal.fire({
+            title: '¿Está seguro?',
+            text: "¿Desea aprobar esta solicitud?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Aprobar',
+            cancelButtonText: 'cancelar'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location= e.target.href;
+            }
+          });
+        });
     </script>
 @stop
 @section('footer')

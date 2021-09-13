@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Solicitud;
+use PDF;
 use Illuminate\Http\Request;
 
 class SolicitudController extends Controller
@@ -59,17 +60,26 @@ class SolicitudController extends Controller
     public function aprobar(Solicitud $solicitud){
         $solicitud->estado_sol = "aprobado";
         $solicitud->save();
-        return redirect()->route('solicitud.index');
+        return redirect()->route('solicitud.index')->with('aprobar', 'Ok');
         // return $solicitud->estado_sol;
     }
-    public function rechazar(Solicitud $solicitud){
+    public function rechazar(Request $request, Solicitud $solicitud){
+        
         $solicitud->estado_sol = "rechazado";
+        if(strlen($request->observaciones) > 0 ){
+            $solicitud->observaciones = $request->observaciones;
+        }
         $solicitud->save();
         return redirect()->route('solicitud.index');
-        // return $solicitud->estado_sol;
+        
     }
     public function destroy(Solicitud $solicitud){
         $solicitud->delete();
         return redirect()->route('solicitud.index')->with('eliminar','Ok');
+    }
+
+    public function PDF_rechazado(Solicitud $solicitud){
+        $pdf = PDF::loadview('PDF/reporte_rechazado',compact('solicitud'));
+        return $pdf->stream('Informe Rechazado.pdf');
     }
 }

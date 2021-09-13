@@ -23,6 +23,7 @@ class CreateSolicitudsTable extends Migration
             $table->string('estado_sol',30);
             $table->string('x_aprox',50);
             $table->string('y_aprox',50);
+            $table->text('observaciones')->nullable();
             $table->timestamps();
         });
     }
