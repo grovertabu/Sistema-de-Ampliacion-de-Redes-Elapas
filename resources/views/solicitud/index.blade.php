@@ -6,10 +6,12 @@
 @endphp
 @section('content_header')
   <style>
-  #map {
-      height: 70%;
-      padding: 40%;
-    }
+   #map {
+      margin-top: 20px; 
+      width: 80%;
+      height: 400px;
+      position: absolute;
+    } 
   </style>
     <h1>ELAPAS - Solicitud
         @can('solicitud.create')
@@ -27,7 +29,7 @@
 @stop
 @section('content')
 
-    <div class="table table-bordered table-hover dataTable table-responsive">
+    <div class="table table-bordered table-hover dataTable table-responsive" id="contenedor-tabla">
         <table class="table table-bordered datatable" id="example">
         <thead>
           <tr>	
@@ -51,12 +53,12 @@
                     <td>{{$sol->calle_sol}}</td>
                     <td>{{$sol->estado_sol}}</td>
                     <td>
-                        <a type="button" class="d-inline btn btn-warning btn-icon btn-xs" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="mimapa({{$sol->x_aprox}},{{$sol->y_aprox}})" id="btn_mostrar_mapa">
+                        <a type="button" class="d-inline btn btn-warning btn-icon btn-xs" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="visualizarMapa({{$sol->x_aprox}},{{$sol->y_aprox}}, {{$sol->id}})" id="btn_mostrar_mapa" >
                             Visualizar <i class="fas fa-eye"></i></a>
                         @if($sol->estado_sol!='rechazado')
                             
                         @can('solicitud.edit')
-                        <a href='{{route('solicitud.aprobar',$sol)}}' 
+                        <a href='{{route('solicitud.edit',$sol)}}' 
                         class='d-inline btn btn-info btn-icon btn-xs'>Editar <i class="fas fa-pencil-alt"></i></a>
                         @endcan
                         @can('jefe-red')
@@ -98,15 +100,28 @@
             </tr>
         </tfoot>
     </table>
-</div>
 
-{{-- Modal para el registrar coordenadas --}}
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div id="map" class="modal-content">
+
+  </div>
+  <div id="contenedor-mapa" style="display: none">
+    <input type="hidden" id="obtenerAmpliaciones" >
+
+    <button onclick="mostrarTabla(false)" class="btn btn-primary"> <i class="fas fa-arrow-circle-left"></i> Volver </button>
+
+    <div id="map">
     </div>
   </div>
-</div>
+
+{{-- Modal para el registrar coordenadas --}}
+{{-- <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+
+    </div>
+
+  </div>
+</div> --}}
 
 {{-- Modal fin --}}
 
@@ -156,6 +171,11 @@
     
 @section('js')
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+<script src="https://unpkg.com/esri-leaflet@2.3.2/dist/esri-leaflet.js" integrity="sha512-6LVib9wGnqVKIClCduEwsCub7iauLXpwrd5njR2J507m3A2a4HXJDLMiSZzjcksag3UluIfuW1KzuWVI5n/cuQ==" crossorigin=""></script>
+<script src="https://unpkg.com/esri-leaflet-geocoder@2.3.2/dist/esri-leaflet-geocoder.js" integrity="sha512-8twnXcrOGP3WfMvjB0jS5pNigFuIWj4ALwWEgxhZ+mxvjF5/FBPVd5uAxqT8dd2kUmTVK9+yQJ4CmTmSg/sXAQ==" crossorigin=""></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>  
+
     @if(session('eliminar')=='Ok')
     <script>
         Swal.fire(
@@ -175,10 +195,11 @@
             )
     </script>
     @endif
-
+    <script src="{{asset('js/mapas.js') }}"></script>
     <script>
-         function mimapa(x_aprox,y_aprox){
-            var lati= x_aprox;
+         //function mimapa(x_aprox,y_aprox){
+          //cargarMapa();
+/*             var lati= x_aprox;
             var long= y_aprox;
               var coord= {lat:lati ,lng: long}
             var myOptions = {
@@ -190,13 +211,19 @@
            var marker = new google.maps.Marker({
                position:coord,
                map:map,
-           });
-        
-        }
+           }); */
+
+          //}
+           
 
         function modalObservaciones(ruta){
-            document.querySelector('#id_ruta').value = 'solicitud/'+ ruta +'/rechazar';
+            document.querySelector('#id_ruta').value = 'solicitud/'+ ruta +'/rechazar'; 
             document.querySelector('#observaciones').value = "";
+        }
+        function visualizarMapa(lat, long, ruta){
+            mostrarTabla(true);
+            document.querySelector('#obtenerAmpliaciones').value = 'solicitud/'+ ruta +'/obtener_ampliacion';
+            initMap(lat,long,ruta);
         }
         // manda form observaciones 
         document.querySelector('#formObservaciones').addEventListener('submit', (e)=>{
@@ -232,11 +259,18 @@
             }
           });
         });
+
     </script>
+    <script>
+
+</script>
 @stop
 @section('footer')
 <strong>{{date("Y")}} || ELAPAS - SISTEMA DE AMPLIACION DE REDES DE AGUA </strong>
 @stop
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+<link rel="stylesheet" href="/css/admin_custom.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+<link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.3.2/dist/esri-leaflet-geocoder.css" integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g==" crossorigin="">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
 @stop

@@ -99,8 +99,8 @@
                         <label for="exampleInputEmail1">fecha</label>
                         <input type="date"  name="fecha_sol" id="fecha_sol" class="form-control" value="{{date("Y-m-d")}}">
                         <input type="hidden" name="estado_sol" id="estado_sol" value="pendiente">
-                        <input type="hidden" name="x_aprox" id="x_aprox" value="-19.034432">
-                        <input type="hidden" name="y_aprox" id="y_aprox" value="-65.264812">
+                        <input type="hidden" name="x_aprox" id="x_aprox" {{-- value="-19.034432" --}}>
+                        <input type="hidden" name="y_aprox" id="y_aprox" {{-- value="-65.264812" --}}>
                     </div>
                 </div><br>
                 <div class="card-footer">
@@ -182,6 +182,34 @@
 //        position: coord,
 //        map: map
 //    })
+
+document.querySelector('#form_solicitud').addEventListener('submit',(e)=>{
+    e.preventDefault();
+    const x_aprox = document.getElementById('x_aprox').value;
+    const y_aprox = document.getElementById('y_aprox').value;
+    console.log(x_aprox +' '+ y_aprox);
+    if(x_aprox != '-19.034432' && y_aprox != '-65.264812'){
+        var formData = new FormData(e.target);
+        
+        $.ajax({
+                url: e.target.action,
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function(data) {
+                      window.location.reload();
+                }
+        });
+    }else{
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Algo salió mal!',
+        })
+    } 
+}) 
+
 </script>
 @stop
 @section('css')

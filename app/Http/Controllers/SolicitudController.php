@@ -26,6 +26,8 @@ class SolicitudController extends Controller
             'celular_sol'=>'required',
             'zona_sol'=>'required',
             'calle_sol'=>'required',
+            'x_aprox' => 'required',
+            'y_aprox'=>'required'
         ]);
 
         $sol = new Solicitud();
@@ -81,5 +83,19 @@ class SolicitudController extends Controller
     public function PDF_rechazado(Solicitud $solicitud){
         $pdf = PDF::loadview('PDF/reporte_rechazado',compact('solicitud'));
         return $pdf->stream('Informe Rechazado.pdf');
+    }
+
+    public function guardarAmpliacion(Request $request,Solicitud $solicitud){
+        $solicitud->ampliaciones = $request->ampliaciones;
+        $solicitud->save();
+
+        return var_dump($request->ampliaciones);    
+    }
+    
+    public function obtenerAmpliacion(Solicitud $solicitud){
+        
+
+        return ["ampliacion" => $solicitud->ampliaciones];
+        
     }
 }

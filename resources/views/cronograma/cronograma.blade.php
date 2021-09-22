@@ -11,7 +11,7 @@
         <h5 class="card-header">ELAPAS - CRONOGRAMA DE INSPECCIONES</h5>
         <div class="card-body">
           <h5 class="card-title"></h5>
-          <form action="{{route('cronograma.reporte')}}" method="GET" class="form-inline">
+          <form action="{{route('cronograma.reporte')}}" id="formCronograma" method="GET" class="form-inline">
             <div class="form-group mx-sm-3">
                 <label for="nombre_material">Fecha de inspeccion :&nbsp;</label>
                 <input type="date" name='fecha_i' id="fecha_i" class="form-control">

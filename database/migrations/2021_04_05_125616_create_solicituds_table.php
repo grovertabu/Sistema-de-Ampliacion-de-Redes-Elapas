@@ -24,6 +24,7 @@ class CreateSolicitudsTable extends Migration
             $table->string('x_aprox',50);
             $table->string('y_aprox',50);
             $table->text('observaciones')->nullable();
+            $table->text('ampliaciones')->nullable();
             $table->timestamps();
         });
     }

@@ -40,6 +40,8 @@ Route::get('solicitud/{solicitud}/aprobar', [SolicitudController::class, 'aproba
 Route::post('solicitud/{solicitud}/rechazar', [SolicitudController::class, 'rechazar'])->middleware('can:jefe-red')->name('solicitud.rechazar');
 Route::get('Solicitudes_rechazadas', [SolicitudController::class, 'reject'])->middleware('can:jefe-red')->name('solicitud.reject');
 Route::get('solicitud/{solicitud}/reporte_rechazado', [SolicitudController::class, 'PDF_rechazado'])->middleware('can:jefe-red')->name('solicitud.PDFrechazado');
+Route::post('solicitud/{solicitud}/guardar_ampliacion', [SolicitudController::class, 'guardarAmpliacion'])->middleware('can:inspector')->name('solicitud.guardarAmpliacion');
+Route::get('solicitud/{solicitud}/obtener_ampliacion', [SolicitudController::class, 'obtenerAmpliacion'])->name('solicitud.obtenerAmpliaciones');
 // Crud solicitud
 
 // Route::resource('informes', InformeController::class);

@@ -76,11 +76,13 @@ $('.create').submit(function(e){
 
 // -------------------------------------------------------------------------------------------------------------------
         $('#btnMapaRegistrar').click(function(){
-            var lati= parseFloat(document.getElementById('x_aprox').value);
-            var long= parseFloat(document.getElementById('y_aprox').value);
+            /* var lati= parseFloat(document.getElementById('x_aprox').value);
+            var long= parseFloat(document.getElementById('y_aprox').value); */
+            lati = -19.0429
+            long = -65.2554
               var coord= {lat:lati ,lng: long}
             var myOptions = {
-                  zoom: 18,
+                  zoom: 14,
                   center: coord,
                   mapTypeId: 'hybrid'
               };
@@ -191,6 +193,10 @@ $('.create').submit(function(e){
             
         });
         // 
+
+
+
+        
 // -----------------------------------------------------------------------------------------------------------
         $('#btnMapaExacto').click(function(){
             var lati= parseFloat(document.getElementById('x_exact').value);
