@@ -340,7 +340,7 @@ function cargarLayersActualizar(lat, long){
             center: { lat: -19.0429, lng:  -65.2554 },
             zoom: 15,
             zoomControl: false,
-            layers: [openStreetMap],
+            layers: [openStreetMap, drawnItems],
             fullscreenControl: true
         }
     }
