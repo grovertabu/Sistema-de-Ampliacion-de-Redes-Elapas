@@ -53,7 +53,7 @@ class Materials_informesController extends Controller
     }
 
 
-    public function registrar(Request $request)
+    public function store(Request $request)
     {
         $mat_inf = new Informe_material();
         $mat_inf->informe_id  = $request->id_informe;

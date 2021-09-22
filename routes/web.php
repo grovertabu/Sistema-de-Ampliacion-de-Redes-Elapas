@@ -28,7 +28,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dash', function () {
     return view('dash.index');
 })->name('dash');
 // CRUD USUARIOS
-Route::resource('users', UserController::class)->only('index','edit','update','create','registrar')->names('users');
+Route::resource('users', UserController::class)->only('index','edit','update','create','store')->names('users');
 // Crud SOLICITUD
 Route::get('Lista_solicitud', [SolicitudController::class, 'index'])->middleware('can:solicitud.index')->name('solicitud.index');
 Route::get('solicitud/registrar_solicitud', [SolicitudController::class, 'create'])->middleware('can:solicitud.create')->name('solicitud.create');
