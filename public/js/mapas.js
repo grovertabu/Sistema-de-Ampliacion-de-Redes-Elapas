@@ -16,84 +16,7 @@ var drawnItems;
 var concesionItems;
 var tuberiasItems;
 // Check areas
-/* $('#btnTuberiasAguaPotable').click(function () {
-    var checked = $('#btnTuberiasAguaPotable').attr('data-checked');
-    if (checked == 0) {
-        mapTuberiasAguaPotable = L.esri.featureLayer({
-            url: baseUrl + 'InventarioRedes/MapServer/6'
-        });
-    }
-    clickButton($('#btnTuberiasAguaPotable'), $('#imageTuberiasAguaPotable'), mapTuberiasAguaPotable);
-    mapTuberiasAguaPotable.bindPopup(function (layer) {
-        console.log(layer.feature.properties.MATERIAL);
-        var material;
-        if (layer.feature.properties.MATERIAL === 1) {
-            material = 'PVC';
-        } else if (layer.feature.properties.MATERIAL === 2) {
-            material = 'FF';
-        } else if (layer.feature.properties.MATERIAL === 3) {
-            material = 'FG';
-        } else if (layer.feature.properties.MATERIAL === 4) {
-            material = 'HDPE';
-        }
-        return L.Util.template('<strong>ID: </strong>{OBJECTID}<br><strong>Codigo de Catastro: </strong>{CodigoCatastro}<br><strong>Material: </strong>' + material + '<br><strong>Diametro: </strong>{Diametro}<br><strong>Nombre de Red: </strong>{NombreRed}', layer.feature.properties);
-    });
-    return false;
-});
 
-$('#btnAreaConcesion').click(function () {
-    var checked = $('#btnAreaConcesion').attr('data-checked');
-    if (checked == 0) {
-        mapAreaConcesion = L.esri.featureLayer({
-            url: baseUrl + 'MapaBaseWebMercator/MapServer/3'
-        });
-    }
-    clickButton($('#btnAreaConcesion'), $('#imageAreaConcesion'), mapAreaConcesion);
-
-    return false;
-});
-
-$('#btnAmpliaciones').click(function () {
-    var checked = $('#btnAmpliaciones').attr('data-checked');
-    if (checked == 0) {
-        cargarAmpliaciones();
-    }
-    clickButton($('#btnAmpliaciones'), $('#imageAmpliaciones'), mapAmpliaciones);
-
-
-    return false;
-});
-
-function clickButton($btn, $image, mapLayer) {
-    var checked = $btn.attr('data-checked');
-    if (checked == 0) {
-        console.log("anadir")
-        mapLayer.addTo(map);
-        setButton($btn, $image, 0);
-    } else {
-        console.log("quitaer")
-        map.removeLayer(mapLayer);
-        setButton($btn, $image, 1);
-    }
-}
-
-function setButton($btn, $image, checked) {
-    if (checked == 0) {
-        console.log($btn);
-        $btn.removeClass('btn-danger');
-        $btn.addClass('btn-success');
-        $image.removeClass('fa-times');
-        $image.addClass('fa-check');
-        $btn.attr('data-checked', 1);
-    } else {
-        console.log($btn);
-        $btn.addClass('btn-danger');
-        $btn.removeClass('btn-success');
-        $image.addClass('fa-times');
-        $image.removeClass('fa-check');
-        $btn.attr('data-checked', 0);
-    }
-} */
 function initEditMap(x_aprox, y_aprox) {
     map = null;
     iniciarLayers(x_aprox, y_aprox, 'actualizar');
@@ -157,27 +80,6 @@ function mostrarTabla(flag) {
     }
 }
 
-/* function capasMapa() {
-    var checked = $('#btnAreaConcesion').attr('data-checked');
-    if (checked == 1) {
-        mapAreaConcesion = L.esri.featureLayer({
-            url: baseUrl + 'MapaBaseWebMercator/MapServer/3'
-        });
-        mapAreaConcesion.addTo(map);
-    }
-    var checked = $('#btnTuberiasAguaPotable').attr('data-checked');
-    if (checked == 1) {
-        mapTuberiasAguaPotable = L.esri.featureLayer({
-            url: baseUrl + 'InventarioRedes/MapServer/6'
-        });
-        mapTuberiasAguaPotable.addTo(map);
-    }
-    var checked = $('#btnAmpliaciones').attr('data-checked');
-    if (checked == 1) {
-        cargarAmpliaciones();
-    }
-
-} */
 
 function drawMapa(flag) {
     let lat = document.getElementById('x_exact').value;
@@ -198,7 +100,6 @@ function bindPopup(layer) {
         props = featuresDB.get(layer._leaflet_id).properties
     }
 
-    console.log(props);
     let table = ''
     for (var key in props) {
         if (!String(key).startsWith('_')) {
@@ -226,7 +127,6 @@ function cargarTuberias(){
         url: baseUrl + 'InventarioRedes/MapServer/6'
     });
     mapTuberiasAguaPotable.bindPopup(function (layer) {
-        console.log(layer.feature.properties.MATERIAL);
         var material;
         if (layer.feature.properties.MATERIAL === 1) {
             material = 'PVC';
@@ -252,7 +152,6 @@ function iniciarLayers(lat ,long, opcion){
         cargarLayersActualizar(lat, long);
     }else{
         $.get( document.getElementById('obtenerAmpliaciones').value, function( data ) {
-            console.log(data);
         
             if(data != null){
                 data = JSON.parse( data.ampliacion);
@@ -271,7 +170,6 @@ function iniciarLayers(lat ,long, opcion){
 function cargarLayersEditar(data, lat , long){
     cargarConcesion();
     cargarTuberias();
-    console.log(data);
     mapAmpliaciones =  L.geoJSON(data,{
         style: function(feature){
             return {color:'green'}
@@ -360,7 +258,6 @@ function cargarLayersEditar(data, lat , long){
 function cargarLayers(data, lat , long){
     cargarConcesion();
     cargarTuberias();
-    console.log(data);
     mapAmpliaciones =  L.geoJSON(data,{
         style: function(feature){
             return {color:'green'}
@@ -409,6 +306,7 @@ function cargarLayers(data, lat , long){
 }
 
 function cargarLayersActualizar(lat, long){
+    let options = {};
     cargarConcesion();
     cargarTuberias();
     drawnItems = L.featureGroup();
@@ -425,17 +323,29 @@ function cargarLayersActualizar(lat, long){
         "Hibrido": openStreetMap
     }
     const capasLineas = {
-        "Ampliaciones": drawnItems,
+        "Ubicación": drawnItems,
         "Area de Concesion": concesionItems,
         "Mapa de Tuberias": tuberiasItems
     }
-    map = L.map('map', {
-        center: { lat: lat, lng: long },
-        zoom: 18,
-        zoomControl: false,
-        layers: [openStreetMap, drawnItems],
-        fullscreenControl: true
-    })
+    if(lat != -19.034432 && long != -65.264812){
+        options = {
+            center: { lat: lat, lng: long },
+            zoom: 18,
+            zoomControl: false,
+            layers: [openStreetMap, drawnItems],
+            fullscreenControl: true
+        }
+    }else{
+        options = {
+            center: { lat: -19.0429, lng:  -65.2554 },
+            zoom: 15,
+            zoomControl: false,
+            layers: [openStreetMap],
+            fullscreenControl: true
+        }
+    }
+
+    map = L.map('map', options);
 
     L.control.layers(
         mapasBase,
@@ -466,7 +376,6 @@ function cargarLayersActualizar(lat, long){
         if (type === 'marker') {
             drawnItems.clearLayers();
             drawnItems.addLayer(layer);
-            console.log(layer._latlng);
             document.getElementById('x_aprox').value=layer._latlng.lat;
             document.getElementById('y_aprox').value=layer._latlng.lng;
         }
@@ -475,7 +384,6 @@ function cargarLayersActualizar(lat, long){
     map.on('draw:edited', function (e) {
         var layers = e.layers;
         layers.eachLayer(function (layer) {
-            console.log(layer._latlng);
             document.getElementById('x_aprox').value=layer._latlng.lat;
             document.getElementById('y_aprox').value=layer._latlng.lng;
         });
@@ -484,15 +392,15 @@ function cargarLayersActualizar(lat, long){
     map.on('draw:deleted', function (e) {
         var layers = e.layers;
         layers.eachLayer(function (layer) {
-            console.log(layer._latlng)
             document.getElementById('x_aprox').value=lat;
             document.getElementById('y_aprox').value=long;
         });
     });
 
-
-    var marcador = L.marker([lat, long],{color:'red'})
-    drawnItems.addLayer(marcador)
+    if(lat != -19.034432 && long != -65.264812){
+        var marcador = L.marker([lat, long],{color:'red'})
+        drawnItems.addLayer(marcador)
+    }
 
 
     /* capasMapa(); */
@@ -512,8 +420,6 @@ function addNonGroupLayers(sourceLayer, targetGroup) {
 
 function guardarcambios(cadena){
     const layerJSON = drawnItems.toGeoJSON();
-    console.log(drawnItems.getLayers());
-    console.log(layerJSON);
     let formData = new FormData(document.getElementById('formAmpliaciones'));
     formData.append('ampliaciones', JSON.stringify(layerJSON));
     $.ajax({
@@ -523,7 +429,6 @@ function guardarcambios(cadena){
         contentType: false,
         type: 'POST',
         success: function (data) {
-            console.log(cadena +''+data);
         }
     });
 }

@@ -196,74 +196,8 @@
     </script>
     @endif
     <script src="{{asset('js/mapas.js') }}"></script>
-    <script>
-         //function mimapa(x_aprox,y_aprox){
-          //cargarMapa();
-/*             var lati= x_aprox;
-            var long= y_aprox;
-              var coord= {lat:lati ,lng: long}
-            var myOptions = {
-                  zoom: 17,
-                  center: coord,
-                  mapTypeId: 'hybrid'
-              };
-           map = new google.maps.Map(document.getElementById('map'), myOptions);
-           var marker = new google.maps.Marker({
-               position:coord,
-               map:map,
-           }); */
+    <script src="{{asset('js/solicitud.js')}}"></script>
 
-          //}
-           
-
-        function modalObservaciones(ruta){
-            document.querySelector('#id_ruta').value = 'solicitud/'+ ruta +'/rechazar'; 
-            document.querySelector('#observaciones').value = "";
-        }
-        function visualizarMapa(lat, long, ruta){
-            mostrarTabla(true);
-            document.querySelector('#obtenerAmpliaciones').value = 'solicitud/'+ ruta +'/obtener_ampliacion';
-            initMap(lat,long,ruta);
-        }
-        // manda form observaciones 
-        document.querySelector('#formObservaciones').addEventListener('submit', (e)=>{
-        e.preventDefault();
-        var formData = new FormData(e.target);
-        
-        $.ajax({
-                url: document.querySelector('#id_ruta').value,
-                data: formData,
-                processData: false,
-                contentType: false,
-                type: 'POST',
-                success: function(data) {
-                      window.location.reload();
-                }
-        });
-        });
-        // aprobar solicitud
-        document.querySelector('.boton-aprobar').addEventListener('click', (e)=>{
-          e.preventDefault();
-          Swal.fire({
-            title: '¿Está seguro?',
-            text: "¿Desea aprobar esta solicitud?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Aprobar',
-            cancelButtonText: 'cancelar'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              window.location= e.target.href;
-            }
-          });
-        });
-
-    </script>
-    <script>
-
-</script>
 @stop
 @section('footer')
 <strong>{{date("Y")}} || ELAPAS - SISTEMA DE AMPLIACION DE REDES DE AGUA </strong>

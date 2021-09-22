@@ -5,8 +5,10 @@
 @section('content_header')
     <style>
     #map {
-        height: 70%;
-        padding: 40%;
+      margin-top: 20px; 
+      width: 80%;
+      height: 400px;
+      position: absolute;
       }
     </style>
     <h1>ELAPAS</h1>
@@ -16,7 +18,7 @@
 @section('content')
 
 <div class="container-fluid">
-    <div class="justify-content-center row">
+    <div class="justify-content-center row" id="contenedor-tabla">
       <!-- left column -->
         <div class="col-md-6">
         <!-- general form elements -->
@@ -105,7 +107,7 @@
                 </div><br>
                 <div class="card-footer">
                     
-                    <button type="button" class="btn btn-block btn-outline-success" data-toggle="modal" data-target=".bd-example-modal-lg" id="btnMapaRegistrar" >
+                    <button type="button" class="btn btn-block btn-outline-success"  onclick="editarMapa()" >
                     Registrar ubicacion aproximada</button>
                 </div>
                 
@@ -122,17 +124,25 @@
             </div>
         </div>
     </div>
+    <div id="contenedor-mapa" style="display: none">
+        <input type="hidden" id="obtenerAmpliaciones" >
+    
+        <button onclick="mostrarTabla(false)" class="btn btn-primary"> <i class="fas fa-arrow-circle-left"></i> Volver </button>
+    
+        <div id="map">
+        </div>
+      </div>
 </div>
 <hr>
 {{-- Modal para el registrar coordenadas --}}
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+{{-- <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div id="map" class="modal-content">
         
       </div>
     </div>
   </div>
-  
+   --}}
   {{-- Modal fin --}}
 
 
@@ -146,6 +156,13 @@
 
 @section('js')
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+<script src="https://unpkg.com/esri-leaflet@2.3.2/dist/esri-leaflet.js" integrity="sha512-6LVib9wGnqVKIClCduEwsCub7iauLXpwrd5njR2J507m3A2a4HXJDLMiSZzjcksag3UluIfuW1KzuWVI5n/cuQ==" crossorigin=""></script>
+<script src="https://unpkg.com/esri-leaflet-geocoder@2.3.2/dist/esri-leaflet-geocoder.js" integrity="sha512-8twnXcrOGP3WfMvjB0jS5pNigFuIWj4ALwWEgxhZ+mxvjF5/FBPVd5uAxqT8dd2kUmTVK9+yQJ4CmTmSg/sXAQ==" crossorigin=""></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+<script src="{{asset('js/mapas.js')}}"></script>
+
     @if(session('crear')=='Ok')
         <script>
             Swal.fire(
@@ -183,7 +200,7 @@
 //        map: map
 //    })
 
-document.querySelector('#form_solicitud').addEventListener('submit',(e)=>{
+/* document.querySelector('#form_solicitud').addEventListener('submit',(e)=>{
     e.preventDefault();
     const x_aprox = document.getElementById('x_aprox').value;
     const y_aprox = document.getElementById('y_aprox').value;
@@ -208,11 +225,20 @@ document.querySelector('#form_solicitud').addEventListener('submit',(e)=>{
             text: 'Algo salió mal!',
         })
     } 
-}) 
-
+})  */
+function editarMapa(){
+    const lat = -19.034432;
+    const long = -65.264812;
+    mostrarTabla(true);
+    initEditMap(lat,long);
+}
 </script>
 @stop
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
-    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.3.2/dist/esri-leaflet-geocoder.css" integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g==" crossorigin="">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw-src.css"/>
 @stop
+    
