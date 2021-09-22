@@ -13,7 +13,7 @@ class CronogramaController extends Controller
 {
     
     public function index(){
-        $inspectores = User::where('tipo_user','inspector')->get();
+        $inspectores = User::where('tipo_user','Inspector')->get();
         $solicitud = Solicitud::where('estado_sol','aprobado')->get();
         return view('cronograma.index',compact('solicitud','inspectores'));
     }
@@ -68,7 +68,7 @@ class CronogramaController extends Controller
     public function create(){
         return view('cronograma.create');
     }
-    public function registrar(Request $request){
+    public function store(Request $request){
         $request->validate([
             'fecha_inspe'=>'required|unique:cronogramas',
             'solicitud_id'=>'required|unique:cronogramas',

@@ -22,7 +22,7 @@ class MaterialController extends Controller
     }
 
 
-    public function registrar(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'nombre_material' => 'required|unique:materials|max:255',
