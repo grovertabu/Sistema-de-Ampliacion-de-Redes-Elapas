@@ -17,7 +17,7 @@
         </div>
         <!-- /.card-header -->
         <!-- formulario inicio -->
-        <form action="{{route('materials.registrar')}}" method="POST" class="create" role="form" id="form_materials">
+        <form action="{{route('materials.store')}}" method="POST" class="create" role="form" id="form_materials">
             @csrf
             <div class="card-body">
                 <div class="form-group">

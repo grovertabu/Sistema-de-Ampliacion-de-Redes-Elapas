@@ -63,7 +63,7 @@ class PDFController extends Controller
             ->where('informes.id',$informe->id)
             ->first();
         $jefe_r= DB::table('users')
-            ->where('users.tipo_user','jefe de red')
+            ->where('users.tipo_user','Jefe de red')
             ->select('users.name as name')
             ->first();
         // $materiales=DB::select("SELECT m.nombre_material,im.cantidad,im.u_medida FROM informe_materials im 

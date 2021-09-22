@@ -69,7 +69,7 @@
                                                 </div>
                                                 <!-- /.card-header -->
                                                 <!-- formulario inicio -->
-                                                <form action="{{route('cronograma.registrar')}}" method="POST" role="form" id="form_materials">
+                                                <form action="{{route('cronograma.store')}}" method="POST" role="form" id="form_materials">
                                                     @csrf
                                                     <div class="card-body">
                                                         <div class="form-group">
