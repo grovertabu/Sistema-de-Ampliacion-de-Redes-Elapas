@@ -91,7 +91,7 @@
                                                             <div class="input-group ">
                                                                 <div class="input-group-prepend">
                                                                 </div>
-                                                                <input class="form-control" name="fecha_inspe" type="datetime-local" value="">
+                                                                <input class="form-control" id="fecha_inspe" name="fecha_inspe" type="datetime-local" value="">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -173,9 +173,10 @@
         
         $('.select2').select2();
         $.fn.modal.Constructor.prototype._enforceFocus = function() {};
-        
+   
         
     </script>
+    <script src="{{asset('js/cronograma.js')}}"></script>
 @stop
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">

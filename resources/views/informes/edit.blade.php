@@ -194,7 +194,7 @@
   </div> --}}
 
   <div id="contenedor-mapa" style="display: none">
-    <button onclick="mostrarTabla(false)" class="btn btn-primary"> <i class="fas fa-arrow-circle-left"></i> Volver </button>
+    <button onclick="mostrarTabla(false,true)" class="btn btn-primary"> <i class="fas fa-arrow-circle-left"></i> Volver </button>
 {{--     <button id="btnTuberiasAguaPotable" data-checked="0" class="btn btn-danger">
       <i class="fas fa-times" id="imageTuberiasAguaPotable"></i> Mostrar Redes de Agua
     </button>
@@ -226,6 +226,26 @@
     $('.select2').select2();
     </script>
 <script src="{{asset('js/mapas.js')}}"></script>
+<script>
+    function mapLink(){
+        let lat = document.getElementById('x_exact').value;
+        let lng = document.getElementById('y_exact').value;
+        var enlace="https://maps.google.com/?q="+lat+","+lng;
+        document.getElementById('ubicacion_geo').value=enlace;
+    }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded',()=>{
+        calcularDistancia();
+        mapLink()
+    });
+    document.getElementById('x_exact').addEventListener('change',()=>{
+        mapLink();
+    })
+    document.getElementById('y_exact').addEventListener('change',()=>{
+        mapLink();
+    })
+</script>
 
 @stop
 @section('css')

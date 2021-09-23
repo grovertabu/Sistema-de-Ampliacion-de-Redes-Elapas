@@ -49,7 +49,7 @@ u {
 @endphp
     <table width="100%">
         <tr>
-            <td class="izquierda"><img class="img" src="{{asset('css/pedido.png')}}" alt=""></td>
+            <td class="izquierda"><img class="img" src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('images/pedido.png'))) }}"></td>
             <td width="400px" class="letra centrar"><strong>Pedido de Materiales a Almacenes</strong></td>
             <td class="letra derecha">{{"0".$pedido}}</td>
         </tr>
@@ -114,11 +114,11 @@ u {
         </table>
         <table  border="1" style="border-collapse:collapse; width:100%;">
         <tr style="height:90px; margin:0px;">
-            <td width="200px">Pedido Por: <br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$inspector->name}} <br>&nbsp;&nbsp;&nbsp;<img width="120" height="60" src="{{asset('images/'.$inspector->name.'.png')}}"></strong></td>
+            <td width="200px">Pedido Por: <br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$inspector->name}} <br>&nbsp;&nbsp;&nbsp;<img width="120" height="60" src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('images/'.$inspector->name.'.png'))) }}"></strong></td>
                 
                 <td>Autorizado Por:<br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$jefe_r->name}} <br>&nbsp;&nbsp;&nbsp;
                     @if($inspector->estado=='firmado')
-                    <img width="120" height="60" src="{{asset('images/'.$jefe_red.'.png')}}">
+                    <img width="120" height="60" src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('images/'.$jefe_red.'.png'))) }}">
                     @endif
                 </td>
                 <td>Vo.Bo. <br><br><br><br></td>
