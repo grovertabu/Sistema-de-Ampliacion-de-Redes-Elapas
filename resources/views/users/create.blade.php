@@ -17,7 +17,7 @@
         </div>
         <!-- /.card-header -->
         <!-- formulario inicio -->
-        <form action="{{route('users.registrar')}}" method="POST" class="create" role="form" id="form_materials">
+        <form action="{{route('users.store')}}" method="POST" class="create" role="form" id="form_materials">
             @csrf
             <div class="card-body">
                 @if ($errors->any())
@@ -114,7 +114,7 @@
                     title: 'Oops...',
                     text: 'Algo salió mal!',
                 })
-                
+
             </script>
         @endif
     @endif

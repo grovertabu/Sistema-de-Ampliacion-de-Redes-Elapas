@@ -25,7 +25,7 @@ class UserController extends Controller
         return view('users.create');
     }
 
-    public function registrar(Request $request)
+    public function store(Request $request)
     {
 
        $request->validate([
@@ -48,14 +48,14 @@ class UserController extends Controller
         //
     }
 
-  
+
     public function edit(User $user)
     {
         $roles = Role::all();
         return view('users.edit',compact('user', 'roles'));
     }
 
-   
+
     public function update(Request $request, User $user)
     {
         if ($request->roles==1) {
@@ -78,7 +78,7 @@ class UserController extends Controller
             $user->tipo_user = "";
             $user->save();
         }
-        
+
         $user->roles()->sync($request->roles);
         return redirect()->route('users.edit', $user)->with('info','Se asigno los roles correctamente');
     }
