@@ -13,6 +13,9 @@
     </style>
     <h1>Informes de ampliacion de redes</h1>
 @stop
+@php
+    $fecha_arreglada = str_replace(" ","T",$informe->fecha_hora_in);
+@endphp
 
 @section('content')
 <div class="justify-content-center row" id="contenedor-tabla">
@@ -45,7 +48,7 @@
                         <div class="input-group ">
                             <div class="input-group-prepend">
                             </div>
-                            <input class="form-control" name="fecha_hora_in" type="datetime-local" value="{{$informe->fecha_hora_in}}" id="example-datetime-local-input">
+                            <input class="form-control" name="fecha_hora_in" type="datetime-local" value="{{$fecha_arreglada}}" id="example-datetime-local-input">
                         </div>
                         
                     </div>
@@ -88,7 +91,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                             </div>
-                                <input type="text" name="x_exact" id="x_exact" class="form-control" placeholder="Indicar coordenada Lat" value="{{$informe->solicitud->x_aprox}}">
+                                <input type="text" name="x_exact" id="x_exact" class="form-control" oninput="mapLink()" placeholder="Indicar coordenada Lat" value="{{$informe->solicitud->x_aprox}}">
                         </div>
                     </div>
                     <div class="col-6">
@@ -97,7 +100,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                             </div>
-                                <input type="text" name="y_exact" id="y_exact" class="form-control" placeholder="Indicar Coordenada Lng" value="{{$informe->solicitud->y_aprox}}">
+                                <input type="text" name="y_exact" id="y_exact" class="form-control" oninput="mapLink()" placeholder="Indicar Coordenada Lng" value="{{$informe->solicitud->y_aprox}}">
                         </div>
                     </div>
                     <div class="card-footer">
@@ -194,7 +197,7 @@
   </div> --}}
 
   <div id="contenedor-mapa" style="display: none">
-    <button onclick="mostrarTabla(false)" class="btn btn-primary"> <i class="fas fa-arrow-circle-left"></i> Volver </button>
+    <button onclick="mostrarTabla(false,true)" class="btn btn-primary"> <i class="fas fa-arrow-circle-left"></i> Volver </button>
 {{--     <button id="btnTuberiasAguaPotable" data-checked="0" class="btn btn-danger">
       <i class="fas fa-times" id="imageTuberiasAguaPotable"></i> Mostrar Redes de Agua
     </button>
@@ -226,6 +229,20 @@
     $('.select2').select2();
     </script>
 <script src="{{asset('js/mapas.js')}}"></script>
+<script>
+    function mapLink(){
+        let lat = document.getElementById('x_exact').value;
+        let lng = document.getElementById('y_exact').value;
+        var enlace="https://maps.google.com/?q="+lat+","+lng;
+        document.getElementById('ubicacion_geo').value=enlace;
+    }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded',()=>{
+        calcularDistancia();
+        mapLink()
+    });
+</script>
 
 @stop
 @section('css')

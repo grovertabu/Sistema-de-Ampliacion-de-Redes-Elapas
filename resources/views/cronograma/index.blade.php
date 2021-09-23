@@ -14,9 +14,15 @@
       padding: 40%;
     }
   </style>
-    <h1>ELAPAS - CRONOGRAMA DE ASIGNACION
-    </h1>
-    <h2>{{date("d-m-Y")}}</h2>
+  @can('jefe-red')
+  <h1>ELAPAS - CRONOGRAMA DE ASIGNACION
+  </h1>
+  <h2>{{date("d-m-Y")}}</h2>
+  @endcan
+  @can('Monitor')
+  <h1>ELAPAS - LISTADO DE SOLICITUDES</h1>
+  @endcan
+
 
 @stop
 @section('content')
@@ -35,89 +41,113 @@
           </tr>
         </thead>
         <tbody>
-          
-            @foreach ($solicitud as $sol)
-                <tr>
-                    <td>{{$n++}}</td>
-                    <td>{{$sol->nombre_sol}}</td>
-                    <td>{{$sol->celular_sol}}</td>
-                    <td>{{$sol->zona_sol}}</td>
-                    <td>{{$sol->calle_sol}}</td>
-                    <td>{{$sol->estado_sol}}</td>
-                    <td>
-                        <button type="button" class='btn btn-primary btn-icon btn-xs' data-toggle="modal" data-target=".bd-example-modal-lg{{$sol->id}}"
-                        onclick="">Asignar Inspector <i class="fas fa-user-plus"></i></button>
+          @can('jefe-red')
+          @foreach ($solicitud as $sol)
+          <tr>
+              <td>{{$n++}}</td>
+              <td>{{$sol->nombre_sol}}</td>
+              <td>{{$sol->celular_sol}}</td>
+              <td>{{$sol->zona_sol}}</td>
+              <td>{{$sol->calle_sol}}</td>
+              <td>{{$sol->estado_sol}}</td>
+              <td>
+                  <button type="button" class='btn btn-primary btn-icon btn-xs' data-toggle="modal" data-target=".bd-example-modal-lg{{$sol->id}}"
+                  onclick="">Asignar Inspector <i class="fas fa-user-plus"></i></button>
 
-                        <!-- Large modal -->
-                        <div class="modal fade bd-example-modal-lg{{$sol->id}}" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="overflow:hidden;">
-                            <div class="modal-dialog modal-md">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Inspectores</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body" id="contenido" >
-                                        <div class="justify-content-center row">
-                                            <!-- left column -->
-                                            <div class="col-md-12">
-                                            <!-- general form elements -->
-                                                <div class="card card-primary ">
-                                                <div class="card-header">
-                                                    <h3 class="card-title">Asignar Inspector</h3>
-                                                </div>
-                                                <!-- /.card-header -->
-                                                <!-- formulario inicio -->
-                                                <form action="{{route('cronograma.store')}}" method="POST" role="form" id="form_materials">
-                                                    @csrf
-                                                    <div class="card-body">
-                                                        <div class="form-group">
-                                                            <label for="nombre_material">Solicitud</label>
-                                                            <p class="form-control">{{$sol->nombre_sol}}</p>
-                                                            <input type="hidden" name="solicitud_id" value="{{$sol->id}}">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="nombre_material">Nombre del Inspector</label>
-                                                            <select class="form-control  select2" name="user_id" id="user_id">
-                                                                <option selected>---Seleccione Inspector---</option>
-                                                                @foreach ($inspectores as $inspector )
-                                                                    <option  value="{{$inspector->id}}">{{$inspector->name}}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="fecha_inspe">Fecha de inspeccion</label>
-                                                            <div class="input-group ">
-                                                                <div class="input-group-prepend">
-                                                                </div>
-                                                                <input class="form-control" name="fecha_inspe" type="datetime-local" value="">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /.card-body -->
-                                                    <div class="card-footer">
-                                                        <button type="submit" class="btn btn-block btn-primary">Asignar</button>
-                                                    </div>
-                                                </form>
-                                                {{-- Fin de formulario --}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                  <!-- Large modal -->
+                  <div class="modal fade bd-example-modal-lg{{$sol->id}}" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="overflow:hidden;">
+                      <div class="modal-dialog modal-md">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Inspectores</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <div class="modal-body" id="contenido" >
+                                  <div class="justify-content-center row">
+                                      <!-- left column -->
+                                      <div class="col-md-12">
+                                      <!-- general form elements -->
+                                          <div class="card card-primary ">
+                                          <div class="card-header">
+                                              <h3 class="card-title">Asignar Inspector</h3>
+                                          </div>
+                                          <!-- /.card-header -->
+                                          <!-- formulario inicio -->
+                                          <form action="{{route('cronograma.store')}}" method="POST" role="form" id="form_materials">
+                                              @csrf
+                                              <div class="card-body">
+                                                  <div class="form-group">
+                                                      <label for="nombre_material">Solicitud</label>
+                                                      <p class="form-control">{{$sol->nombre_sol}}</p>
+                                                      <input type="hidden" name="solicitud_id" value="{{$sol->id}}">
+                                                  </div>
+                                                  <div class="form-group">
+                                                      <label for="nombre_material">Nombre del Inspector</label>
+                                                      <select class="form-control  select2" name="user_id" id="user_id">
+                                                          <option selected>---Seleccione Inspector---</option>
+                                                          @foreach ($inspectores as $inspector )
+                                                              <option  value="{{$inspector->id}}">{{$inspector->name}}</option>
+                                                          @endforeach
+                                                      </select>
+                                                  </div>
+                                                  <div class="form-group col-md-6">
+                                                      <label for="fecha_inspe">Fecha de inspeccion</label>
+                                                      <div class="input-group ">
+                                                          <div class="input-group-prepend">
+                                                          </div>
+                                                          <input class="form-control" id="fecha_inspe" name="fecha_inspe" type="datetime-local" value="">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <!-- /.card-body -->
+                                              <div class="card-footer">
+                                                  <button type="submit" class="btn btn-block btn-primary">Asignar</button>
+                                              </div>
+                                          </form>
+                                          {{-- Fin de formulario --}}
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
 
 
-                        <a type="button" class="d-inline btn btn-warning btn-icon btn-xs" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="mimapa({{$sol->x_aprox}},{{$sol->y_aprox}})" id="btn_mostrar_mapa">
-                            Visualizar <i class="fas fa-eye"></i></a>
-                    </td>
-                </tr>
-            @endforeach
+                  <a type="button" class="d-inline btn btn-warning btn-icon btn-xs" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="mimapa({{$sol->x_aprox}},{{$sol->y_aprox}})" id="btn_mostrar_mapa">
+                      Visualizar <i class="fas fa-eye"></i></a>
+              </td>
+          </tr>
+      @endforeach
+          @endcan
+        @can('Monitor')
+        @foreach ($solicitudall as $sol)
+        <tr>
+            <td>{{$n++}}</td>
+            <td>{{$sol->solicitud->nombre_sol}}</td>
+            <td>{{$sol->solicitud->celular_sol}}</td>
+            <td>{{$sol->solicitud->zona_sol}}</td>
+            <td>{{$sol->solicitud->calle_sol}}</td>
+            <td align="center"><span class="badge badge-primary">{{strtoupper($sol->solicitud->estado_sol)}}</span></td>
+            <td>
+                @if ($sol->solicitud->estado_sol == 'asignado')
+                <a href="{{route('descargarPDF.informe',$sol)}}" target="_blank" class="btn btn-danger btn-icon btn-xs">Informe 
+                    <i class="fas fa-file-pdf"></i></a>
+                @else
+                <span align="center" >Sin informe aún</span>
+                @endif
+
+            </td>
+        </tr>
+        @endforeach
+            
+        @endcan
+
 
             
         </tbody>
@@ -173,9 +203,10 @@
         
         $('.select2').select2();
         $.fn.modal.Constructor.prototype._enforceFocus = function() {};
-        
+   
         
     </script>
+    <script src="{{asset('js/cronograma.js')}}"></script>
 @stop
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">

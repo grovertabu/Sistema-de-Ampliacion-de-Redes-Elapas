@@ -17,6 +17,19 @@ var concesionItems;
 var tuberiasItems;
 // Check areas
 
+L.Polyline = L.Polyline.include({
+    getDistance: function() {
+        // distance in meters
+        var mDistanse = 0,
+            length = this._latlngs.length;
+        for (var i = 1; i < length; i++) {
+            mDistanse += this._latlngs[i].distanceTo(this._latlngs[i - 1]);
+        }
+        // optional
+        return Math.round(mDistanse);
+    }
+});
+
 function initEditMap(x_aprox, y_aprox) {
     map = null;
     iniciarLayers(x_aprox, y_aprox, 'actualizar');
@@ -62,7 +75,7 @@ function mapTools(lat, long) {
     });
 }
 
-function mostrarTabla(flag) {
+function mostrarTabla(flag, distance = false) {
     if (flag) {
         let contenedorMapa = $("#contenedor-mapa");
         if (acceso) {
@@ -77,6 +90,7 @@ function mostrarTabla(flag) {
         $("#map").remove();
         $("#contenedor-tabla").show();
         $("#contenedor-mapa").hide();
+        if(distance) calcularDistancia();
     }
 }
 
@@ -172,7 +186,7 @@ function cargarLayersEditar(data, lat , long){
     cargarTuberias();
     mapAmpliaciones =  L.geoJSON(data,{
         style: function(feature){
-            return {color:'green'}
+            return {color:'#48E120'}
         }
     });
     drawnItems = L.featureGroup();
@@ -228,6 +242,7 @@ function cargarLayersEditar(data, lat , long){
         if (type === 'polyline') {
             drawnItems.addLayer(layer);
             guardarcambios('crear');
+            console.log(layer.getDistance())
         }
     });
 
@@ -412,6 +427,8 @@ function addNonGroupLayers(sourceLayer, targetGroup) {
     if (sourceLayer instanceof L.LayerGroup) {
       sourceLayer.eachLayer(function(layer) {
         addNonGroupLayers(layer, targetGroup);
+        let linea = L.polyline(layer._latlngs);
+        console.log(linea.getDistance())
       });
     } else {
       targetGroup.addLayer(sourceLayer);
@@ -431,4 +448,20 @@ function guardarcambios(cadena){
         success: function (data) {
         }
     });
+}
+
+function calcularDistancia(){
+
+    $.get( document.getElementById('obtenerAmpliaciones').value, function( data ) {
+        let distancia = 0;
+        if(data != null){
+            data = JSON.parse( data.ampliacion);
+            var sourceLayer = L.geoJSON(data);
+            sourceLayer.eachLayer(function(layer) {
+                let linea = L.polyline(layer._latlngs);
+                distancia = distancia + linea.getDistance();
+                document.getElementById('longitud_in').placeholder = 'Recomendado: '+ distancia + ' mts.';
+            });
+        }
+      });
 }
