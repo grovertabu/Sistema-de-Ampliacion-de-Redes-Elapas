@@ -15,7 +15,8 @@ class CronogramaController extends Controller
     public function index(){
         $inspectores = User::where('tipo_user','Inspector')->get();
         $solicitud = Solicitud::where('estado_sol','aprobado')->get();
-        return view('cronograma.index',compact('solicitud','inspectores'));
+        $solicitudall = Informe::all();
+        return view('cronograma.index',compact('solicitud','inspectores','solicitudall'));
     }
 
     public function mostrar(Request $request){

@@ -109,19 +109,7 @@
 @section('js')
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
-        $(document).ready(function()
-        {
-            // $("#cronograma").click(function () {
-            // fecha=document.getElementById("fecha_i").value
-            // if(document.getElementById("fecha_i").value!=''){
-            //     alert(fecha);
-            // }
-            // else{
-            //     alert("seleccione un dato")
-            // }
 
-            });
-        });
 
         $('.select2').select2();
         $.fn.modal.Constructor.prototype._enforceFocus = function() {};

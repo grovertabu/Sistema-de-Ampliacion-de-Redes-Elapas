@@ -255,6 +255,13 @@ return [
 
         ],
         [
+            'text' => 'Solicitudes',
+            'route'  => 'cronograma.index',
+            'icon' => 'fas fa-fw fa-folder',
+            'can' => 'Monitor',
+
+        ],
+        [
             'text' => 'Informes',
             'route'  => 'informes.index',
             'icon' => 'fa fa-fw fa-file-pdf',
