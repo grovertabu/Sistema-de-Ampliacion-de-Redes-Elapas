@@ -69,7 +69,8 @@ class PDFController extends Controller
         // $materiales=DB::select("SELECT m.nombre_material,im.cantidad,im.u_medida FROM informe_materials im 
         //                         INNER JOIN materials m on m.id=im.material_id WHERE im.informe_id=1");
         $pdf = PDF::loadview('PDF/pedido_material',compact('informe','materiales','inspector','jefe_r'));
-        return $pdf->stream('reporte_pedido.pdf');
+        return $pdf->stream('reporte_pedido_material.pdf');
+        // return view('PDF/pedido_material',compact('informe','materiales','inspector','jefe_r'));
         // return $informe;
     }
 
