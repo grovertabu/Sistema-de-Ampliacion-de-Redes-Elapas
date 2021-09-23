@@ -68,8 +68,9 @@ class PDFController extends Controller
             ->first();
         // $materiales=DB::select("SELECT m.nombre_material,im.cantidad,im.u_medida FROM informe_materials im 
         //                         INNER JOIN materials m on m.id=im.material_id WHERE im.informe_id=1");
-        $pdf = PDF::loadview('PDF/pedido_material',compact('informe','materiales','inspector','jefe_r'));
-        return $pdf->stream('reporte_pedido.pdf');
+        // $pdf = PDF::loadview('PDF/pedido_material',compact('informe','materiales','inspector','jefe_r'));
+        // return $pdf->stream('reporte_pedido.pdf');
+        return PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadview('PDF/pedido_material',compact('informe','materiales','inspector','jefe_r'))->stream('reporte_pedido.pdf');
         // return $informe;
     }
 
