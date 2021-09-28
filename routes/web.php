@@ -58,6 +58,7 @@ Route::get('Informes/{informe}/registrar_material', [InformeController::class, '
 Route::get('Informes/{Informe}/autorizar', [InformeController::class, 'autorizar'])->middleware('can:jefe-red')->name('informes.autorizar');
 Route::get('Informes/{informe}/rechazar', [InformeController::class, 'no_autorizar'])->middleware('can:jefe-red')->name('informes.no_autorizar');
 Route::get('Informes/{informe}/firmar', [InformeController::class, 'firmar_informe'])->middleware('can:jefe-red')->name('informes.firmar');
+
 // CRUD MATERIALES
 Route::resource('materials', MaterialController::class)->names('materials');
 // Asigacion de materiales a los informes´

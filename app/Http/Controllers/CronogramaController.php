@@ -15,7 +15,8 @@ class CronogramaController extends Controller
     public function index(){
         $inspectores = User::where('tipo_user','Inspector')->get();
         $solicitud = Solicitud::where('estado_sol','aprobado')->get();
-        $solicitudall = Informe::all();
+        $solicitudall = DB::table('solicituds')
+        ->leftJoin('informes', 'solicituds.id', '=', 'informes.solicitud_id')->get();
         return view('cronograma.index',compact('solicitud','inspectores','solicitudall'));
     }
 

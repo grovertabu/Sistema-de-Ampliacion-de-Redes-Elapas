@@ -56,12 +56,14 @@
                         <label for="espesifiar">Espesifiar el area de concesion</label><br>
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="espesifiar_in" id="inlineRadio1"  value="Si"> Si
+                            <input class="form-check-input" type="radio" name="espesifiar_in" id="inlineRadio1" 
+                            @if($informe->espesifiar_in != null && $informe->espesifiar_in == "Si") @php echo "checked" @endphp @endif value="Si"> Si
                             </label>
                         </div>
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="espesifiar_in" id="inlineRadio2" value="No"> No
+                            <input class="form-check-input" type="radio" name="espesifiar_in" id="inlineRadio2"
+                            @if($informe->espesifiar_in != null && $informe->espesifiar_in == "No") @php echo "checked" @endphp @endif value="No"> No
                             </label>
                         </div>
                     </div>
@@ -117,7 +119,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                             </div>
-                                <input type="text" name="longitud_in" id="longitud_in" class="form-control" placeholder="Longitud">
+                                <input type="text" name="longitud_in" id="longitud_in" value="{{$informe->longitud_in}}" class="form-control" placeholder="Longitud">
                         </div>
                     </div>
                     <div class="col-6">
@@ -126,7 +128,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                             </div>
-                                <input type="text" name="diametro_in" id="diametro_in" class="form-control" placeholder="Diametro">
+                                <input type="text" name="diametro_in" id="diametro_in" value="{{$informe->diametro_in}}" class="form-control" placeholder="Diametro">
                         </div>
                     </div>
                 </div>
@@ -137,7 +139,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-clipboard-list"></i></span>
                             </div>
-                                <input type="text" name="num_ben_in" id="num_ben_in" class="form-control" placeholder="Nº:....">
+                                <input type="text" name="num_ben_in" id="num_ben_in" value="{{$informe->num_ben_in}}" class="form-control" placeholder="Nº:....">
                         </div>
                     </div>
                     <div class="col-6">
@@ -146,7 +148,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-clipboard-list"></i></span>
                             </div>
-                                <input type="text" name="num_flia_in" id="num_flia_in" class="form-control" placeholder="Flia::....">
+                                <input type="text" name="num_flia_in" id="num_flia_in" value="{{$informe->num_flia_in}}" class="form-control" placeholder="Flia::....">
                         </div>
                     </div>
                 </div>
@@ -155,12 +157,14 @@
                         <label for="espesifiar">Condiciones de Rasante</label><br>
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="condicion_rasante" id="inlineRadio1" value="BUENA"> BUENA
+                            <input class="form-check-input" type="radio" name="condicion_rasante" id="inlineRadio1" 
+                            @if($informe->condicion_rasante != null && $informe->condicion_rasante == "BUENA") @php echo "checked" @endphp @endif value="BUENA"> BUENA
                             </label>
                         </div>
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="condicion_rasante" id="inlineRadio2" value="MALA"> MALA
+                            <input class="form-check-input" type="radio" name="condicion_rasante" id="inlineRadio2" 
+                            @if($informe->condicion_rasante != null && $informe->condicion_rasante == "MALA") @php echo "checked" @endphp @endif value="MALA"> MALA
                             </label>
                         </div>
                     </div>
@@ -172,7 +176,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-clipboard-list"></i></span>
                             </div>
-                                <input type="text" name="reservorio" id="reservorio" class="form-control" placeholder="Nº:....">
+                                <input type="text" name="reservorio" id="reservorio" value="{{$informe->reservorio}}" class="form-control" placeholder="Nº:....">
                         </div>
                     </div>
                     
@@ -231,7 +235,10 @@
     </script>
 @stop
 
+
+
 @section('js')
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 <script src="https://unpkg.com/esri-leaflet@2.3.2/dist/esri-leaflet.js" integrity="sha512-6LVib9wGnqVKIClCduEwsCub7iauLXpwrd5njR2J507m3A2a4HXJDLMiSZzjcksag3UluIfuW1KzuWVI5n/cuQ==" crossorigin=""></script>
 <script src="https://unpkg.com/esri-leaflet-geocoder@2.3.2/dist/esri-leaflet-geocoder.js" integrity="sha512-8twnXcrOGP3WfMvjB0jS5pNigFuIWj4ALwWEgxhZ+mxvjF5/FBPVd5uAxqT8dd2kUmTVK9+yQJ4CmTmSg/sXAQ==" crossorigin=""></script>
@@ -243,6 +250,26 @@
     $('.select2').select2();
     </script>
 <script src="{{asset('js/mapas.js')}}"></script>
+@if(session('crear')=='Ok')
+<script>
+    Swal.fire(
+        'Eliminado!',
+        'Su registro ha sido eliminado.',
+        'success'
+        )
+</script>
+@else
+@if($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Algo salió mal!',
+        })
+        
+    </script>
+@endif
+@endif
 <script>
     function mapLink(){
         let lat = document.getElementById('x_exact').value;

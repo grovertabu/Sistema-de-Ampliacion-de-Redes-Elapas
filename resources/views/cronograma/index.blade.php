@@ -129,14 +129,14 @@
         @foreach ($solicitudall as $sol)
         <tr>
             <td>{{$n++}}</td>
-            <td>{{$sol->solicitud->nombre_sol}}</td>
-            <td>{{$sol->solicitud->celular_sol}}</td>
-            <td>{{$sol->solicitud->zona_sol}}</td>
-            <td>{{$sol->solicitud->calle_sol}}</td>
-            <td align="center"><span class="badge badge-primary">{{strtoupper($sol->solicitud->estado_sol)}}</span></td>
+            <td>{{$sol->nombre_sol}}</td>
+            <td>{{$sol->celular_sol}}</td>
+            <td>{{$sol->zona_sol}}</td>
+            <td>{{$sol->calle_sol}}</td>
+            <td align="center"><span class="badge badge-primary">{{strtoupper($sol->estado_sol)}}</span></td>
             <td>
-                @if ($sol->solicitud->estado_sol == 'asignado')
-                <a href="{{route('descargarPDF.informe',$sol)}}" target="_blank" class="btn btn-danger btn-icon btn-xs">Informe 
+                @if ($sol->estado_sol == 'asignado' || $sol->estado_sol == 'registrado' || $sol->estado_sol == 'autorizado')
+                <a href="{{route('descargarPDF.informe',$sol->id)}}" target="_blank" class="btn btn-danger btn-icon btn-xs">Informe 
                     <i class="fas fa-file-pdf"></i></a>
                 @else
                 <span align="center" >Sin informe aún</span>

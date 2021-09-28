@@ -464,6 +464,22 @@ return [
                 ],
             ],
         ],
+        
+        'funciones' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/funciones/funciones.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/funciones/estilos.css',
+                ],
+            ],
+        ],
     ],
     
     /*

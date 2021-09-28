@@ -14,7 +14,7 @@
           <form action="{{route('cronograma.reporte')}}" id="formCronograma" method="GET" class="form-inline">
             <div class="form-group mx-sm-3">
                 <label for="nombre_material">Fecha de inspeccion :&nbsp;</label>
-                <input type="date" name='fecha_i' id="fecha_i" class="form-control">
+                <input type="date" name='fecha_i' id="fecha_i" class="form-control" >
             </div>
             <div class="form-group mx-sm-3">
                 <label for="nombre_material">Nombre del Inspector :&nbsp;</label>

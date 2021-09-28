@@ -158,6 +158,20 @@ class InformeController extends Controller
 
     public function update(Request $request, Informe $informe)
     {
+        $request->validate([
+            'fecha_hora_in' => 'required',
+            'espesifiar_in' => 'required',
+            'x_exact' => 'required',
+            'y_exact' => 'required',
+            'ubicacion_geo' => 'required',
+            'longitud_in' => 'required',
+            'diametro_in' => 'required',
+            'num_ben_in' => 'required',
+            'num_flia_in' => 'required',
+            'condicion_rasante' => 'required',
+            'reservorio' => 'required',
+            'solicitud_id' => 'required'
+        ]);
         $informe->fecha_hora_in = $request->fecha_hora_in;
         $informe->espesifiar_in = $request->espesifiar_in;
         $informe->x_exact = $request->x_exact;
@@ -180,7 +194,7 @@ class InformeController extends Controller
         $image = str_replace(' ', '+', $image); 
         Storage::disk('public')->put('informe_'.$request->solicitud_id . '.png', base64_decode($image));
         $informe->save();
-        return redirect()->route('informes.index');
+        return redirect()->route('informes.index')->with('crear','Ok');
     }
 
 
