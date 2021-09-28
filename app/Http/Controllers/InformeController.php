@@ -8,6 +8,7 @@ use App\Models\Solicitud;
 use App\Models\Material;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Polyfill\Intl\Idn\Info;
 
 class InformeController extends Controller
@@ -111,6 +112,15 @@ class InformeController extends Controller
         $informe->condicion_rasante = $request->condicion_rasante;
         $informe->estado_in = $request->estado_in;
         $informe->solicitud_id = $request->solicitud_id;
+        $informe->imagen_amp = 'informe_' + $request->solicitud_id + '.png';
+
+        $image_64 = $request->textMap;
+        $replace = substr($image_64, 0, strpos($image_64, ',')+1);
+        $image = str_replace($replace, '', $image_64); 
+
+        $image = str_replace(' ', '+', $image); 
+        Storage::disk('public')->put('informe_'+ $request->solicitud_id + '.png', base64_decode($image));
+        return var_dump($informe);
         $informe->save();
         return redirect()->route('informes.index');
     }
@@ -161,8 +171,15 @@ class InformeController extends Controller
         $informe->reservorio = $request->reservorio;
         $informe->estado_in = 'registrado';
         $informe->solicitud_id = $request->solicitud_id;
+        $informe->imagen_amp = 'informe_'. $request->solicitud_id . '.png';
+
+        $image_64 = $request->textMap;
+        $replace = substr($image_64, 0, strpos($image_64, ',')+1);
+        $image = str_replace($replace, '', $image_64); 
+
+        $image = str_replace(' ', '+', $image); 
+        Storage::disk('public')->put('informe_'.$request->solicitud_id . '.png', base64_decode($image));
         $informe->save();
-        // return $informe;
         return redirect()->route('informes.index');
     }
 

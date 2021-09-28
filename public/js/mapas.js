@@ -15,6 +15,7 @@ var mapAmpliaciones;
 var drawnItems;
 var concesionItems;
 var tuberiasItems;
+var controles;
 // Check areas
 
 L.Polyline = L.Polyline.include({
@@ -216,10 +217,11 @@ function cargarLayersEditar(data, lat , long){
         fullscreenControl: true
     })
 
-    L.control.layers(
+    controles = L.control.layers(
         mapasBase,
         capasLineas, { position: 'topright', collapsed: true }
-    ).addTo(map)
+    )
+    controles.addTo(map)
 
     map.addControl(new L.Control.Draw({
         edit: {
@@ -240,6 +242,7 @@ function cargarLayersEditar(data, lat , long){
         var type = e.layerType,
             layer = e.layer;
         if (type === 'polyline') {
+            layer.options.color='#48E120'
             drawnItems.addLayer(layer);
             guardarcambios('crear');
             console.log(layer.getDistance())
@@ -465,3 +468,25 @@ function calcularDistancia(){
         }
       });
 }
+
+function downloadMap(caption) {
+    var downloadOptions = {
+      container: map._container,
+      caption: {
+        text: caption,
+        font: '30px Arial',
+        fillStyle: 'black',
+        position: [100, 200]
+      },
+      exclude: ['.leaflet-control-zoom', '.leaflet-control-attribution'],
+      format: 'image/png',
+      fileName: 'Map.png'
+    };
+    var promise = map.downloadExport(downloadOptions);
+    var data = promise.then(function (result) {
+        console.log(result.data.length)
+        document.querySelector('#imgMap').src = result.data;
+        document.querySelector('#textMap').value = result.data;
+        //return result;
+    });
+  }

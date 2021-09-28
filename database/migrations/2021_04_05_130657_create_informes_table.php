@@ -32,6 +32,7 @@ class CreateInformesTable extends Migration
             $table->string('tapado_sanja',100)->nullable();
             $table->string('estado_in',40)->nullable();
             $table->unsignedBigInteger('solicitud_id');
+            $table->string('imagen_amp',20)->nullable();
             $table->foreign('solicitud_id')
                     ->references('id')
                     ->on('solicituds')

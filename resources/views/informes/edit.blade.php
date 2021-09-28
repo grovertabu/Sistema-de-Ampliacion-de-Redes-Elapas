@@ -132,7 +132,7 @@
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <label for="Longitud">Numero de Beneficiarios</label>
+                        <label for="Longitud">Número de Beneficiarios</label>
                         <div class="input-group ">
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-clipboard-list"></i></span>
@@ -141,7 +141,7 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <label for="Familia">-</label>
+                        <label for="Familia">Número de Familias Beneficiadas</label>
                         <div class="input-group ">
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-clipboard-list"></i></span>
@@ -177,6 +177,16 @@
                     </div>
                     
                 </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label for="reservorio">Imagen Vista Previa</label>
+                        <div class="input-group ">
+                            <img src="{{asset('images/no-disponible.png')}}" width="610px" height="342px"alt="Vista Previa" id="imgMap">
+                            <input type="hidden" name="textMap" id="textMap">
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
@@ -198,6 +208,8 @@
 
   <div id="contenedor-mapa" style="display: none">
     <button onclick="mostrarTabla(false,true)" class="btn btn-primary"> <i class="fas fa-arrow-circle-left"></i> Volver </button>
+    <button onclick="downloadMap()" class="btn btn-danger"> <i class="fas fa-save"></i> Guardar Imagen</button>
+
 {{--     <button id="btnTuberiasAguaPotable" data-checked="0" class="btn btn-danger">
       <i class="fas fa-times" id="imageTuberiasAguaPotable"></i> Mostrar Redes de Agua
     </button>
@@ -225,6 +237,8 @@
 <script src="https://unpkg.com/esri-leaflet-geocoder@2.3.2/dist/esri-leaflet-geocoder.js" integrity="sha512-8twnXcrOGP3WfMvjB0jS5pNigFuIWj4ALwWEgxhZ+mxvjF5/FBPVd5uAxqT8dd2kUmTVK9+yQJ4CmTmSg/sXAQ==" crossorigin=""></script>
 <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+<script src="{{asset('js/html2canvas.min.js')}}"></script>
+<script src="{{asset('js/leaflet_export.js')}}"></script>
     <script>
     $('.select2').select2();
     </script>
