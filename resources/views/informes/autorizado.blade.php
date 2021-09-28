@@ -76,6 +76,13 @@
                         @endif
                         @endcan
 
+                        @can('inspector')
+                        @if($inf->estado=='registrado')
+                        <a href='{{route('informes.edit',$inf->id_informe)}}' 
+                        class='d-inline btn btn-primary btn-icon btn-xs'>Editar <i class="fas fa-pencil-alt"></i></a>
+                        @endif                          
+                        @endcan
+
                         
                     </td>
                     
