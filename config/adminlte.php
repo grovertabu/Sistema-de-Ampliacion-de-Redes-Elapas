@@ -256,7 +256,7 @@ return [
         ],
         [
             'text' => 'Solicitudes',
-            'route'  => 'cronograma.index',
+            'route'  => 'monitoreo.index',
             'icon' => 'fas fa-fw fa-folder',
             'can' => 'Monitor',
 

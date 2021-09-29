@@ -36,9 +36,9 @@ function initEditMap(x_aprox, y_aprox) {
     iniciarLayers(x_aprox, y_aprox, 'actualizar');
 
 }
-function initMap(x_aprox, y_aprox) {
+function initMap(x_aprox, y_aprox,opcion='mapa') {
     map = null;
-    iniciarLayers(x_aprox, y_aprox, 'mapa');
+    iniciarLayers(x_aprox, y_aprox, opcion);
 
 }
 
@@ -162,9 +162,11 @@ function cargarConcesion(){
     });
 }
 
-function iniciarLayers(lat ,long, opcion){
+function iniciarLayers(lat ,long, opcion, datos = null){
     if(opcion === 'actualizar'){
         cargarLayersActualizar(lat, long);
+    }else if (opcion === 'mostrar'){
+        cargarLayers(datos, lat, long);
     }else{
         $.get( document.getElementById('obtenerAmpliaciones').value, function( data ) {
         
@@ -278,7 +280,7 @@ function cargarLayers(data, lat , long){
     cargarTuberias();
     mapAmpliaciones =  L.geoJSON(data,{
         style: function(feature){
-            return {color:'green'}
+            return {color:'#48E120'}
         }
     });
     drawnItems = L.featureGroup();

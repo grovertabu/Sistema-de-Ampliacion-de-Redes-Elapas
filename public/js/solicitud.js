@@ -5,7 +5,8 @@ function modalObservaciones(ruta){
 function visualizarMapa(lat, long, ruta){
     mostrarTabla(true);
     document.querySelector('#obtenerAmpliaciones').value = 'solicitud/'+ ruta +'/obtener_ampliacion';
-    initMap(lat,long,ruta);
+    ruta== null ? initMap(lat,long,'mostrar'):initMap(lat,long);
+    
 }
 // manda form observaciones 
 document.querySelector('#formObservaciones').addEventListener('submit', (e)=>{

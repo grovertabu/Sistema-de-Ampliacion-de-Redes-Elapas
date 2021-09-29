@@ -10,6 +10,7 @@ use App\Http\Controllers\InformeController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\Materials_informesController;
 use App\Http\Controllers\DescargoController;
+use App\Http\Controllers\MonitorController;
 use App\Http\Controllers\PDFController;
 use Illuminate\Support\Facades\DB;
 
@@ -86,3 +87,6 @@ Route::get('Descargos/{descargo}/{fecha_descargo?}/{valor?}/mostrar_computo_e', 
 Route::get('Descargos/{descargo}/{fecha_descargo?}/{valor?}/crear_computo_e', [DescargoController::class, 'crear_computo_e'])->name('descargo.crear_computo_e');
 Route::post('Descargos/registrar_computo_e', [DescargoController::class, 'registrar_computo_e'])->name('descargo.registrar_computo_e');
 Route::delete('Computo_eliminar/{descargo}/{fecha_descargo?}/{valor?}', [DescargoController::class, 'eliminar_computo_e'])->name('descargo.eliminar_computo_e');
+
+//Monitoreo y Prroyectista 
+Route::get('Monitoreo',[MonitorController::class, 'index'])->middleware('can:Monitor')->name('monitoreo.index');;

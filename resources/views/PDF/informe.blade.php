@@ -82,10 +82,11 @@
     </tr>
     <tr>
         <td  colspan="4">
-
-            {{-- <img src="https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/static/pin-s+FF0000({{$informe->solicitud->y_aprox}},{{$informe->solicitud->x_aprox}})/{{$informe->solicitud->y_aprox}},{{$informe->solicitud->x_aprox}},17/680x400?access_token=pk.eyJ1IjoiZ3JvdmVydDEyIiwiYSI6ImNrbnExMm1kZjAxbTEycXFxdWJlM2QyOWoifQ._OTf1cgFjXutCJPx2zMl1w" > --}}
-            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('storage/informe_'.$informe->solicitud_id.'.png'))) }}" width="680px" height="400px" alt="">
-
+            @if($informe->imagen_amp == null)
+            <img src="https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/static/pin-s+FF0000({{$informe->solicitud->y_aprox}},{{$informe->solicitud->x_aprox}})/{{$informe->solicitud->y_aprox}},{{$informe->solicitud->x_aprox}},17/680x400?access_token=pk.eyJ1IjoiZ3JvdmVydDEyIiwiYSI6ImNrbnExMm1kZjAxbTEycXFxdWJlM2QyOWoifQ._OTf1cgFjXutCJPx2zMl1w" >
+            @else
+            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('storage/'.$informe->imagen_amp))) }}" width="680px" height="400px" alt="">
+            @endif
             {{-- <img src="https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/static/geojson(%7B%22type%22%3A%22FeatureCollection%22%2C%22features%22%3A%5B%7B%22type%22%3A%22Feature%22%2C%22properties%22%3A%7B%22stroke%22%3A%22red%22%2C%22stroke-width%22%3A6%2C%22stroke-opacity%22%3A1%7D%2C%22geometry%22%3A%7B%22type%22%3A%22LineString%22%2C%22coordinates%22%3A%5B%5B-65.25664865970612%2C-19.02013081578586%5D%2C%5B-65.25647699832916%2C-19.019983740975054%5D%5D%7D%7D%5D%7D)/-65.25674,-19.02012,17/680x400?access_token=pk.eyJ1IjoiZ3JvdmVydDEyIiwiYSI6ImNrbnExMm1kZjAxbTEycXFxdWJlM2QyOWoifQ._OTf1cgFjXutCJPx2zMl1w" > --}}
 
         </td>
