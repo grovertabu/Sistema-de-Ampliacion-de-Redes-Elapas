@@ -113,4 +113,18 @@ class PDFController extends Controller
         return $pdf->stream('Informe.pdf');
         // return $informe;
     }
+
+    public function PDF_proyecto(Informe $informe){
+        $inspector = DB::table('informes')
+            ->join('solicituds', 'solicituds.id', '=', 'informes.solicitud_id')
+            ->join('cronogramas', 'cronogramas.solicitud_id', '=', 'solicituds.id')
+            ->join('users', 'cronogramas.user_id', '=', 'users.id')
+            ->select('users.name as nombre')
+            ->where('informes.id',$informe->id)
+            ->first();
+            
+        $pdf = PDF::loadview('PDF/proyecto',compact('informe','inspector'));
+        return $pdf->stream('Informe.pdf');
+        // return $informe;
+    }
 }

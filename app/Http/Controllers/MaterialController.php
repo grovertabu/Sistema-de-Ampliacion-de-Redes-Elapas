@@ -32,6 +32,7 @@ class MaterialController extends Controller
         $material->observaciones = $request->observaciones;
         $material->precio_unitario = $request->precio_unitario;
         $material->estado = $request->estado;
+        $material->unidad_med = $request->unidad_medida;
         $material->save();
         return redirect()->route('materials.index');
     }

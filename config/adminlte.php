@@ -262,6 +262,13 @@ return [
 
         ],
         [
+            'text' => 'Solicitudes',
+            'route'  => 'proyectos.index',
+            'icon' => 'fas fa-fw fa-folder',
+            'can' => 'Proyectista',
+
+        ],
+        [
             'text' => 'Informes',
             'route'  => 'informes.index',
             'icon' => 'fa fa-fw fa-file-pdf',

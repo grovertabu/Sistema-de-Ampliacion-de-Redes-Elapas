@@ -185,7 +185,7 @@
                     <div class="col-6">
                         <label for="reservorio">Imagen Vista Previa</label>
                         <div class="input-group ">
-                            <img src="{{asset('images/no-disponible.png')}}" width="610px" height="342px"alt="Vista Previa" id="imgMap">
+                            <img src="{{$informe->imagen_amp== null ?  asset('images/no-disponible.png'): asset('storage/'.$informe->imagen_amp)}}" width="770px" height="342px"alt="Vista Previa" id="imgMap">
                             <input type="hidden" name="textMap" id="textMap">
                         </div>
                     </div>

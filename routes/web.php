@@ -89,4 +89,7 @@ Route::post('Descargos/registrar_computo_e', [DescargoController::class, 'regist
 Route::delete('Computo_eliminar/{descargo}/{fecha_descargo?}/{valor?}', [DescargoController::class, 'eliminar_computo_e'])->name('descargo.eliminar_computo_e');
 
 //Monitoreo y Prroyectista 
-Route::get('Monitoreo',[MonitorController::class, 'index'])->middleware('can:Monitor')->name('monitoreo.index');;
+Route::get('Monitoreo',[MonitorController::class, 'index'])->middleware('can:Monitor')->name('monitoreo.index');
+Route::get('Proyectos',[MonitorController::class, 'index'])->middleware('can:Proyectista')->name('proyectos.index');
+Route::get('Proyecto/{informe}/descargar',[PDFController::class, 'PDF_proyecto'])->middleware('can:Proyectista')->name('descargarPDF.proyecto');
+

@@ -39,11 +39,21 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="nombre_material">Unidad de Medida</label>
+                    <div class="input-group ">
+                        <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-sort-numeric-down"></i></span> 
+                        </div>
+                        <input type="text" name="unidad_medida" id="unidad_medida" class="form-control" placeholder="Ej. metros">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="nombre_material">Observaciones</label>
                     <div class="input-group ">
                         <textarea name="observaciones" id="observaciones" class="form-control" ></textarea>
                     </div>
                 </div>
+                
                 <div class="form-group">
                     <label for="nombre_material">Estado</label>
                     <select class="form-control" name="estado" id="estado">

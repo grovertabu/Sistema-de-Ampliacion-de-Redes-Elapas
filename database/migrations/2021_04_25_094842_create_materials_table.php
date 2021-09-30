@@ -18,6 +18,7 @@ class CreateMaterialsTable extends Migration
             $table->string('nombre_material',50);
             $table->string('observaciones',100)->nullable();
             $table->float('precio_unitario',8,2);
+            $table->string('unidad_med',20);
             $table->string('estado',50);
             $table->timestamps();
         });

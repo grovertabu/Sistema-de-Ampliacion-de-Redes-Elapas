@@ -37,7 +37,6 @@
           </tr>
         </thead>
         <tbody>
-        @can('Monitor')
         @foreach ($solicitudall as $sol)
         <tr>
             <td>{{$n++}}</td>
@@ -47,21 +46,25 @@
             <td>{{$sol->calle_sol}}</td>
             <td align="center"><span class="badge badge-primary">{{$sol->estado_in == null ? strtoupper($sol->estado_sol): strtoupper($sol->estado_in)}}</span></td>
             <td>
-
-                <a type="button" class="d-inline btn btn-warning btn-icon btn-xs" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="visualizarMapa({{$sol->x_aprox}},{{$sol->y_aprox}}, {{$sol->solicitud_id}})" id="btn_mostrar_mapa" >
+                <a type="button" class="d-inline btn btn-warning btn-icon btn-xs mb-1" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="visualizarMapa({{$sol->x_aprox}},{{$sol->y_aprox}}, {{$sol->solicitud_id}})" id="btn_mostrar_mapa" >
                     Visualizar <i class="fas fa-eye"></i></a>
-                @if ($sol->estado_sol == 'asignado' || $sol->estado_sol == 'registrado' || $sol->estado_sol == 'autorizado')
+                @can('Monitor')
+                @if ($sol->estado_sol == 'asignado')
+                <br>
                 <a href="{{route('descargarPDF.informe',$sol->id)}}" target="_blank" class="btn btn-danger btn-icon btn-xs">Informe 
                     <i class="fas fa-file-pdf"></i></a>
                 @endif
-
+                @endcan
+                @can('Proyectista')
+                @if ($sol->estado_in == 'autorizado')
+                <br>
+                <a href="{{route('descargarPDF.proyecto',$sol->id)}}" target="_blank" class="btn btn-danger btn-icon btn-xs">Informe Proyeccion
+                    <i class="fas fa-file-pdf"></i></a>
+                @endif
+                @endcan    
             </td>
         </tr>
         @endforeach
-            
-        @endcan
-
-
             
         </tbody>
         <tfoot>

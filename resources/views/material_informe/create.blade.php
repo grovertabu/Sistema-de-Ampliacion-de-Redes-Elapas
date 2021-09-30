@@ -57,10 +57,8 @@
                     <div class="col-6">
                         <label for="u_medida">Unidad de medida</label>
                         <div class="input-group col-md-12 ">
-                            <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-box-open"></i></span>
-                            </div>
-                            <input type="text" name="u_medida" id="u_medida" class="form-control" placeholder="Indique la unidad de medida">
+                            <p class="form-control">{{$material->unidad_med}}</p>
+                            <input type="hidden" name="u_medida" id="u_medida" class="form-control" value="{{$material->unidad_med}}" />
                         </div>
                     </div>
                 </div>

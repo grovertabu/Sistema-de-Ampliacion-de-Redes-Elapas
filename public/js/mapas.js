@@ -189,7 +189,7 @@ function cargarLayersEditar(data, lat , long){
     cargarTuberias();
     mapAmpliaciones =  L.geoJSON(data,{
         style: function(feature){
-            return {color:'#48E120'}
+            return {color:'#ff0000'}
         }
     });
     drawnItems = L.featureGroup();
@@ -244,7 +244,8 @@ function cargarLayersEditar(data, lat , long){
         var type = e.layerType,
             layer = e.layer;
         if (type === 'polyline') {
-            layer.options.color='#48E120'
+            console.log(layer);
+            layer.options.color='#ff0000'
             drawnItems.addLayer(layer);
             guardarcambios('crear');
             console.log(layer.getDistance())
@@ -280,7 +281,10 @@ function cargarLayers(data, lat , long){
     cargarTuberias();
     mapAmpliaciones =  L.geoJSON(data,{
         style: function(feature){
-            return {color:'#48E120'}
+            return {color:'#ff0000',
+                    weight:6}
+            //return {color:'#48E120'}
+
         }
     });
     drawnItems = L.featureGroup();
@@ -432,8 +436,6 @@ function addNonGroupLayers(sourceLayer, targetGroup) {
     if (sourceLayer instanceof L.LayerGroup) {
       sourceLayer.eachLayer(function(layer) {
         addNonGroupLayers(layer, targetGroup);
-        let linea = L.polyline(layer._latlngs);
-        console.log(linea.getDistance())
       });
     } else {
       targetGroup.addLayer(sourceLayer);
@@ -472,6 +474,7 @@ function calcularDistancia(){
 }
 
 function downloadMap(caption) {
+    ocultarBotones(true);
     var downloadOptions = {
       container: map._container,
       caption: {
@@ -486,9 +489,27 @@ function downloadMap(caption) {
     };
     var promise = map.downloadExport(downloadOptions);
     var data = promise.then(function (result) {
-        console.log(result.data.length)
+        
         document.querySelector('#imgMap').src = result.data;
         document.querySelector('#textMap').value = result.data;
-        //return result;
+        Swal.fire(
+            'Exito!',
+            'Captura guardada.',
+            'success'
+            )
+        ocultarBotones(false);    
     });
   }
+
+function ocultarBotones(flag) {
+    const barras = document.querySelectorAll('.leaflet-top');
+    if(flag){
+        barras.forEach((clase)=>{
+            clase.style.display = 'none';
+        }); 
+    }else{
+        barras.forEach((clase)=>{
+            clase.style.display = 'block';
+        }); 
+    }
+}
