@@ -5,24 +5,30 @@
     $n=1;
 @endphp
 @section('content_header')
+<style>
+   #map {
+      margin-top: 20px; 
+      width: 80%;
+      height: 400px;
+      position: absolute;
+    }  
+</style>
 @stop
 
 @section('content')
     <h1>ELAPAS - Informes
 
-        <a href="{{route('informes.autorizado')}}" class="btn btn-success btn-rounded float-md-right" >
-           Informes Autorizados <i class="fa fa-plus-square"></i>
-        </a>
-
         
     </h1>
-    <div class="table table-bordered table-hover dataTable table-responsive">
+    <div class="table table-bordered table-hover dataTable table-responsive" id="contenedor-tabla">
         <table class="table table-bordered datatable" id="example">
         <thead>
           <tr>	
             <th>NRO</th>
             <th>NOMBRE SOLICITANTE</th>
             <th>FECHA <br>INSPECCION</th>
+            <th>CALLE</th>
+            <th>ZONA</th>
             <th>ESTADO</th>
             <th>Acciones</th>
           </tr>
@@ -33,8 +39,12 @@
                     <td>{{$n++}}</td>
                     <td>{{$inf->nombre_sol}}</td>
                     <td>{{$inf->fecha_inspeccion}}</td>
+                    <td>{{$inf->calle_sol}}</td>
+                    <td>{{$inf->zona_sol}}</td>
                     <td align="center"><span class="badge badge-primary">{{strtoupper($inf->estado)}}</span></td>
                     <td>
+                        <a type="button" class="d-inline btn btn-warning btn-icon btn-xs" onclick="visualizarMapa({{$inf->x_aprox}},{{$inf->y_aprox}}, {{$inf->id_solicitud}})">
+                            Visualizar <i class="fas fa-eye"></i></a>
                         @if ($inf->estado =='autorizado')
                             <button type="button" class='btn btn-warning btn-icon btn-xs' data-toggle="modal" data-target=".bd-example-modal-lg"ç
                             onclick="llamar('{{route('informes.show',$inf->id_informe)}}')">Material <i class="fas fa-box"></i></button>
@@ -57,6 +67,8 @@
                 <th>NRO</th>
                 <th>NOMBRE SOLICITANTE</th>
                 <th>FECHA <br>INSPECCION</th>
+                <th>CALLE</th>
+                <th>ZONA</th>
                 <th>ESTADO</th>
                 <th>Acciones</th>
             </tr>
@@ -87,6 +99,15 @@
 
 </div>
 
+<div id="contenedor-mapa" style="display: none">
+    <input type="hidden" id="obtenerAmpliaciones" >
+
+    <button onclick="mostrarTabla(false)" class="btn btn-primary"> <i class="fas fa-arrow-circle-left"></i> Volver </button>
+
+    <div id="map">
+    </div>
+  </div>
+
 @stop
 
 @section('js')
@@ -107,27 +128,25 @@
     
     </script>
     <script>
-        function mimapa(x_aprox,y_aprox){
-           var lati= x_aprox;
-           var long= y_aprox;
-             var coord= {lat:lati ,lng: long}
-           var myOptions = {
-                 zoom: 17,
-                 center: coord,
-                 mapTypeId: 'hybrid'
-             };
-          map = new google.maps.Map(document.getElementById('map'), myOptions);
-          var marker = new google.maps.Marker({
-              position:coord,
-              map:map,
-          });
-       }
-
+    function visualizarMapa(lat, long, ruta){
+    mostrarTabla(true);
+    document.querySelector('#obtenerAmpliaciones').value = 'solicitud/'+ ruta +'/obtener_ampliacion';
+    ruta== null ? initMap(lat,long,'mostrar'):initMap(lat,long);    
+    }
    </script>
+   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+   <script src="https://unpkg.com/esri-leaflet@2.3.2/dist/esri-leaflet.js" integrity="sha512-6LVib9wGnqVKIClCduEwsCub7iauLXpwrd5njR2J507m3A2a4HXJDLMiSZzjcksag3UluIfuW1KzuWVI5n/cuQ==" crossorigin=""></script>
+   <script src="https://unpkg.com/esri-leaflet-geocoder@2.3.2/dist/esri-leaflet-geocoder.js" integrity="sha512-8twnXcrOGP3WfMvjB0jS5pNigFuIWj4ALwWEgxhZ+mxvjF5/FBPVd5uAxqT8dd2kUmTVK9+yQJ4CmTmSg/sXAQ==" crossorigin=""></script>
+   <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script> 
+   <script src="{{asset('js/mapas.js') }}"></script>
+
 @stop
 @section('footer')
 <strong>{{date("Y")}} || ELAPAS - SISTEMA DE AMPLIACION DE REDES DE AGUA </strong>
 @stop
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.3.2/dist/esri-leaflet-geocoder.css" integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g==" crossorigin="">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
 @stop

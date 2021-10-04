@@ -65,4 +65,5 @@ class MaterialController extends Controller
         $material->delete();
         return redirect()->route('materials.index');
     }
+
 }

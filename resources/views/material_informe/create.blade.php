@@ -24,7 +24,7 @@
                     <label for="informe">Informe</label>
                     <div class="input-group ">
                         <input type="hidden" name="id_informe" id="id_informe" value="{{$informe->id}}">
-                        <p class="form-control">{{$informe->solicitud->nombre_sol}}</p>
+                        <p class="form-control">{{$informe->solicitud->nombre_sol}} - {{$informe->solicitud->calle_sol}}</p>
 
                         {{--  --}}
                     </div>
@@ -32,10 +32,10 @@
                 <div class="form-group">
                     <label for="nombre_material">Descripcion Material</label>
                     <div class="input-group ">
-                        <select class="form-control select2" name="id_material" id="id_material">
+                        <select class="form-control select2" name="id_material"  id="id_material">
                             <option selected>---Seleccione Material---</option>
                             @foreach ($materials as $material )
-                                <option  value="{{$material->id}}">{{$material->nombre_material}}</option>
+                                <option  value="{{$material->id}}">{{$material->nombre_material.' ('.$material->unidad_med.')'}}</option>
                             @endforeach
                         </select>
 
@@ -54,13 +54,6 @@
                         
                     </div>
                     
-                    <div class="col-6">
-                        <label for="u_medida">Unidad de medida</label>
-                        <div class="input-group col-md-12 ">
-                            <p class="form-control">{{$material->unidad_med}}</p>
-                            <input type="hidden" name="u_medida" id="u_medida" class="form-control" value="{{$material->unidad_med}}" />
-                        </div>
-                    </div>
                 </div>
             </div>
             <!-- /.card-body -->
@@ -71,6 +64,39 @@
         {{-- Fin de formulario --}}
         </div>
     </div>
+</div>
+<div>
+</div>
+<div class="table table-bordered table-hover dataTable table-responsive">
+    <table class="table table-bordered datatable" id="example">
+    <thead>
+        <tr>	
+            <th width="170">ID</th>
+            <th>MATERIAL</th>
+            <th width="150">CANTIDAD <br> SOLICITADA </th>
+            <th width="150">UNIDAD <br> MEDIDA</th>
+            <th width="150">ACCIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($mat_inf as $mat)
+        <tr>
+            <td>{{$mat->id}}</td>
+            <td align="center">{{$mat->material_n}}</td>
+            <td>{{$mat->cantidad}}</td>
+            <td>{{$mat->unidad}}</td>
+            <td>
+                <form action="{{asset('material_informe', $mat->id)}}" method="POST">
+                    @csrf
+                    @method("DELETE")
+                    <button class="btn btn-danger btn-icon btn-xs" type="submit">Eliminar  <i class="fas fa-trash"></i></button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+
+        </tbody>
+</table>
 </div>
 
 

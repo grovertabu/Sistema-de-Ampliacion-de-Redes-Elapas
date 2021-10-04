@@ -22,6 +22,10 @@ class InformeController extends Controller
                 ->select('informes.id as id_informe',
                         'solicituds.id as id_solicitud',
                         'solicituds.nombre_sol as nombre_sol',
+                        'solicituds.calle_sol as calle_sol',
+                        'solicituds.zona_sol as zona_sol',
+                        'solicituds.x_aprox as x_aprox',
+                        'solicituds.y_aprox as y_aprox',
                         'informes.fecha_hora_in as fecha_inspeccion',
                         'informes.estado_in as estado')
                 ->where('cronogramas.user_id',$id)
@@ -146,7 +150,20 @@ class InformeController extends Controller
 
     public function registrar_material(Informe $informe){
         $materials = Material::where('estado','disponible')->get();
-        return view('material_informe.create',compact('materials'),compact('informe'));
+        $mat_inf = DB::table('materials')
+        ->join('informe_materials', 'materials.id', '=', 'informe_materials.material_id')
+        ->join('informes', 'informes.id', '=', 'informe_materials.informe_id')
+        ->select('informe_materials.id as id',
+                'informes.id as id_i',
+                'materials.nombre_material as material_n',
+                'informe_materials.cantidad as cantidad',
+                'materials.unidad_med as unidad')
+        ->where('materials.estado','disponible')
+        ->where('informes.id',$informe->id)
+        ->get();
+
+
+        return view('material_informe.create',compact('materials'),compact('informe','mat_inf'));
         // return $informe;
     } 
 
@@ -186,13 +203,14 @@ class InformeController extends Controller
         $informe->estado_in = 'registrado';
         $informe->solicitud_id = $request->solicitud_id;
         $informe->imagen_amp = 'informe_'. $request->solicitud_id . '.png';
-
-        $image_64 = $request->textMap;
-        $replace = substr($image_64, 0, strpos($image_64, ',')+1);
-        $image = str_replace($replace, '', $image_64); 
-
-        $image = str_replace(' ', '+', $image); 
-        Storage::disk('public')->put('informe_'.$request->solicitud_id . '.png', base64_decode($image));
+        if($request->textMap != null){
+            $image_64 = $request->textMap;
+            $replace = substr($image_64, 0, strpos($image_64, ',')+1);
+            $image = str_replace($replace, '', $image_64); 
+    
+            $image = str_replace(' ', '+', $image); 
+            Storage::disk('public')->put('informe_'.$request->solicitud_id . '.png', base64_decode($image));
+        }
         $informe->save();
         return redirect()->route('informes.index')->with('crear','Ok');
     }

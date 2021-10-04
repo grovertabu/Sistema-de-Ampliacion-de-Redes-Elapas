@@ -467,7 +467,9 @@ function calcularDistancia(){
             sourceLayer.eachLayer(function(layer) {
                 let linea = L.polyline(layer._latlngs);
                 distancia = distancia + linea.getDistance();
-                document.getElementById('longitud_in').placeholder = 'Recomendado: '+ distancia + ' mts.';
+                document.getElementById('longitud_in').value = distancia;
+                document.getElementById('longitud_in').placeholder = `Longitud: ${distancia}`;
+
             });
         }
       });
@@ -500,6 +502,13 @@ function downloadMap(caption) {
         ocultarBotones(false);    
     });
   }
+
+function mapLink(){
+    let lat = document.getElementById('x_exact').value;
+    let lng = document.getElementById('y_exact').value;
+    var enlace="https://maps.google.com/?q="+lat+","+lng;
+    document.getElementById('ubicacion_geo').value=enlace;
+}
 
 function ocultarBotones(flag) {
     const barras = document.querySelectorAll('.leaflet-top');

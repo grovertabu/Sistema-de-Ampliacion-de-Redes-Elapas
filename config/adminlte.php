@@ -254,6 +254,7 @@ return [
             'can' => 'solicitud.index',
 
         ],
+
         [
             'text' => 'Solicitudes',
             'route'  => 'monitoreo.index',
@@ -273,6 +274,20 @@ return [
             'route'  => 'informes.index',
             'icon' => 'fa fa-fw fa-file-pdf',
             'can' => 'informes.index',
+        ],
+        [
+            'text' => 'Informes Autorizados',
+            'route'  => 'informes.autorizado',
+            'icon' => 'fa fa-fw fa-file-pdf',
+            'can' => 'inspector',
+
+        ],
+        [
+            'text' => 'Informes Autorizados',
+            'route'  => 'informes.autorizado',
+            'icon' => 'fa fa-fw fa-file-pdf',
+            'can' => 'jefe-red',
+
         ],
         [
             'text'    => 'Materiales',

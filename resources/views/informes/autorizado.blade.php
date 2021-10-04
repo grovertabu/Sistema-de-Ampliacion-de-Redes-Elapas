@@ -39,7 +39,7 @@
                     <td>
                         @can('inspector')
                         @if($inf->estado=='autorizado')
-                        <button type="button" class='btn btn-warning btn-icon btn-xs' data-toggle="modal" data-target=".bd-example-modal-lg"ç
+                        <button type="button" class='btn btn-warning btn-icon btn-xs' data-toggle="modal" data-target=".bd-example-modal-lg"
                         onclick="llamar('{{route('informes.show',$inf->id_informe)}}')">Material <i class="fas fa-box"></i></button>
                         @endif
                         @endcan

@@ -62,6 +62,7 @@ Route::get('Informes/{informe}/firmar', [InformeController::class, 'firmar_infor
 
 // CRUD MATERIALES
 Route::resource('materials', MaterialController::class)->names('materials');
+
 // Asigacion de materiales a los informes´
 Route::resource('material_informe', Materials_informesController::class)->names('material_informe');
 Route::get('PDF/{informe}/PDFpedido', [PDFController::class, 'PDF_pedido'])->name('pedidoPDF.informe');
