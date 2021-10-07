@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Informe;
 use App\Models\Solicitud;
 use App\Models\Material;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -30,6 +31,7 @@ class InformeController extends Controller
                         'informes.estado_in as estado')
                 ->where('cronogramas.user_id',$id)
                 ->where('informes.estado_in','asignado')
+                ->orWhere('informes.estado_in','registrado')
                 // ->groupBy('solicituds.id','informes.id','solicituds.nombre_sol')
                 ->get();
         // $informes = Informe::all();
@@ -90,6 +92,44 @@ class InformeController extends Controller
         }
         
         return view('informes.autorizado',compact('informes'));
+        // return $informes;
+    }
+
+    public function concluido()
+    {
+        $id=Auth::user()->id;
+        if ($id=Auth::user()->tipo_user='Inspector') {
+            $inspectores = User::where('tipo_user','Inspector')->get();
+
+            $informes = DB::table('informes')
+                ->join('solicituds', 'solicituds.id', '=', 'informes.solicitud_id')
+                ->join('cronogramas', 'cronogramas.solicitud_id', '=', 'solicituds.id')
+                ->select('informes.id as id_informe',
+                        'solicituds.id as id_solicitud',
+                        'solicituds.nombre_sol as nombre_sol',
+                        'solicituds.zona_sol as zona_sol',
+                        'informes.fecha_hora_in as fecha_inspeccion',
+                        'informes.estado_in as estado')
+                // ->where('informes.estado_in','registrado')
+                ->where('informes.estado_in','firmado')
+                ->orWhere('informes.estado_in','programado')
+                ->get();
+         }//else{
+        //     $informes = DB::table('informes')
+        //         ->join('solicituds', 'solicituds.id', '=', 'informes.solicitud_id')
+        //         ->join('cronogramas', 'cronogramas.solicitud_id', '=', 'solicituds.id')
+        //         ->select('informes.id as id_informe',
+        //                 'solicituds.id as id_solicitud',
+        //                 'solicituds.zona_sol as zona_sol',
+        //                 'solicituds.nombre_sol as nombre_sol',
+        //                 'informes.fecha_hora_in as fecha_inspeccion',
+        //                 'informes.estado_in as estado')
+        //         ->where('cronogramas.user_id',$id)
+        //         ->where('informes.estado_in','registrado')
+        //         ->get();
+        // }
+        
+        return view('informes.concluido',compact('informes','inspectores'));
         // return $informes;
     }
 
@@ -212,7 +252,8 @@ class InformeController extends Controller
             Storage::disk('public')->put('informe_'.$request->solicitud_id . '.png', base64_decode($image));
         }
         $informe->save();
-        return redirect()->route('informes.index')->with('crear','Ok');
+        return redirect()->route('informes.index');
+        
     }
 
 

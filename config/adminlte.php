@@ -283,9 +283,30 @@ return [
 
         ],
         [
+            'text' => 'Informes Concluidos',
+            'route'  => 'informes.concluido',
+            'icon' => 'fa fa-fw fa-file-pdf',
+            'can' => 'inspector',
+
+        ],
+        [
+            'text' => 'Mano de Obra',
+            'route'  => 'mano_obra.index',
+            'icon' => 'far fa-fw fa-circle text-yellow',
+            'can' => 'inspector',
+
+        ],
+        [
             'text' => 'Informes Autorizados',
             'route'  => 'informes.autorizado',
             'icon' => 'fa fa-fw fa-file-pdf',
+            'can' => 'jefe-red',
+
+        ],
+        [
+            'text' => 'Asignar Ejecución',
+            'route'  => 'informes.concluido',
+            'icon' => 'far fa-fw fa-circle text-yellow',
             'can' => 'jefe-red',
 
         ],

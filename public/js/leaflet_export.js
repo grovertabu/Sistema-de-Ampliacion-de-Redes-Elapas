@@ -216,8 +216,8 @@
             }
             var ret = format === 'canvas' ? canvas : {
               data: canvas.toDataURL(format),
-              width: '610px',//canvas.width,
-              height: '342px',//canvas.height,
+              width: '400px',//canvas.width,
+              height: '300px',//canvas.height,
               type: format
             };
 

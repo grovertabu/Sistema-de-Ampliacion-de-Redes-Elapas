@@ -10,6 +10,8 @@ use App\Http\Controllers\InformeController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\Materials_informesController;
 use App\Http\Controllers\DescargoController;
+use App\Http\Controllers\EjecucionController;
+use App\Http\Controllers\Mano_ObrasController;
 use App\Http\Controllers\MonitorController;
 use App\Http\Controllers\PDFController;
 use Illuminate\Support\Facades\DB;
@@ -48,6 +50,7 @@ Route::get('solicitud/{solicitud}/obtener_ampliacion', [SolicitudController::cla
 // Route::resource('informes', InformeController::class);
 Route::get('Informes', [InformeController::class, 'index'])->middleware('can:informes.index')->name('informes.index');
 Route::get('Informes/autorizados', [InformeController::class, 'autorizado'])->name('informes.autorizado');
+Route::get('Informes/concluidos', [InformeController::class, 'concluido'])->middleware('can:informes-ejecucion')->name('informes.concluido');
 Route::get('Informes/registrar_informes', [InformeController::class, 'create'])->middleware('can:informes.create')->name('informes.create');
 Route::post('Informes/registrar_informe', [InformeController::class, 'store'])->middleware('can:informes.create')->name('informes.store');
 Route::get('Informes/{informe}/edit', [InformeController::class, 'edit'])->middleware('can:informes.edit')->name('informes.edit');
@@ -65,6 +68,8 @@ Route::resource('materials', MaterialController::class)->names('materials');
 
 // Asigacion de materiales a los informes´
 Route::resource('material_informe', Materials_informesController::class)->names('material_informe');
+Route::delete('material_informe/{mat_inf}/eliminar', [Materials_informesController::class,'eliminar_lista'])->name('material_informe.eliminar');
+
 Route::get('PDF/{informe}/PDFpedido', [PDFController::class, 'PDF_pedido'])->name('pedidoPDF.informe');
 Route::get('PDF/{informe}/PDFreporte_ampliacion', [PDFController::class, 'PDF_informe_material'])->name('reportePDF.informe_material');
 
@@ -93,4 +98,16 @@ Route::delete('Computo_eliminar/{descargo}/{fecha_descargo?}/{valor?}', [Descarg
 Route::get('Monitoreo',[MonitorController::class, 'index'])->middleware('can:Monitor')->name('monitoreo.index');
 Route::get('Proyectos',[MonitorController::class, 'index'])->middleware('can:Proyectista')->name('proyectos.index');
 Route::get('Proyecto/{informe}/descargar',[PDFController::class, 'PDF_proyecto'])->middleware('can:Proyectista')->name('descargarPDF.proyecto');
+
+// Ejecucion 
+
+Route::post('Ejecucion/registrar',[EjecucionController::class, 'store'])->middleware('can:jefe-red')->name('ejecucion.store');
+
+// Mano Obras
+
+Route::get('mano_obra/registrar',[Mano_ObrasController::class, 'index'])->middleware('can:inspector')->name('mano_obra.index');
+Route::get('mano_obra/{Ejecucion}/crear',[Mano_ObrasController::class, 'create'])->middleware('can:inspector')->name('mano_obra.create');
+Route::post('mano_obra/store',[Mano_ObrasController::class, 'store'])->middleware('can:inspector')->name('mano_obra.store');
+
+Route::delete('mano_obra/{Ejecucion}/eliminar',[Mano_ObrasController::class, 'create'])->middleware('can:inspector')->name('mano_obra.eliminar');
 

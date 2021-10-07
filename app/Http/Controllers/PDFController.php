@@ -11,13 +11,20 @@ use Illuminate\Support\Facades\DB;
 class PDFController extends Controller
 {
     public function PDF(Informe $informe){
-        $pdf = PDF::loadview('PDF/informe',compact('informe'));
-        return $pdf->stream('Informe.pdf');
+        //$pdf = PDF::loadview('PDF/informe',compact('informe'));
+        //return $pdf->stream('Informe.pdf');
         // return $informe;
+        if($informe->imagen_amp != null){
+
+            return view('PDF.informe', compact('informe'));
+        }else{
+            $pdf = PDF::loadview('PDF/informe',compact('informe'));
+            return $pdf->stream('Informe.pdf');
+        }
     }
 
     public function PDF_informe_material(Informe $informe){
-        
+
         $inspector= DB::table('users')
         ->join('cronogramas', 'users.id','=','cronogramas.user_id')
         ->join('solicituds', 'solicituds.id','=','cronogramas.solicitud_id')
@@ -25,7 +32,7 @@ class PDFController extends Controller
         ->where('informes.id',$informe->id)
         ->select('users.name as nombre_inspector')
         ->get();
-        
+
         $materiales= DB::table('informe_materials')
             ->join('materials','informe_materials.material_id','=','materials.id')
             ->select('informe_materials.cantidad as cantidad',
@@ -40,9 +47,12 @@ class PDFController extends Controller
                     'materials.nombre_material as nombre_material')
             ->where('informe_materials.informe_id',$informe->id)
             ->first();
-       
-        $pdf = PDF::loadview('PDF/informe_material',compact('informe','materiales','inspector','mano_obra'));
-        return $pdf->stream('Informe_material.pdf');
+
+        // $pdf = PDF::loadview('PDF/informe_material',compact('informe','materiales','inspector','mano_obra'));
+        // return $pdf->stream('Informe_material.pdf');
+
+        return view('PDF.informe_material',compact('informe','materiales','inspector','mano_obra'));
+
         // return $informe;
     }
 
@@ -66,7 +76,7 @@ class PDFController extends Controller
             ->where('users.tipo_user','Jefe de red')
             ->select('users.name as name')
             ->first();
-        // $materiales=DB::select("SELECT m.nombre_material,im.cantidad,im.u_medida FROM informe_materials im 
+        // $materiales=DB::select("SELECT m.nombre_material,im.cantidad,im.u_medida FROM informe_materials im
         //                         INNER JOIN materials m on m.id=im.material_id WHERE im.informe_id=1");
         // $pdf = PDF::loadview('PDF/pedido_material',compact('informe','materiales','inspector','jefe_r'));
         // return $pdf->stream('reporte_pedido.pdf');
@@ -122,7 +132,7 @@ class PDFController extends Controller
             ->select('users.name as nombre')
             ->where('informes.id',$informe->id)
             ->first();
-            
+
         $pdf = PDF::loadview('PDF/proyecto',compact('informe','inspector'));
         return $pdf->stream('Informe.pdf');
         // return $informe;

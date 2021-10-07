@@ -13,9 +13,9 @@
     $mes=date("M", $fecha);
     $dia=date("d", $fecha);
     setlocale(LC_TIME, "spanish");
-	$pedido=10000+$informe->id;		
-    $Mes_ = strftime("%B", strtotime($mes));   
-    $n=1; 
+	$pedido=10000+$informe->id;
+    $Mes_ = strftime("%B", strtotime($mes));
+    $n=1;
 @endphp
 <style>
     body{
@@ -23,6 +23,11 @@
     }
     .container{
         margin:0px 5px;
+    }
+
+    #contenedor{
+        width: 680px;
+        margin: 0 auto;
     }
     table,td{
         border: 1px solid black;
@@ -46,19 +51,19 @@
     }
 </style>
 <body>
-    <div class="container">
+    <div class="container" id="contenedor">
     <div>
         <h1 align="center">Ampliación Tuberia Matriz 2" Barrio {{$informe->solicitud->zona_sol}}</h1>
     </div>
     <div style=" width:690px; height:400px;">
-        <img src="https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/static/pin-s+FF0000({{$informe->solicitud->y_aprox}},{{$informe->solicitud->x_aprox}})/{{$informe->solicitud->y_aprox}},{{$informe->solicitud->x_aprox}},17/700x380?access_token=pk.eyJ1IjoiZ3JvdmVydDEyIiwiYSI6ImNrbnExMm1kZjAxbTEycXFxdWJlM2QyOWoifQ._OTf1cgFjXutCJPx2zMl1w" >
-        
+        {{-- <img src="https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/static/pin-s+FF0000({{$informe->solicitud->y_aprox}},{{$informe->solicitud->x_aprox}})/{{$informe->solicitud->y_aprox}},{{$informe->solicitud->x_aprox}},17/700x380?access_token=pk.eyJ1IjoiZ3JvdmVydDEyIiwiYSI6ImNrbnExMm1kZjAxbTEycXFxdWJlM2QyOWoifQ._OTf1cgFjXutCJPx2zMl1w" > --}}
+        <img src="{{asset('storage/'.$informe->imagen_amp)}}" width="680px" height="400px" alt="">
     </div>
     <div>
         <div style="background:; float:left; width:750px;">
             <label class="tamanio">&nbsp;&nbsp;OBRA: Ampliacion</label><br>
             <label class="tamanio">&nbsp;&nbsp;CALLE: {{$informe->solicitud->calle_sol}} </label><br>
-            <label class="tamanio">&nbsp;&nbsp;FECHA: {{ucfirst($Mes_)}}</label> 
+            <label class="tamanio">&nbsp;&nbsp;FECHA: {{ucfirst($Mes_)}}</label>
         </div>
         <div style="background:; float:right; width:300px;">
             <label class="tamanio">RESERVORIO: {{$informe->reservorio}}</label><br>
@@ -66,7 +71,7 @@
             <label class="tamanio">DESPACHO</label>
         </div>
     </div>
-    
+
     <div><br><br><br>
     <table width="100%" >
         <tr>
@@ -146,7 +151,7 @@
             <td class="centrar">P.UNITARIO</td>
             <td class="centrar">P.TOTAL</td>
         </tr>
-       
+
         <tr>
             <td class="centrar">1</td>
             <td class="tamanio">TENDIDO de 2"</td>
@@ -184,5 +189,36 @@
         @endforeach
     </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        function convertirPDF(){
+            const element = document.querySelector('#contenedor');
+            var opt = {
+                margin:       0.5,
+                filename:     'informe.pdf',
+                image:        { type: 'jpeg', quality: 0.98},
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'legal', orientation: 'p' }
+            };
+            html2pdf().set(opt).from(element).outputPdf().then(function(pdf) {
+                pdf = btoa(pdf);
+                console.log(pdf.length)
+                var obj = document.createElement('object');
+                obj.style.width = '100%';
+                obj.style.height = window.screen.height + 'px';
+                obj.style.margin = '-10px'
+                obj.style.position = 'absolute'
+                obj.type = 'application/pdf';
+                obj.data = 'data:application/pdf;base64,' + pdf;
+                element.style.display = 'none';
+                document.body.appendChild(obj);
+
+            });
+           }
+           window.onload = function(){
+               convertirPDF();
+           }
+    </script>
 </body>
 </html>

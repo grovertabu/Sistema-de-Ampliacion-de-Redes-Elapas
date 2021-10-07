@@ -208,8 +208,8 @@ function cargarLayersEditar(data, lat , long){
     }
     const capasLineas = {
         "Ampliaciones": drawnItems,
-        "Area de Concesion": concesionItems,
-        "Mapa de Tuberias": tuberiasItems
+        "Mapa de Tuberias": tuberiasItems,
+        "Area de Concesion": concesionItems
     }
     map = L.map('map', {
         center: { lat: lat, lng: long },
@@ -268,6 +268,8 @@ function cargarLayersEditar(data, lat , long){
 
 
     L.marker([lat, long],{color:'red'}).addTo(map);
+
+    tuberiasItems.addTo(map);
 
 
     /* capasMapa(); */
@@ -477,6 +479,7 @@ function calcularDistancia(){
 
 function downloadMap(caption) {
     ocultarBotones(true);
+    console.log(map._container.width)
     var downloadOptions = {
       container: map._container,
       caption: {
@@ -512,6 +515,7 @@ function mapLink(){
 
 function ocultarBotones(flag) {
     const barras = document.querySelectorAll('.leaflet-top');
+    
     if(flag){
         barras.forEach((clase)=>{
             clase.style.display = 'none';

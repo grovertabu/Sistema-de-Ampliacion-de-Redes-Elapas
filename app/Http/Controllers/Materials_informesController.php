@@ -62,8 +62,10 @@ class Materials_informesController extends Controller
         $mat_inf->material_id = $request->id_material;
         $mat_inf->cantidad    = $request->cantidad;
         $mat_inf->u_medida    = $u_material->unidad_med;
-        $mat_inf->save();
-        return redirect()->route('informes.autorizado');
+        $mat_inf->save();          
+
+        return redirect()->route('informes.registrar_material',$request->id_informe);
+        
     }
 
 
@@ -72,6 +74,14 @@ class Materials_informesController extends Controller
         $mat_inf = Informe_material::find($material_i);
         $mat_inf->delete();
         return redirect()->route('informes.autorizado');
+    }
+
+    public function eliminar_lista($mat_inf){
+        // $material_i->delete();
+        $mat_info = Informe_material::find($mat_inf);
+        $mat_info->delete();
+        return redirect()->route('informes.registrar_material',$mat_info->informe_id);
+        
     }
 
 
