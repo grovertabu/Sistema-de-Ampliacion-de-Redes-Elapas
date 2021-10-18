@@ -10,7 +10,7 @@
 @section('content_header')
   <style>
   #map {
-    margin-top: 20px; 
+    margin-top: 20px;
       width: 80%;
       height: 400px;
       position: absolute;
@@ -26,7 +26,7 @@
     <div class="table table-bordered table-hover dataTable table-responsive" id="contenedor-tabla">
         <table class="table table-bordered datatable" id="example">
         <thead>
-          <tr>	
+          <tr>
             <th>Nro</th>
             <th>Nombre solicitante</th>
             <th>Celular</th>
@@ -51,21 +51,26 @@
                 @can('Monitor')
                 @if ($sol->estado_sol == 'asignado')
                 <br>
-                <a href="{{route('descargarPDF.informe',$sol->id)}}" target="_blank" class="btn btn-danger btn-icon btn-xs">Informe 
+                <a href="{{route('descargarPDF.informe',$sol->id)}}" target="_blank" class="btn btn-danger btn-icon btn-xs">Informe
                     <i class="fas fa-file-pdf"></i></a>
                 @endif
                 @endcan
                 @can('Proyectista')
-                @if ($sol->estado_in == 'autorizado')
+                @if ($sol->estado_in =='ejecutado')
                 <br>
                 <a href="{{route('descargarPDF.proyecto',$sol->id)}}" target="_blank" class="btn btn-danger btn-icon btn-xs">Informe Proyeccion
                     <i class="fas fa-file-pdf"></i></a>
                 @endif
-                @endcan    
+                @if ($sol->estado_in =='firmado')
+                <br>
+                <a href="{{route('informes.aprobar_proyecto',$sol->id)}}" target="_blank" class="btn btn-success btn-icon btn-xs">Aprobar Proyecto
+                    <i class="fas fa-check"></i></a>
+                @endif
+                @endcan
             </td>
         </tr>
         @endforeach
-            
+
         </tbody>
         <tfoot>
             <tr>
@@ -93,13 +98,13 @@
 {{-- Fin Visualizar Mapa--}}
 
 
-    
+
 @stop
 @section('js')
 <script src="{{asset('vendor/leaflet/js/leaflet.js')}}" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 <script src="{{asset('vendor/leaflet/js/esri-leaflet.js')}}" integrity="sha512-6LVib9wGnqVKIClCduEwsCub7iauLXpwrd5njR2J507m3A2a4HXJDLMiSZzjcksag3UluIfuW1KzuWVI5n/cuQ==" crossorigin=""></script>
 <script src="{{asset('vendor/leaflet/js/esri-leaflet-geocoder.js')}}" integrity="sha512-8twnXcrOGP3WfMvjB0jS5pNigFuIWj4ALwWEgxhZ+mxvjF5/FBPVd5uAxqT8dd2kUmTVK9+yQJ4CmTmSg/sXAQ==" crossorigin=""></script>
-<script src="{{asset('vendor/leaflet/js/easy-button.js')}}"></script> 
+<script src="{{asset('vendor/leaflet/js/easy-button.js')}}"></script>
 <script src="{{asset('js/mapas.js') }}"></script>
 <script>
     function visualizarMapa(lat, long, ruta){

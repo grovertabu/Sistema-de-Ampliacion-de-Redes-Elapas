@@ -31,7 +31,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dash', function () {
     return view('dash.index');
 })->name('dash');
 // CRUD USUARIOS
-Route::resource('users', UserController::class)->only('index','edit','update','create','store')->names('users');
+Route::resource('users', UserController::class)->only('index', 'edit', 'update', 'create', 'store')->names('users');
 // Crud SOLICITUD
 Route::get('Lista_solicitud', [SolicitudController::class, 'index'])->middleware('can:solicitud.index')->name('solicitud.index');
 Route::get('solicitud/registrar_solicitud', [SolicitudController::class, 'create'])->middleware('can:solicitud.create')->name('solicitud.create');
@@ -59,26 +59,29 @@ Route::put('Informes/{informe}', [InformeController::class, 'update'])->middlewa
 Route::get('PDF/{informe}/PDFinforme', [PDFController::class, 'PDF'])->name('descargarPDF.informe');
 Route::delete('Informes/{Informe}', [InformeController::class, 'destroy'])->name('informes.destroy');
 Route::get('Informes/{informe}/registrar_material', [InformeController::class, 'registrar_material'])->name('informes.registrar_material');
-Route::get('Informes/{Informe}/autorizar', [InformeController::class, 'autorizar'])->middleware('can:jefe-red')->name('informes.autorizar');
+Route::post('Informes/{Informe}/autorizar', [InformeController::class, 'autorizar'])->middleware('can:jefe-red')->name('informes.autorizar');
 Route::get('Informes/{informe}/rechazar', [InformeController::class, 'no_autorizar'])->middleware('can:jefe-red')->name('informes.no_autorizar');
 Route::get('Informes/{informe}/firmar', [InformeController::class, 'firmar_informe'])->middleware('can:jefe-red')->name('informes.firmar');
+Route::get('Informes/{informe}/aprobar_proyecto', [InformeController::class, 'aprobar_proyecto'])->middleware('can:Proyectista')->name('informes.aprobar_proyecto');
 
 // CRUD MATERIALES
 Route::resource('materials', MaterialController::class)->names('materials');
 
 // Asigacion de materiales a los informes´
 Route::resource('material_informe', Materials_informesController::class)->names('material_informe');
-Route::delete('material_informe/{mat_inf}/eliminar', [Materials_informesController::class,'eliminar_lista'])->name('material_informe.eliminar');
+Route::delete('material_informe/{mat_inf}/eliminar', [Materials_informesController::class, 'eliminar_lista'])->name('material_informe.eliminar');
 
 Route::get('PDF/{informe}/PDFpedido', [PDFController::class, 'PDF_pedido'])->name('pedidoPDF.informe');
 Route::get('PDF/{informe}/PDFreporte_ampliacion', [PDFController::class, 'PDF_informe_material'])->name('reportePDF.informe_material');
+Route::get('PDF/{informe}/PDFreporte_descargo_material', [PDFController::class, 'PDF_informe_descargo_material'])->name('reportePDF.informe_descargo_material');
+
 
 // Asigacion de Solicitudes a Inspectores
 Route::resource('cronograma', CronogramaController::class)->names('cronograma');
 Route::get('Cronograma/registro_cronograma', [CronogramaController::class, 'mostrar'])->name('cronograma.reporte');
 Route::get('PDF/{cronograma}/{user_id?}/PDFcronograma', [PDFController::class, 'PDF_cronograma'])->name('descargarPDF.cronograma');
 
-//___________________________________DESCARGO DE MATERIALES____________________________________________________________________ 
+//___________________________________DESCARGO DE MATERIALES____________________________________________________________________
 Route::resource('descargo', DescargoController::class)->names('descargo'); //Metodo index
 // APORTE MATERIAL VECINOS
 Route::get('Descargos/{descargo}/{fecha_descargo?}/{valor?}/mostrar_aportes_v', [DescargoController::class, 'mostrar_aportes_v'])->name('descargo.mostrar_aportes_v');
@@ -94,20 +97,21 @@ Route::get('Descargos/{descargo}/{fecha_descargo?}/{valor?}/crear_computo_e', [D
 Route::post('Descargos/registrar_computo_e', [DescargoController::class, 'registrar_computo_e'])->name('descargo.registrar_computo_e');
 Route::delete('Computo_eliminar/{descargo}/{fecha_descargo?}/{valor?}', [DescargoController::class, 'eliminar_computo_e'])->name('descargo.eliminar_computo_e');
 
-//Monitoreo y Prroyectista 
-Route::get('Monitoreo',[MonitorController::class, 'index'])->middleware('can:Monitor')->name('monitoreo.index');
-Route::get('Proyectos',[MonitorController::class, 'index'])->middleware('can:Proyectista')->name('proyectos.index');
-Route::get('Proyecto/{informe}/descargar',[PDFController::class, 'PDF_proyecto'])->middleware('can:Proyectista')->name('descargarPDF.proyecto');
+//Monitoreo y Prroyectista
+Route::get('Monitoreo', [MonitorController::class, 'index'])->middleware('can:Monitor')->name('monitoreo.index');
+Route::get('Proyectos', [MonitorController::class, 'index'])->middleware('can:Proyectista')->name('proyectos.index');
+Route::get('Proyecto/{informe}/descargar', [PDFController::class, 'PDF_proyecto'])->middleware('can:Proyectista')->name('descargarPDF.proyecto');
 
-// Ejecucion 
+// Ejecucion
 
-Route::post('Ejecucion/registrar',[EjecucionController::class, 'store'])->middleware('can:jefe-red')->name('ejecucion.store');
+Route::post('Ejecucion/registrar', [EjecucionController::class, 'store'])->middleware('can:jefe-red')->name('ejecucion.store');
+Route::post('Ejecucion/{id_ejecucion}/ejecutar', [EjecucionController::class, 'ejecutada'])->middleware('can:inspector')->name('ejecucion.ejecutada');
+
 
 // Mano Obras
 
-Route::get('mano_obra/registrar',[Mano_ObrasController::class, 'index'])->middleware('can:inspector')->name('mano_obra.index');
-Route::get('mano_obra/{Ejecucion}/crear',[Mano_ObrasController::class, 'create'])->middleware('can:inspector')->name('mano_obra.create');
-Route::post('mano_obra/store',[Mano_ObrasController::class, 'store'])->middleware('can:inspector')->name('mano_obra.store');
+// Route::get('mano_obra/registrar',[Mano_ObrasController::class, 'index'])->middleware('can:inspector')->name('mano_obra.index');
+Route::get('mano_obra/{Ejecucion}/crear', [Mano_ObrasController::class, 'create'])->middleware('can:inspector')->name('mano_obra.create');
+Route::post('mano_obra/store', [Mano_ObrasController::class, 'store'])->middleware('can:inspector')->name('mano_obra.store');
 
-Route::delete('mano_obra/{Ejecucion}/eliminar',[Mano_ObrasController::class, 'create'])->middleware('can:inspector')->name('mano_obra.eliminar');
-
+Route::delete('mano_obra/{mano_obra}/eliminar', [Mano_ObrasController::class, 'eliminar'])->middleware('can:inspector')->name('mano_obra.eliminar');

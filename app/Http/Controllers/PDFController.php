@@ -37,16 +37,21 @@ class PDFController extends Controller
             ->join('materials','informe_materials.material_id','=','materials.id')
             ->select('informe_materials.cantidad as cantidad',
                     'informe_materials.u_medida as u_medida',
+                    'informe_materials.observador as observador',
+                    'materials.precio_unitario as precio_unitario',
                     'materials.nombre_material as nombre_material')
             ->where('informe_materials.informe_id',$informe->id)
             ->get();
-        $mano_obra= DB::table('informe_materials')
-            ->join('materials','informe_materials.material_id','=','materials.id')
-            ->select('informe_materials.cantidad as cantidad',
-                    'informe_materials.u_medida as u_medida',
-                    'materials.nombre_material as nombre_material')
-            ->where('informe_materials.informe_id',$informe->id)
-            ->first();
+        $mano_obra= DB::table('mano_obras')
+            ->join('ejecucions','ejecucions.id','=','mano_obras.ejecucion_id')
+            ->join('actividad_mano_obras', 'actividad_mano_obras.id','=', 'mano_obras.actividad_id')
+            ->select('actividad_mano_obras.descripcion as descripcion',
+                    'actividad_mano_obras.unidad_medida as unidad',
+                    'mano_obras.cantidad as cantidad',
+                    'mano_obras.precio_uni as precio_unitario',
+                    'mano_obras.observador as observador')
+            ->where('ejecucions.informe_id',$informe->id)
+            ->get();
 
         // $pdf = PDF::loadview('PDF/informe_material',compact('informe','materiales','inspector','mano_obra'));
         // return $pdf->stream('Informe_material.pdf');
@@ -54,6 +59,49 @@ class PDFController extends Controller
         return view('PDF.informe_material',compact('informe','materiales','inspector','mano_obra'));
 
         // return $informe;
+    }
+
+    public function PDF_informe_descargo_material(Informe $informe){
+        $inspector= DB::table('users')
+        ->join('cronogramas', 'users.id','=','cronogramas.user_id')
+        ->join('solicituds', 'solicituds.id','=','cronogramas.solicitud_id')
+        ->join('informes', 'informes.solicitud_id','=','solicituds.id')
+        ->join('ejecucions', 'ejecucions.informe_id','=', 'informes.id')
+        ->where('informes.id',$informe->id)
+        ->select('users.name as nombre_inspector',
+                'solicituds.fecha_sol as fecha_sol',
+                'solicituds.zona_sol as zona_sol',
+                'solicituds.calle_sol as calle_sol',
+                'ejecucions.fecha_ejecutada as fecha_ejecutada')
+        ->first();
+
+        $materiales= DB::table('informe_materials')
+            ->join('materials','informe_materials.material_id','=','materials.id')
+            ->select('informe_materials.cantidad as cantidad',
+                    'informe_materials.u_medida as u_medida',
+                    'informe_materials.observador as observador',
+                    'materials.precio_unitario as precio_unitario',
+                    'materials.nombre_material as nombre_material')
+            ->where('informe_materials.informe_id',$informe->id)
+            ->get();
+        $mano_obra= DB::table('mano_obras')
+            ->join('ejecucions','ejecucions.id','=','mano_obras.ejecucion_id')
+            ->join('actividad_mano_obras', 'actividad_mano_obras.id','=', 'mano_obras.actividad_id')
+            ->select('actividad_mano_obras.descripcion as descripcion',
+                    'actividad_mano_obras.unidad_medida as unidad',
+                    'mano_obras.cantidad as cantidad',
+                    'mano_obras.precio_uni as precio_unitario',
+                    'mano_obras.observador as observador',
+                    'mano_obras.alto as alto',
+                    'mano_obras.ancho as ancho',
+                    'mano_obras.largo as largo')
+            ->where('ejecucions.informe_id',$informe->id)
+            ->get();
+
+        $pdf = PDF::loadview('PDF.descargo_materiales_reporte',compact('informe','materiales','inspector','mano_obra'));
+        return $pdf->stream('Reporte_Descargo_Material.pdf');
+
+        //return view('PDF.descargo_materiales_reporte',compact('informe','materiales','inspector','mano_obra'));
     }
 
     public function PDF_pedido(Informe $informe){
@@ -133,8 +181,9 @@ class PDFController extends Controller
             ->where('informes.id',$informe->id)
             ->first();
 
-        $pdf = PDF::loadview('PDF/proyecto',compact('informe','inspector'));
-        return $pdf->stream('Informe.pdf');
+        // $pdf = PDF::loadview('PDF/proyecto',compact('informe','inspector'));
+        // return $pdf->stream('Informe.pdf');
+        return view('PDF/proyecto',compact('informe','inspector'));
         // return $informe;
     }
 }

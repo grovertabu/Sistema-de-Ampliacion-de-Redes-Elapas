@@ -51,9 +51,29 @@
                             </div>
                             <input type="text" name="cantidad" id="cantidad" class="form-control" placeholder="Cantidad de Material" required>
                         </div>
-                        
+
                     </div>
-                    
+                    <div class="form-group col-6">
+                        <label for="observador">Observador</label>
+                        <div class="input-group" >
+                            <div class="input-group-prepend">
+                                <div >
+                                    <p style="margin-right: 5px">Elapas
+                                        <input type="radio" value ="Elapas" checked name="observador" style="margin-top:5px; margin-right: 3px">
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="input-group-prepend">
+                                <div >
+                                    <p>Vecinos
+                                        <input type="radio" value ="Vecinos" name="observador" style="margin-top:5px; margin-right: 3px">
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
             <!-- /.card-body -->
@@ -70,11 +90,12 @@
 <div class="table table-bordered table-hover dataTable table-responsive">
     <table class="table table-bordered datatable" id="example">
     <thead>
-        <tr>	
+        <tr>
             <th width="170">ID</th>
             <th>MATERIAL</th>
             <th width="150">CANTIDAD <br> SOLICITADA </th>
             <th width="150">UNIDAD <br> MEDIDA</th>
+            <th width="150">OBSERVADOR</th>
             <th width="150">ACCIONES</th>
         </tr>
     </thead>
@@ -85,6 +106,7 @@
             <td align="center">{{$mat->material_n}}</td>
             <td>{{$mat->cantidad}}</td>
             <td>{{$mat->unidad}}</td>
+            <td>{{$mat->observador}}</td>
             <td>
                 <form action="{{route('material_informe.eliminar', $mat->id)}}" method="POST">
                     @csrf
@@ -117,7 +139,7 @@
             }
         })
     </script>
-    
+
 @stop
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">

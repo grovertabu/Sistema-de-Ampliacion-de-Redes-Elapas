@@ -5,8 +5,8 @@
     $mes=date("m", $fecha);
     $dia=date("d", $fecha);
     setlocale(LC_TIME, "spanish");
-	$jefe_red="Rene Iglesias";		
-    $Mes_ = strftime("%B", strtotime($mes));    
+	$jefe_red="Rene Iglesias";
+    $Mes_ = strftime("%B", strtotime($mes));
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +34,7 @@
     height: 200px;
 }
 .sinBorde{ border-bottom:1px solid #fff}
-u {    
+u {
     border-bottom: 1px dotted #000;
     text-decoration: none;
 }
@@ -57,7 +57,7 @@ u {
     <br>
     <div class="container">
         <table border="1" style="float:left; border-collapse:collapse; ">
-        
+
         <tr align="center">
             <th>DIA</th>
             <th>MES</th>
@@ -96,12 +96,12 @@ u {
             </tr>
             @foreach ($materiales as $material )
             <tr>
-                
+
                 <td  align="center">{{$material->cantidad}}</td>
                 <td  align="center">{{$material->u_medida}}</td>
                 <td  align="center">{{$material->nombre_material}}</td>
-                <td  align="center"></td>    
-                
+                <td  align="center"></td>
+
             </tr>
             @endforeach
             <tr >
@@ -109,15 +109,15 @@ u {
                 <td style="height:15%; border-top:1px solid #fff"></td>
                 <td style="height:15%; border-top:1px solid #fff"></td>
                 <td style="height:15%; border-top:1px solid #fff"></td>
-                
+
             </tr>
         </table>
         <table  border="1" style="border-collapse:collapse; width:100%;">
         <tr style="height:90px; margin:0px;">
             <td width="200px">Pedido Por: <br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$inspector->name}} <br>&nbsp;&nbsp;&nbsp;<img width="120" height="60" src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('images/'.$inspector->name.'.png'))) }}"></strong></td>
-                
+
                 <td>Autorizado Por:<br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$jefe_r->name}} <br>&nbsp;&nbsp;&nbsp;
-                    @if($inspector->estado=='firmado')
+                    @if($inspector->estado=='firmado' || $inspector->estado=='ejecutado')
                     <img width="120" height="60" src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('images/'.$jefe_red.'.png'))) }}">
                     @endif
                 </td>

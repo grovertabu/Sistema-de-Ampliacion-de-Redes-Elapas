@@ -33,7 +33,7 @@
     $dia_s=date("l", $fecha);
 	$fecha_ins=date("d-m-Y",$fecha);
     $Mes_ = strftime("%B", strtotime($mes));
-    $dia_semana=$dias[(date('N', strtotime($fecha_inspeccion)))] 
+    $dia_semana=$dias[(date('N', strtotime($fecha_inspeccion)))]
 @endphp
 <body>
     <div class="container">
@@ -49,7 +49,7 @@
         <th colspan="3">Fecha y hora de programacion</th>
     </tr>
     <tr>
-        
+
         <th>Miercoles</th>
         <th>Jueves</th>
         <th>INSPECTOR</th>

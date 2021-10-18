@@ -7,23 +7,23 @@
 @section('content_header')
 <style>
    #map {
-      margin-top: 20px; 
+      margin-top: 20px;
       width: 80%;
       height: 400px;
       position: absolute;
-    }  
+    }
 </style>
 @stop
 
 @section('content')
     <h1>ELAPAS - Informes
 
-        
+
     </h1>
     <div class="table table-bordered table-hover dataTable table-responsive" id="contenedor-tabla">
         <table class="table table-bordered datatable" id="example">
         <thead>
-          <tr>	
+          <tr>
             <th>NRO</th>
             <th>NOMBRE SOLICITANTE</th>
             <th>FECHA <br>INSPECCION</th>
@@ -34,6 +34,8 @@
           </tr>
         </thead>
         <tbody>
+            {{$informes}}
+            {{'El id es : '.$id}}
             @foreach ($informes as $inf)
                 <tr>
                     <td>{{$n++}}</td>
@@ -49,23 +51,23 @@
                             <button type="button" class='btn btn-warning btn-icon btn-xs' data-toggle="modal" data-target=".bd-example-modal-lg"ç
                             onclick="llamar('{{route('informes.show',$inf->id_informe)}}')">Material <i class="fas fa-box"></i></button>
                         @endif
-                        
-                        <a href='{{route('descargarPDF.informe',$inf->id_informe)}}' target="_blank" 
+
+                        <a href='{{route('descargarPDF.informe',$inf->id_informe)}}' target="_blank"
                         class='btn btn-danger btn-icon btn-xs'>Informe <i class="fas fa-file-pdf"></i></a>
                         @if($inf->estado=='registrado')
                         @can('inspector')
-                        <a href='{{route('informes.edit',$inf->id_informe)}}' 
-                        class='d-inline btn btn-primary btn-icon btn-xs'>Editar <i class="fas fa-pencil-alt"></i></a>
+                        {{-- <a href='{{route('informes.edit',$inf->id_informe)}}'
+                        class='d-inline btn btn-primary btn-icon btn-xs'>Editar <i class="fas fa-pencil-alt"></i></a> --}}
                         @endcan
                         @else
                         @can('informes.edit')
-                        <a href='{{route('informes.edit',$inf->id_informe)}}' 
+                        <a href='{{route('informes.edit',$inf->id_informe)}}'
                             class='btn btn-info btn-icon btn-xs'>Llenar <i class="fas fa-pencil-alt"></i></a>
                         @endcan
-                        @endif                          
-                        
+                        @endif
+
                     </td>
-                    
+
                 </tr>
             @endforeach
         </tbody>
@@ -83,7 +85,7 @@
     </table>
 
     <!-- Large modal -->
-                    
+
 
     <div class="modal fade bd-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="overflow:hidden;">
         <div class="modal-dialog modal-lg">
@@ -130,21 +132,21 @@
                 }
             };
             ajax.open("GET",url,true);
-            ajax.send();		
+            ajax.send();
         }
-    
+
     </script>
     <script>
     function visualizarMapa(lat, long, ruta){
     mostrarTabla(true);
     document.querySelector('#obtenerAmpliaciones').value = 'solicitud/'+ ruta +'/obtener_ampliacion';
-    ruta== null ? initMap(lat,long,'mostrar'):initMap(lat,long);    
+    ruta== null ? initMap(lat,long,'mostrar'):initMap(lat,long);
     }
    </script>
    <script src="{{asset('vendor/leaflet/js/leaflet.js')}}" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
    <script src="{{asset('vendor/leaflet/js/esri-leaflet.js')}}" integrity="sha512-6LVib9wGnqVKIClCduEwsCub7iauLXpwrd5njR2J507m3A2a4HXJDLMiSZzjcksag3UluIfuW1KzuWVI5n/cuQ==" crossorigin=""></script>
    <script src="{{asset('vendor/leaflet/js/esri-leaflet-geocoder.js')}}" integrity="sha512-8twnXcrOGP3WfMvjB0jS5pNigFuIWj4ALwWEgxhZ+mxvjF5/FBPVd5uAxqT8dd2kUmTVK9+yQJ4CmTmSg/sXAQ==" crossorigin=""></script>
-   <script src="{{asset('vendor/leaflet/js/easy-button.js')}}"></script> 
+   <script src="{{asset('vendor/leaflet/js/easy-button.js')}}"></script>
    <script src="{{asset('js/mapas.js') }}"></script>
 
 @stop

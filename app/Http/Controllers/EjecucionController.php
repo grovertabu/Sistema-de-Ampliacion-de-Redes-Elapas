@@ -21,4 +21,12 @@ class EjecucionController extends Controller
 
         return redirect()->route('informes.concluido');
     }
+
+    public function ejecutada($id_ejecucion,  Request $request){
+        $ejecucion = Ejecucion::find($id_ejecucion);
+        $ejecucion->fecha_ejecutada = $request->fecha_ejecutada;
+        $ejecucion->save();
+
+        return redirect()->route('informes.autorizado');
+    }
 }

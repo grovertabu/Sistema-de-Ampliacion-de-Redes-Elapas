@@ -19,6 +19,7 @@ class CreateInformeMaterialsTable extends Migration
             $table->unsignedBigInteger('material_id');
             $table->integer('cantidad');
             $table->string('u_medida',20);
+            $table->string('observador',7);
             $table->foreign('informe_id')
                     ->references('id')
                     ->on('informes')

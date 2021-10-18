@@ -20,6 +20,7 @@ class CreateEjecucionsTable extends Migration
             $table->text('observaciones')->nullable();
             $table->unsignedBigInteger('informe_id');
             $table->unsignedBigInteger('user_id');
+            $table->timestamps();
             $table->foreign('informe_id')
             ->references('id')
             ->on('informes')
@@ -30,8 +31,8 @@ class CreateEjecucionsTable extends Migration
             ->on('users')
             ->onDelete('cascade')
             ->onUpdate('cascade');
-            $table->timestamps();
         });
+
     }
 
     /**

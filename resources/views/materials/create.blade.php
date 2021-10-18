@@ -26,7 +26,7 @@
                         <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-box-open"></i></span>
                         </div>
-                        <input type="text" name="nombre_material" id="nombre_material" class="form-control" placeholder="nombre del material">
+                        <input type="text" name="nombre_material" id="nombre_material" class="form-control" placeholder="nombre del material" required>
                     </div>
                 </div>
                 <div class="form-group">
@@ -35,16 +35,16 @@
                         <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-box-open"></i></span>
                         </div>
-                        <input type="number" step="0.01" name="precio_unitario" id="precio_unitario" class="form-control" placeholder="0.00">
+                        <input type="number" step="0.01" name="precio_unitario" id="precio_unitario" class="form-control" placeholder="0.00" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="nombre_material">Unidad de Medida</label>
                     <div class="input-group ">
                         <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-sort-numeric-down"></i></span> 
+                        <span class="input-group-text"><i class="fas fa-sort-numeric-down"></i></span>
                         </div>
-                        <input type="text" name="unidad_medida" id="unidad_medida" class="form-control" placeholder="Ej. metros">
+                        <input type="text" name="unidad_medida" id="unidad_medida" class="form-control" placeholder="Ej. metros" required>
                     </div>
                 </div>
                 <div class="form-group">
@@ -53,7 +53,7 @@
                         <textarea name="observaciones" id="observaciones" class="form-control" ></textarea>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="nombre_material">Estado</label>
                     <select class="form-control" name="estado" id="estado">

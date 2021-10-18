@@ -19,7 +19,7 @@ var controles;
 // Check areas
 
 L.Polyline = L.Polyline.include({
-    getDistance: function() {
+    getDistance: function () {
         // distance in meters
         var mDistanse = 0,
             length = this._latlngs.length;
@@ -36,7 +36,7 @@ function initEditMap(x_aprox, y_aprox) {
     iniciarLayers(x_aprox, y_aprox, 'actualizar');
 
 }
-function initMap(x_aprox, y_aprox,opcion='mapa') {
+function initMap(x_aprox, y_aprox, opcion = 'mapa') {
     map = null;
     iniciarLayers(x_aprox, y_aprox, opcion);
 
@@ -91,7 +91,7 @@ function mostrarTabla(flag, distance = false) {
         $("#map").remove();
         $("#contenedor-tabla").show();
         $("#contenedor-mapa").hide();
-        if(distance) calcularDistancia();
+        if (distance) calcularDistancia();
     }
 }
 
@@ -137,7 +137,7 @@ function bindPopup(layer) {
     layer.on('popupopen', popupOpen)
 }
 
-function cargarTuberias(){
+function cargarTuberias() {
     mapTuberiasAguaPotable = L.esri.featureLayer({
         url: baseUrl + 'InventarioRedes/MapServer/6'
     });
@@ -156,40 +156,40 @@ function cargarTuberias(){
     });
 }
 
-function cargarConcesion(){
+function cargarConcesion() {
     mapAreaConcesion = L.esri.featureLayer({
         url: baseUrl + 'MapaBaseWebMercator/MapServer/3'
     });
 }
 
-function iniciarLayers(lat ,long, opcion, datos = null){
-    if(opcion === 'actualizar'){
+function iniciarLayers(lat, long, opcion, datos = null) {
+    if (opcion === 'actualizar') {
         cargarLayersActualizar(lat, long);
-    }else if (opcion === 'mostrar'){
+    } else if (opcion === 'mostrar') {
         cargarLayers(datos, lat, long);
-    }else{
-        $.get( document.getElementById('obtenerAmpliaciones').value, function( data ) {
-        
-            if(data != null){
-                data = JSON.parse( data.ampliacion);
+    } else {
+        $.get(document.getElementById('obtenerAmpliaciones').value, function (data) {
+
+            if (data != null) {
+                data = JSON.parse(data.ampliacion);
             }
-            if(opcion === 'editar'){
+            if (opcion === 'editar') {
                 cargarLayersEditar(data, lat, long);
-            }else if(opcion === 'mapa'){
+            } else if (opcion === 'mapa') {
                 cargarLayers(data, lat, long);
             }
-          });
+        });
     }
 
-    
+
 }
 
-function cargarLayersEditar(data, lat , long){
+function cargarLayersEditar(data, lat, long) {
     cargarConcesion();
     cargarTuberias();
-    mapAmpliaciones =  L.geoJSON(data,{
-        style: function(feature){
-            return {color:'#ff0000'}
+    mapAmpliaciones = L.geoJSON(data, {
+        style: function (feature) {
+            return { color: '#ff0000' }
         }
     });
     drawnItems = L.featureGroup();
@@ -197,7 +197,7 @@ function cargarLayersEditar(data, lat , long){
     concesionItems = L.featureGroup([mapAreaConcesion]);
     tuberiasItems = L.featureGroup([mapTuberiasAguaPotable]);
 
-    
+
     openStreetMap = L.tileLayer('http://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
         maxZoom: 22,
         maxNativeZoom: 20,
@@ -237,7 +237,7 @@ function cargarLayersEditar(data, lat , long){
             circlemarker: false
 
         }
-        
+
     }))
 
     map.on(L.Draw.Event.CREATED, function (e) {
@@ -245,7 +245,8 @@ function cargarLayersEditar(data, lat , long){
             layer = e.layer;
         if (type === 'polyline') {
             console.log(layer);
-            layer.options.color='#ff0000'
+            layer.options.color = '#ff0000'
+            layer.options.opacity = 1.0;
             drawnItems.addLayer(layer);
             guardarcambios('crear');
             console.log(layer.getDistance())
@@ -267,7 +268,7 @@ function cargarLayersEditar(data, lat , long){
     });
 
 
-    L.marker([lat, long],{color:'red'}).addTo(map);
+    L.marker([lat, long], { color: 'red' }).addTo(map);
 
     tuberiasItems.addTo(map);
 
@@ -278,13 +279,15 @@ function cargarLayersEditar(data, lat , long){
 
 }
 
-function cargarLayers(data, lat , long){
+function cargarLayers(data, lat, long) {
     cargarConcesion();
     cargarTuberias();
-    mapAmpliaciones =  L.geoJSON(data,{
-        style: function(feature){
-            return {color:'#ff0000',
-                    weight:6}
+    mapAmpliaciones = L.geoJSON(data, {
+        style: function (feature) {
+            return {
+                color: '#ff0000',
+                weight: 6
+            }
             //return {color:'#48E120'}
 
         }
@@ -294,7 +297,7 @@ function cargarLayers(data, lat , long){
     concesionItems = L.featureGroup([mapAreaConcesion]);
     tuberiasItems = L.featureGroup([mapTuberiasAguaPotable]);
 
-    
+
     openStreetMap = L.tileLayer('http://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
         maxZoom: 22,
         maxNativeZoom: 20,
@@ -322,7 +325,7 @@ function cargarLayers(data, lat , long){
     ).addTo(map)
 
 
-    L.marker([lat, long],{color:'red'}).addTo(map);
+    L.marker([lat, long], { color: 'red' }).addTo(map);
 
 
     /* capasMapa(); */
@@ -331,7 +334,7 @@ function cargarLayers(data, lat , long){
 
 }
 
-function cargarLayersActualizar(lat, long){
+function cargarLayersActualizar(lat, long) {
     let options = {};
     cargarConcesion();
     cargarTuberias();
@@ -339,7 +342,7 @@ function cargarLayersActualizar(lat, long){
     concesionItems = L.featureGroup([mapAreaConcesion]);
     tuberiasItems = L.featureGroup([mapTuberiasAguaPotable]);
 
-    
+
     openStreetMap = L.tileLayer('http://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
         maxZoom: 22,
         maxNativeZoom: 20,
@@ -353,7 +356,7 @@ function cargarLayersActualizar(lat, long){
         "Area de Concesion": concesionItems,
         "Mapa de Tuberias": tuberiasItems
     }
-    if(lat != -19.034432 && long != -65.264812){
+    if (lat != -19.034432 && long != -65.264812) {
         options = {
             center: { lat: lat, lng: long },
             zoom: 18,
@@ -361,9 +364,9 @@ function cargarLayersActualizar(lat, long){
             layers: [openStreetMap, drawnItems],
             fullscreenControl: true
         }
-    }else{
+    } else {
         options = {
-            center: { lat: -19.0429, lng:  -65.2554 },
+            center: { lat: -19.0429, lng: -65.2554 },
             zoom: 15,
             zoomControl: false,
             layers: [openStreetMap, drawnItems],
@@ -382,7 +385,7 @@ function cargarLayersActualizar(lat, long){
         edit: {
             featureGroup: drawnItems,
         },
-        delete:{
+        delete: {
             disabled: true,
         },
         draw: {
@@ -393,7 +396,7 @@ function cargarLayersActualizar(lat, long){
             circlemarker: false
 
         }
-        
+
     }))
 
     map.on(L.Draw.Event.CREATED, function (e) {
@@ -402,29 +405,29 @@ function cargarLayersActualizar(lat, long){
         if (type === 'marker') {
             drawnItems.clearLayers();
             drawnItems.addLayer(layer);
-            document.getElementById('x_aprox').value=layer._latlng.lat;
-            document.getElementById('y_aprox').value=layer._latlng.lng;
+            document.getElementById('x_aprox').value = layer._latlng.lat;
+            document.getElementById('y_aprox').value = layer._latlng.lng;
         }
     });
 
     map.on('draw:edited', function (e) {
         var layers = e.layers;
         layers.eachLayer(function (layer) {
-            document.getElementById('x_aprox').value=layer._latlng.lat;
-            document.getElementById('y_aprox').value=layer._latlng.lng;
+            document.getElementById('x_aprox').value = layer._latlng.lat;
+            document.getElementById('y_aprox').value = layer._latlng.lng;
         });
     });
 
     map.on('draw:deleted', function (e) {
         var layers = e.layers;
         layers.eachLayer(function (layer) {
-            document.getElementById('x_aprox').value=lat;
-            document.getElementById('y_aprox').value=long;
+            document.getElementById('x_aprox').value = lat;
+            document.getElementById('y_aprox').value = long;
         });
     });
 
-    if(lat != -19.034432 && long != -65.264812){
-        var marcador = L.marker([lat, long],{color:'red'})
+    if (lat != -19.034432 && long != -65.264812) {
+        var marcador = L.marker([lat, long], { color: 'red' })
         drawnItems.addLayer(marcador)
     }
 
@@ -436,15 +439,15 @@ function cargarLayersActualizar(lat, long){
 
 function addNonGroupLayers(sourceLayer, targetGroup) {
     if (sourceLayer instanceof L.LayerGroup) {
-      sourceLayer.eachLayer(function(layer) {
-        addNonGroupLayers(layer, targetGroup);
-      });
+        sourceLayer.eachLayer(function (layer) {
+            addNonGroupLayers(layer, targetGroup);
+        });
     } else {
-      targetGroup.addLayer(sourceLayer);
+        targetGroup.addLayer(sourceLayer);
     }
-  }
+}
 
-function guardarcambios(cadena){
+function guardarcambios(cadena) {
     const layerJSON = drawnItems.toGeoJSON();
     let formData = new FormData(document.getElementById('formAmpliaciones'));
     formData.append('ampliaciones', JSON.stringify(layerJSON));
@@ -459,14 +462,14 @@ function guardarcambios(cadena){
     });
 }
 
-function calcularDistancia(){
+function calcularDistancia() {
 
-    $.get( document.getElementById('obtenerAmpliaciones').value, function( data ) {
+    $.get(document.getElementById('obtenerAmpliaciones').value, function (data) {
         let distancia = 0;
-        if(data != null){
-            data = JSON.parse( data.ampliacion);
+        if (data != null) {
+            data = JSON.parse(data.ampliacion);
             var sourceLayer = L.geoJSON(data);
-            sourceLayer.eachLayer(function(layer) {
+            sourceLayer.eachLayer(function (layer) {
                 let linea = L.polyline(layer._latlngs);
                 distancia = distancia + linea.getDistance();
                 document.getElementById('longitud_in').value = distancia;
@@ -474,55 +477,55 @@ function calcularDistancia(){
 
             });
         }
-      });
+    });
 }
 
 function downloadMap(caption) {
     ocultarBotones(true);
     console.log(map._container.width)
     var downloadOptions = {
-      container: map._container,
-      caption: {
-        text: caption,
-        font: '30px Arial',
-        fillStyle: 'black',
-        position: [100, 200]
-      },
-      exclude: ['.leaflet-control-zoom', '.leaflet-control-attribution'],
-      format: 'image/png',
-      fileName: 'Map.png'
+        container: map._container,
+        caption: {
+            text: caption,
+            font: '30px Arial',
+            fillStyle: 'black',
+            position: [100, 200]
+        },
+        exclude: ['.leaflet-control-zoom', '.leaflet-control-attribution'],
+        format: 'image/png',
+        fileName: 'Map.png'
     };
     var promise = map.downloadExport(downloadOptions);
     var data = promise.then(function (result) {
-        
+
         document.querySelector('#imgMap').src = result.data;
         document.querySelector('#textMap').value = result.data;
         Swal.fire(
             'Exito!',
             'Captura guardada.',
             'success'
-            )
-        ocultarBotones(false);    
+        )
+        ocultarBotones(false);
     });
-  }
+}
 
-function mapLink(){
+function mapLink() {
     let lat = document.getElementById('x_exact').value;
     let lng = document.getElementById('y_exact').value;
-    var enlace="https://maps.google.com/?q="+lat+","+lng;
-    document.getElementById('ubicacion_geo').value=enlace;
+    var enlace = "https://maps.google.com/?q=" + lat + "," + lng;
+    document.getElementById('ubicacion_geo').value = enlace;
 }
 
 function ocultarBotones(flag) {
     const barras = document.querySelectorAll('.leaflet-top');
-    
-    if(flag){
-        barras.forEach((clase)=>{
+
+    if (flag) {
+        barras.forEach((clase) => {
             clase.style.display = 'none';
-        }); 
-    }else{
-        barras.forEach((clase)=>{
+        });
+    } else {
+        barras.forEach((clase) => {
             clase.style.display = 'block';
-        }); 
+        });
     }
 }

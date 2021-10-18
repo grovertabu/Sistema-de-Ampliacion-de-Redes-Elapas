@@ -60,12 +60,12 @@
         <img src="{{asset('storage/'.$informe->imagen_amp)}}" width="680px" height="400px" alt="">
     </div>
     <div>
-        <div style="background:; float:left; width:750px;">
+        <div style="background:; float:left;">
             <label class="tamanio">&nbsp;&nbsp;OBRA: Ampliacion</label><br>
             <label class="tamanio">&nbsp;&nbsp;CALLE: {{$informe->solicitud->calle_sol}} </label><br>
             <label class="tamanio">&nbsp;&nbsp;FECHA: {{ucfirst($Mes_)}}</label>
         </div>
-        <div style="background:; float:right; width:300px;">
+        <div style="background:; float:right; ">
             <label class="tamanio">RESERVORIO: {{$informe->reservorio}}</label><br>
             <label class="tamanio">PEDIDO N°: {{"0".$pedido}}</label><br>
             <label class="tamanio">DESPACHO</label>
@@ -86,55 +86,28 @@
             <td class="centrar">P.UNITARIO</td>
             <td class="centrar">P.TOTAL</td>
         </tr>
+        @php
+            $precio_total = 0.00;
+        @endphp
         @foreach ($materiales as $material )
+        @php
+            $sub_total = round($material->cantidad * $material->precio_unitario,2);
+        @endphp
         <tr>
             <td class="centrar">{{$n++}}</td>
             <td >{{$material->nombre_material}}</td>
             <td class="centrar tamanio">{{$material->u_medida}}</td>
             <td class="centrar tamanio">{{$material->cantidad}}</td>
-            <td class="centrar tamanio"></td>
-            <td class="centrar tamanio"></td>
-            <td class="centrar tamanio"></td>
+            <td class="centrar tamanio">{{$material->observador}}</td>
+            <td class="centrar tamanio">{{$material->precio_unitario}}</td>
+            <td class="centrar tamanio">{{$sub_total}}</td>
         </tr>
+        @php
+            $precio_total = $precio_total + $sub_total;
+        @endphp
         @endforeach
-        <tr>
-            <td class="centrar">-</td>
-            <td class="centrar"></td>
-            <td class="centrar"></td>
-            <td class="centrar"></td>
-            <td class="centrar"></td>
-            <td class="centrar"></td>
-            <td class="centrar"></td>
-        </tr>
-        <tr>
-            <td class="centrar">-</td>
-            <td class="centrar"></td>
-            <td class="centrar"></td>
-            <td class="centrar"></td>
-            <td class="centrar"></td>
-            <td class="centrar"></td>
-            <td class="centrar"></td>
-        </tr>
-        <tr>
-            <td class="centrar">-</td>
-            <td class="centrar"></td>
-            <td class="centrar"></td>
-            <td class="centrar"></td>
-            <td class="centrar"></td>
-            <td class="centrar"></td>
-            <td class="centrar"></td>
-        </tr>
-        <tr>
-            <td class="centrar">-</td>
-            <td class="centrar"></td>
-            <td class="centrar"></td>
-            <td class="centrar"></td>
-            <td class="centrar"></td>
-            <td class="centrar"></td>
-            <td class="centrar"></td>
-        </tr>
     </table>
-    <div class="total" ></div>
+    <div class="centrar total" >{{$precio_total}}</div>
 
     <br><br>
 
@@ -151,37 +124,30 @@
             <td class="centrar">P.UNITARIO</td>
             <td class="centrar">P.TOTAL</td>
         </tr>
+        @php
+        $precio_total = 0.00;
+        $n = 1;
+        @endphp
+        @foreach ($mano_obra as $mano )
+        @php
+            $sub_total = round($mano->cantidad * $mano->precio_unitario,2);
+        @endphp
+        <tr>
+            <td class="centrar">{{$n++}}</td>
+            <td >{{$mano->descripcion}}</td>
+            <td class="centrar tamanio">{{$mano->unidad}}</td>
+            <td class="centrar tamanio">{{$mano->cantidad}}</td>
+            <td class="centrar tamanio">{{$mano->observador}}</td>
+            <td class="centrar tamanio">{{$mano->precio_unitario}}</td>
+            <td class="centrar tamanio">{{$sub_total}}</td>
+        </tr>
+        @php
+            $precio_total = $precio_total + $sub_total;
+        @endphp
+        @endforeach
 
-        <tr>
-            <td class="centrar">1</td>
-            <td class="tamanio">TENDIDO de 2"</td>
-            <td class="centrar tamanio">{{$mano_obra->u_medida}}</td>
-            <td class="centrar tamanio">{{$mano_obra->cantidad}}</td>
-            <td></td>
-            <td></td>
-            <td>ELAPAS</td>
-        </tr>
-
-        <tr>
-            <td class="centrar">2</td>
-            <td class="tamanio">EXCABACION TERRENO</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>Vecinos</td>
-        </tr>
-        <tr>
-            <td class="centrar">3</td>
-            <td class="tamanio">TAPADO DE SANJA</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>Vecinos</td>
-        </tr>
     </table>
-    <div class="total" ></div>
+    <div class="centrar total" >{{$precio_total}}</div>
 </div>
     <div><br><br>
         @foreach ($inspector as $i )

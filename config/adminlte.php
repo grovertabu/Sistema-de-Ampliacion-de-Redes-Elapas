@@ -224,7 +224,7 @@ return [
     */
 
     'menu' => [
-        
+
         [
             'text' => 'Buscar',
             'search' => false,
@@ -290,13 +290,6 @@ return [
 
         ],
         [
-            'text' => 'Mano de Obra',
-            'route'  => 'mano_obra.index',
-            'icon' => 'far fa-fw fa-circle text-yellow',
-            'can' => 'inspector',
-
-        ],
-        [
             'text' => 'Informes Autorizados',
             'route'  => 'informes.autorizado',
             'icon' => 'fa fa-fw fa-file-pdf',
@@ -318,7 +311,7 @@ return [
                     'text' => 'Material',
                     'route'  => 'materials.index',
                 ],
-                
+
             ],
             'can' => 'inspector'
         ],
@@ -364,7 +357,7 @@ return [
         //     'url'        => '#',
         // ],
     ],
-   
+
     /*
     |--------------------------------------------------------------------------
     | Menu Filters
@@ -507,7 +500,7 @@ return [
                 ],
             ],
         ],
-        
+
         'funciones' => [
             'active' => true,
             'files' => [
@@ -524,7 +517,7 @@ return [
             ],
         ],
     ],
-    
+
     /*
     |--------------------------------------------------------------------------
     | Livewire

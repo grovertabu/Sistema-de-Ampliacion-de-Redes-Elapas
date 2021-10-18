@@ -24,7 +24,7 @@ class Materials_informesController extends Controller
                 ->where('materials.estado','disponible')
                 ->where('informes.id','1')
                 ->get();
-        
+
             // $informes = Informe::where('id','1')->get();
             return view('material_informe.index',compact('mat_inf'));
     }
@@ -47,7 +47,7 @@ class Materials_informesController extends Controller
     }
     public function create()
     {
-        
+
         $materials = Material::where('estado','disponible')->get();
         $informes = Informe::all();
         return view('material_informe.create',compact('materials'),compact('informes'));
@@ -62,10 +62,11 @@ class Materials_informesController extends Controller
         $mat_inf->material_id = $request->id_material;
         $mat_inf->cantidad    = $request->cantidad;
         $mat_inf->u_medida    = $u_material->unidad_med;
-        $mat_inf->save();          
+        $mat_inf->observador = $request->observador;
+        $mat_inf->save();
 
         return redirect()->route('informes.registrar_material',$request->id_informe);
-        
+
     }
 
 
@@ -81,7 +82,7 @@ class Materials_informesController extends Controller
         $mat_info = Informe_material::find($mat_inf);
         $mat_info->delete();
         return redirect()->route('informes.registrar_material',$mat_info->informe_id);
-        
+
     }
 
 
