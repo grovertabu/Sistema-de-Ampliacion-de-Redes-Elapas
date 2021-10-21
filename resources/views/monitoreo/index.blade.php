@@ -46,24 +46,24 @@
             <td>{{$sol->calle_sol}}</td>
             <td align="center"><span class="badge badge-primary">{{$sol->estado_in == null ? strtoupper($sol->estado_sol): strtoupper($sol->estado_in)}}</span></td>
             <td>
-                <a type="button" class="d-inline btn btn-warning btn-icon btn-xs mb-1" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="visualizarMapa({{$sol->x_aprox}},{{$sol->y_aprox}}, {{$sol->solicitud_id}})" id="btn_mostrar_mapa" >
-                    Visualizar <i class="fas fa-eye"></i></a>
+                <a type="button" class="d-inline btn btn-warning btn-icon" title="Visualizar" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="visualizarMapa({{$sol->x_aprox}},{{$sol->y_aprox}}, {{$sol->solicitud_id}})" id="btn_mostrar_mapa" >
+                    <i class="fas fa-eye"></i></a>
                 @can('Monitor')
                 @if ($sol->estado_sol == 'asignado')
-                <br>
-                <a href="{{route('descargarPDF.informe',$sol->id)}}" target="_blank" class="btn btn-danger btn-icon btn-xs">Informe
+
+                <a href="{{route('descargarPDF.informe',$sol->id)}}" target="_blank" class="btn btn-danger btn-icon" title="Informe">
                     <i class="fas fa-file-pdf"></i></a>
                 @endif
                 @endcan
                 @can('Proyectista')
                 @if ($sol->estado_in =='ejecutado')
-                <br>
-                <a href="{{route('descargarPDF.proyecto',$sol->id)}}" target="_blank" class="btn btn-danger btn-icon btn-xs">Informe Proyeccion
+
+                <a href="{{route('descargarPDF.proyecto',$sol->id)}}" target="_blank" class="btn btn-danger btn-icon" title="Informe Proyeccion">
                     <i class="fas fa-file-pdf"></i></a>
                 @endif
                 @if ($sol->estado_in =='firmado')
-                <br>
-                <a href="{{route('informes.aprobar_proyecto',$sol->id)}}" target="_blank" class="btn btn-success btn-icon btn-xs">Aprobar Proyecto
+
+                <a href="{{route('informes.aprobar_proyecto',$sol->id)}}" target="_blank" class="btn btn-success btn-icon" title="Aprobar Proyecto">
                     <i class="fas fa-check"></i></a>
                 @endif
                 @endcan

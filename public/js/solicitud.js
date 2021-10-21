@@ -38,7 +38,8 @@ document.querySelector('.boton-aprobar').addEventListener('click', (e) => {
         cancelButtonText: 'cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location = e.target.href;
+            const enlace = typeof e.target.href === 'undefined' ? e.target.parentElement.href : e.target.href;
+            window.location = enlace;
         }
     });
 });

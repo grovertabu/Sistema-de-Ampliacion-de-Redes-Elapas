@@ -23,7 +23,7 @@
             <th>NRO</th>
             <th>ZONA O BARRIO</th>
             <th>NOMBRE SOLICITANTE</th>
-            <th>FECHA <br>INSPECCION</th>
+            <th>FECHA <br>EJECUCION</th>
             <th>ESTADO</th>
             <th>Acciones</th>
           </tr>
@@ -37,18 +37,58 @@
                     <td>{{$inf->fecha_inspeccion}}</td>
                     <td align="center"><span class="badge badge-primary">{{$inf->estado}}</span></td>
                     <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{$n}}">
+                            informes <i class="fa fa-file"></i>
+                          </button>
 
-                    <a href='{{route('descargarPDF.informe',$inf->id_informe)}}' target="_blank"
-                        class='btn btn-danger btn-icon btn-xs'>Informe <i class="fas fa-file-pdf"></i></a>
+                          <div class="modal fade" id="exampleModal{{$n}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Informes</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body" style="text-align: center;">
+                                    <p>
+                                        <a href='{{route('descargarPDF.informe',$inf->id_informe)}}' target="_blank"
+                                            class='btn btn-danger btn-icon w-75'>Informe <i class="fas fa-file-pdf"></i></a>
 
-                    <a href='{{route('pedidoPDF.informe',$inf->id_informe)}}' target="_blank"
-                    class='btn btn-danger btn-icon btn-xs'>Reporte de pedido <i class="fas fa-box-open"></i></a>
+                                    </p>
+                                    <p>
+                                        <a href='{{route('pedidoPDF.informe',$inf->id_informe)}}' target="_blank"
+                                        class='btn btn-danger btn-icon w-75'>Reporte de pedido <i class="fas fa-box-open"></i></a>
 
-                    <a href='{{route('reportePDF.informe_material',$inf->id_informe)}}' target="_blank"
-                        class='btn btn-danger btn-icon btn-xs'>Informe Ampliacion <i class="fas fa-file-pdf"></i></a>
+                                    </p>
+                                    <p>
+                                        <a href='{{route('reportePDF.informe_material',$inf->id_informe)}}' target="_blank"
+                                            class='btn btn-danger btn-icon w-75'>Informe Ampliacion <i class="fas fa-file-pdf"></i></a>
 
-                    <a href='{{route('reportePDF.informe_descargo_material',$inf->id_informe)}}' target="_blank"
-                        class='btn btn-danger btn-icon btn-xs'>Informe Descargo Material<i class="fas fa-box-open"></i></a>
+                                    </p>
+                                    <p>
+                                        <a href='{{route('reportePDF.informe_descargo_material',$inf->id_informe)}}' target="_blank"
+                                            class='btn btn-danger btn-icon w-75'>Informe Descargo Material <i class="fas fa-box-open"></i></a>
+
+                                    </p>
+                                    <p>
+                                        <a href="{{route('descargarPDF.proyecto',$inf->id_informe)}}" target="_blank"
+                                            class="btn btn-danger btn-icon w-75">Informe Proyeccion <i class="fas fa-file-pdf"></i></a>
+
+                                    </p>
+
+
+
+
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
 
                     </td>
 
@@ -60,7 +100,7 @@
                 <th>NRO</th>
                 <th>ZONA O BARRIO</th>
                 <th>NOMBRE SOLICITANTE</th>
-                <th>FECHA <br>INSPECCION</th>
+                <th>FECHA <br>EJECUCION</th>
                 <th>ESTADO</th>
                 <th>Acciones</th>
             </tr>

@@ -41,13 +41,13 @@
                     <div class="form-group col-md-6">
                         <label for="ancho">Ancho</label>
                         <div class="input-group">
-                            <input class="form-control" type="number" min="0.00" step="0.01" oninput="calcularVolumen()"  name="ancho" id="ancho" placeholder="Ancho" >
+                            <input class="form-control" type="number" min="0.00" step="0.01" oninput="calcularVolumen()"  name="ancho" id="ancho" placeholder="Ancho" disabled>
                         </div>
                     </div>
                     <div class="form-group col-6">
                         <label for="cantidad">Alto</label>
                         <div class="input-group">
-                            <input type="number" min="0.00" step="0.01" name="alto" id="alto" oninput="calcularVolumen()"   class="form-control" placeholder="Alto" >
+                            <input type="number" min="0.00" step="0.01" name="alto" id="alto" oninput="calcularVolumen()"   class="form-control" placeholder="Alto" disabled>
                         </div>
 
                     </div>
@@ -56,7 +56,7 @@
                     <div class="form-group col-md-6">
                         <label for="nombre_material">Largo</label>
                         <div class="input-group">
-                            <input class="form-control" type="number" min="0.00" step="0.01" oninput="calcularVolumen()"  name="largo" id="largo" placeholder="Largo">
+                            <input class="form-control" type="number" min="0.00" step="0.01" oninput="calcularVolumen()"  name="largo" id="largo" placeholder="Largo" disabled>
                         </div>
                     </div>
                     <div class="form-group col-6">
@@ -71,14 +71,14 @@
                     <div class="form-group col-6">
                         <label for="cantidad">Cantidad</label>
                         <div class="input-group">
-                            <input type="number" min="0.00" step = "0.01" name="cantidad" onchange="calcularVolumen()" id="cantidad" class="form-control" placeholder="Cantidad de Material" required>
+                            <input type="number" min="0.00" step = "0.01" name="cantidad" onchange="calcularVolumen()" id="cantidad" class="form-control" placeholder="Cantidad de Material" required disabled>
                         </div>
 
                     </div>
                     <div class="form-group col-6">
                         <label for="cantidad">Precio Unitario</label>
                         <div class="input-group">
-                            <input type="number" min="0.00" step="0.01" name="precio_uni" id="precio" class="form-control" placeholder="Precio Unitario del Material" required>
+                            <input type="number" min="0.00" step="0.01" name="precio_uni" id="precio" class="form-control" placeholder="Precio Unitario del Material" required disabled>
                         </div>
 
                     </div>

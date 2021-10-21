@@ -18,21 +18,21 @@ class CreateEjecucionsTable extends Migration
             $table->date('fecha_progrmada');
             $table->date('fecha_ejecutada')->nullable();
             $table->text('observaciones')->nullable();
+            $table->boolean('estado_informe')->default(0);
             $table->unsignedBigInteger('informe_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
             $table->foreign('informe_id')
-            ->references('id')
-            ->on('informes')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+                ->references('id')
+                ->on('informes')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->foreign('user_id')
-            ->references('id')
-            ->on('users')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
-
     }
 
     /**

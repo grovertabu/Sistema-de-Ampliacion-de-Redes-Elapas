@@ -84,30 +84,52 @@ class InformeController extends Controller
     {
         $id = Auth::user()->id;
         $aux = Auth::user()->tipo_user;
+        $ej = "";
         if ($aux == 'Inspector') {
-            $informes = DB::table('informes')
-                ->join('solicituds', 'solicituds.id', '=', 'informes.solicitud_id')
-                ->join('cronogramas', 'cronogramas.solicitud_id', '=', 'solicituds.id')
-                ->leftJoin('ejecucions', 'ejecucions.informe_id', '=', 'informes.id')
-                ->select(
-                    'informes.id as id_informe',
-                    'solicituds.id as id_solicitud',
-                    'solicituds.nombre_sol as nombre_sol',
-                    'solicituds.zona_sol as zona_sol',
-                    'informes.fecha_hora_in as fecha_inspeccion',
-                    'informes.estado_in as estado',
-                    'cronogramas.user_id as user_id',
-                    'ejecucions.id as id_ejecucion',
-                    'ejecucions.fecha_progrmada as fecha_programada',
-                    'ejecucions.fecha_ejecutada as fecha_ejecutada'
-                )
-                ->where('cronogramas.user_id', $id)
-                ->where('informes.estado_in', 'registrado')
-                ->orWhere('informes.estado_in', 'autorizado')
-                ->orWhere('informes.estado_in', 'firmado')
-                ->orWhere('informes.estado_in', 'ejecutando')
-                ->get();
+            $ej = "ins";
+            // $informes = DB::table('informes')
+            //     ->join('solicituds', 'solicituds.id', '=', 'informes.solicitud_id')
+            //     ->join('cronogramas', 'cronogramas.solicitud_id', '=', 'solicituds.id')
+            //     ->leftJoin('ejecucions', 'ejecucions.informe_id', '=', 'informes.id')
+            //     ->select(
+            //         'informes.id as id_informe',
+            //         'solicituds.id as id_solicitud',
+            //         'solicituds.nombre_sol as nombre_sol',
+            //         'solicituds.zona_sol as zona_sol',
+            //         'informes.fecha_hora_in as fecha_inspeccion',
+            //         'informes.estado_in as estado',
+            //         'cronogramas.user_id as user_id',
+            //         'ejecucions.id as id_ejecucion',
+            //         'ejecucions.fecha_progrmada as fecha_programada',
+            //         'ejecucions.fecha_ejecutada as fecha_ejecutada'
+            //     )
+            //     ->where('cronogramas.user_id', $id)
+            //     ->where('informes.estado_in', 'registrado')
+            //     ->orWhere('informes.estado_in', 'autorizado')
+            //     ->orWhere('informes.estado_in', 'firmado')
+            //     ->orWhere('informes.estado_in', 'ejecutando')
+            //     ->get();
+            $cadena = "SELECT informes.id as id_informe,
+            solicituds.id as id_solicitud,
+            solicituds.x_aprox as x_aprox,
+            solicituds.y_aprox as y_aprox,
+            solicituds.nombre_sol as nombre_sol,
+            solicituds.zona_sol as zona_sol,
+            informes.fecha_hora_in as fecha_inspeccion,
+            informes.estado_in as estado,
+            cronogramas.user_id as user_id,
+            ejecucions.id as id_ejecucion,
+            ejecucions.fecha_progrmada as fecha_programada,
+            ejecucions.fecha_ejecutada as fecha_ejecutada,
+            ejecucions.estado_informe as estado_informe
+            FROM informes INNER JOIN solicituds ON solicituds.id = informes.solicitud_id
+            INNER JOIN cronogramas ON cronogramas.solicitud_id = solicituds.id
+            LEFT JOIN ejecucions ON ejecucions.informe_id = informes.id
+            WHERE cronogramas.user_id = " . $id . "
+            AND (informes.estado_in = 'registrado' OR informes.estado_in = 'autorizado' OR informes.estado_in = 'firmado' OR informes.estado_in = 'ejecutando')";
+            $informes = DB::select($cadena);
         } else {
+            $ej = "jefe";
             $informes = DB::table('informes')
                 ->join('solicituds', 'solicituds.id', '=', 'informes.solicitud_id')
                 ->join('cronogramas', 'cronogramas.solicitud_id', '=', 'solicituds.id')
@@ -115,6 +137,8 @@ class InformeController extends Controller
                 ->select(
                     'informes.id as id_informe',
                     'solicituds.id as id_solicitud',
+                    'solicituds.x_aprox as x_aprox',
+                    'solicituds.y_aprox as y_aprox',
                     'solicituds.nombre_sol as nombre_sol',
                     'solicituds.zona_sol as zona_sol',
                     'informes.fecha_hora_in as fecha_inspeccion',
@@ -132,7 +156,7 @@ class InformeController extends Controller
                 ->get();
         }
 
-        return view('informes.autorizado', compact('informes', 'id', 'aux'));
+        return view('informes.autorizado', compact('informes', 'id', 'aux', 'ej'));
         // return $informes;
     }
 

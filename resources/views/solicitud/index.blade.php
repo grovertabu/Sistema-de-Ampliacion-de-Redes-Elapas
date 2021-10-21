@@ -7,11 +7,11 @@
 @section('content_header')
   <style>
    #map {
-      margin-top: 20px; 
+      margin-top: 20px;
       width: 80%;
       height: 400px;
       position: absolute;
-    } 
+    }
   </style>
     <h1>ELAPAS - Solicitud
         @can('solicitud.create')
@@ -32,7 +32,7 @@
     <div class="table table-bordered table-hover dataTable table-responsive" id="contenedor-tabla">
         <table class="table table-bordered datatable" id="example">
         <thead>
-          <tr>	
+          <tr>
             <th>Nro</th>
             <th>Nombre solicitante</th>
             <th>Celular</th>
@@ -43,7 +43,7 @@
           </tr>
         </thead>
         <tbody>
-          
+
             @foreach ($solicitud as $sol)
                 <tr>
                     <td>{{$n++}}</td>
@@ -53,35 +53,32 @@
                     <td>{{$sol->calle_sol}}</td>
                     <td>{{$sol->estado_sol}}</td>
                     <td>
-                        <a type="button" class="d-inline btn btn-warning btn-icon btn-xs" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="visualizarMapa({{$sol->x_aprox}},{{$sol->y_aprox}}, {{$sol->id}})" id="btn_mostrar_mapa" >
-                            Visualizar <i class="fas fa-eye"></i></a>
+                        <a type="button" class="d-inline btn btn-warning btn-icon" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="visualizarMapa({{$sol->x_aprox}},{{$sol->y_aprox}}, {{$sol->id}})" title="Visualizar" id="btn_mostrar_mapa" >
+                            <i class="fas fa-eye"></i></a>
                         @if($sol->estado_sol!='rechazado')
-                            
+
                         @can('solicitud.edit')
-                        <a href='{{route('solicitud.edit',$sol)}}' 
-                        class='d-inline btn btn-info btn-icon btn-xs'>Editar <i class="fas fa-pencil-alt"></i></a>
+                        <a type="button" href='{{route('solicitud.edit',$sol)}}'
+                        class='d-inline btn btn-info btn-icon'title="Editar"><i class="fas fa-pencil-alt"></i></a>
                         @endcan
                         @can('jefe-red')
-                        <br>
-                        <a href='{{route('solicitud.aprobar',$sol)}}' 
-                        class='d-inline btn btn-success btn-icon btn-xs boton-aprobar'>Aprobar <i class="fas fa-check"></i></a>
+                        <a href='{{route('solicitud.aprobar',$sol)}}'
+                        class='d-inline btn btn-success btn-icon boton-aprobar'title="Aprobar"><i class="fas fa-pencil-alt"></i></a>
                         @endcan
                         @can('jefe-red')
-                        <br>
                         <a type="button" data-toggle="modal" data-toggle="modal" data-target="#exampleModal" onclick="modalObservaciones({{$sol->id }})"
-                        class='d-inline btn btn-danger btn-icon btn-xs'>Rechazar <i class="fas fa-times"></i></a>
-                        @endcan 
-                        @can('solicitud.delete')       
+                        class='d-inline btn btn-danger btn-icon' title="Rechazar"><i class="fas fa-times"></i></a>
+                        @endcan
+                        @can('solicitud.delete')
                         <form action="{{route('solicitud.destroy',$sol)}}" class="d-inline elimina" method="POST">
                             @csrf
                             @method('delete')
-                            <button class='btn btn-danger btn-icon btn-xs' type="submit">Eliminar  <i class="fas fa-trash"></i></button>
+                            <button class='btn btn-danger btn-icon' title="Eliminar" type="submit"><i class="fas fa-trash"></i></button>
                         </form>
                         @endcan
                         @else
-                        <br>
-                        <a href='{{route('solicitud.PDFrechazado',$sol)}}' target='_blank'
-                            class='d-inline btn btn-danger btn-icon btn-xs'>Reporte <i class="fas fa-file"></i></a>  
+                        <a href='{{route('solicitud.PDFrechazado',$sol)}}' type="button" target='_blank'
+                            class='d-inline btn btn-danger btn-icon' title="Reporte"><i class="fas fa-file"></i></a>
                         @endif
 
                     </td>
@@ -143,7 +140,7 @@
                 <textarea class="form-control" name="observaciones" id="observaciones" rows="3"></textarea>
                 <input type="hidden"  id="id_ruta" name="id_ruta">
             </div>
-          
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -166,15 +163,15 @@
     {{-- <button type="button" class="btn btn-primary m-1" id="btnOpenSaltB">Open Sweetalert2 (Basic)</button>
     <button type="button" class="btn btn-success m-1" id="btnOpenSaltC">Open Sweetalert2 (Custom)</button> --}}
     @endcan
-    
+
 @stop
-    
+
 @section('js')
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 <script src="https://unpkg.com/esri-leaflet@2.3.2/dist/esri-leaflet.js" integrity="sha512-6LVib9wGnqVKIClCduEwsCub7iauLXpwrd5njR2J507m3A2a4HXJDLMiSZzjcksag3UluIfuW1KzuWVI5n/cuQ==" crossorigin=""></script>
 <script src="https://unpkg.com/esri-leaflet-geocoder@2.3.2/dist/esri-leaflet-geocoder.js" integrity="sha512-8twnXcrOGP3WfMvjB0jS5pNigFuIWj4ALwWEgxhZ+mxvjF5/FBPVd5uAxqT8dd2kUmTVK9+yQJ4CmTmSg/sXAQ==" crossorigin=""></script>
-<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>  
+<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
 
     @if(session('eliminar')=='Ok')
     <script>

@@ -94,7 +94,7 @@
             $sub_total = round($material->cantidad * $material->precio_unitario,2);
         @endphp
         <tr>
-            <td class="centrar">{{$n++}}</td>
+            <td class="centrar" width="15px">{{$n++}}</td>
             <td >{{$material->nombre_material}}</td>
             <td class="centrar tamanio">{{$material->u_medida}}</td>
             <td class="centrar tamanio">{{$material->cantidad}}</td>
@@ -133,7 +133,7 @@
             $sub_total = round($mano->cantidad * $mano->precio_unitario,2);
         @endphp
         <tr>
-            <td class="centrar">{{$n++}}</td>
+            <td class="centrar" width="15px">{{$n++}}</td>
             <td >{{$mano->descripcion}}</td>
             <td class="centrar tamanio">{{$mano->unidad}}</td>
             <td class="centrar tamanio">{{$mano->cantidad}}</td>

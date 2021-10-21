@@ -16,7 +16,7 @@
     setlocale(LC_TIME, "spanish");
 
     $Mes_sol = strftime("%B", strtotime($mes_sol));
-
+    $n =1;
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -53,6 +53,24 @@
     }
     div.firma2{
         text-align: right;
+    }
+
+    .tabla_materiales,td{
+        border: 1px solid black;
+        border-collapse:collapse;
+    }
+    .borde{
+        outline: 2px solid black;
+    }
+    .total{
+        float: right;
+        border: 1px dashed black;
+        height: 21px;
+        width: 83px;
+        outline: 1px solid black;
+    }
+    .tamanio{
+        font-size: 13px;
     }
 
     </style>
@@ -116,6 +134,84 @@
 
     </tr>
 </table>
+
+<div><br>
+    <table width="100%" class="tabla_materiales">
+        <tr>
+            <td colspan="7">A. MATERIALES</td>
+        </tr>
+        <tr>
+            <td class="centrar">N°</td>
+            <td class="centrar">DESCRIPCION</td>
+            <td class="centrar">UNIDAD</td>
+            <td class="centrar">CANTIDAD</td>
+            <td class="centrar">OBSERVACION</td>
+            <td class="centrar">P.UNITARIO</td>
+            <td class="centrar">P.TOTAL</td>
+        </tr>
+        @php
+            $precio_total = 0.00;
+        @endphp
+        @foreach ($materiales as $material )
+        @php
+            $sub_total = round($material->cantidad * $material->precio_unitario,2);
+        @endphp
+        <tr>
+            <td class="centrar">{{$n++}}</td>
+            <td >{{$material->nombre_material}}</td>
+            <td class="centrar tamanio">{{$material->u_medida}}</td>
+            <td class="centrar tamanio">{{$material->cantidad}}</td>
+            <td class="centrar tamanio">{{$material->observador}}</td>
+            <td class="centrar tamanio">{{$material->precio_unitario}}</td>
+            <td class="centrar tamanio">{{$sub_total}}</td>
+        </tr>
+        @php
+            $precio_total = $precio_total + $sub_total;
+        @endphp
+        @endforeach
+    </table>
+    <div class="centrar total" >{{$precio_total}} Bs.</div>
+
+    <br><br>
+
+    <table width="100%" class="tabla_materiales">
+        <tr>
+            <td colspan="7">B. MANO DE OBRA</td>
+        </tr>
+        <tr>
+            <td class="centrar">N°</td>
+            <td class="centrar">DESCRIPCION</td>
+            <td class="centrar">UNIDAD</td>
+            <td class="centrar">CANTIDAD</td>
+            <td class="centrar">OBSERVACION</td>
+            <td class="centrar">P.UNITARIO</td>
+            <td class="centrar">P.TOTAL</td>
+        </tr>
+        @php
+        $precio_total = 0.00;
+        $n = 1;
+        @endphp
+        @foreach ($mano_obra as $mano )
+        @php
+            $sub_total = round($mano->cantidad * $mano->precio_unitario,2);
+        @endphp
+        <tr>
+            <td class="centrar">{{$n++}}</td>
+            <td >{{$mano->descripcion}}</td>
+            <td class="centrar tamanio">{{$mano->unidad}}</td>
+            <td class="centrar tamanio">{{$mano->cantidad}}</td>
+            <td class="centrar tamanio">{{$mano->observador}}</td>
+            <td class="centrar tamanio">{{$mano->precio_unitario}}</td>
+            <td class="centrar tamanio">{{$sub_total}}</td>
+        </tr>
+        @php
+            $precio_total = $precio_total + $sub_total;
+        @endphp
+        @endforeach
+
+    </table>
+    <div class="centrar total" >{{$precio_total}} Bs.</div>
+</div>
 <br>
 <p style="text-align:left; margin-left:10px">
     El proyecto de ampliación de red ha sido aprobado y generado para la solicitud N° <b>{{$informe->solicitud_id.'/'.date('Y')}}</b>

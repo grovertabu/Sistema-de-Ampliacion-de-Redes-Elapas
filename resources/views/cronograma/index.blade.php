@@ -30,7 +30,7 @@
     <div class="table table-bordered table-hover dataTable table-responsive">
         <table class="table table-bordered datatable" id="example">
         <thead>
-          <tr>	
+          <tr>
             <th>Nro</th>
             <th>Nombre solicitante</th>
             <th>Celular</th>
@@ -51,8 +51,8 @@
               <td>{{$sol->calle_sol}}</td>
               <td>{{$sol->estado_sol}}</td>
               <td>
-                  <button type="button" class='btn btn-primary btn-icon btn-xs' data-toggle="modal" data-target=".bd-example-modal-lg{{$sol->id}}"
-                  onclick="">Asignar Inspector <i class="fas fa-user-plus"></i></button>
+                  <button type="button" class='btn btn-primary btn-icon' data-toggle="modal" data-target=".bd-example-modal-lg{{$sol->id}}"
+                  onclick="" title="Asignar Inspector" ><i class="fas fa-user-check"></i></button>
 
                   <!-- Large modal -->
                   <div class="modal fade bd-example-modal-lg{{$sol->id}}" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="overflow:hidden;">
@@ -119,13 +119,13 @@
                   </div>
 
 
-                  <a type="button" class="d-inline btn btn-warning btn-icon btn-xs" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="mimapa({{$sol->x_aprox}},{{$sol->y_aprox}})" id="btn_mostrar_mapa">
-                      Visualizar <i class="fas fa-eye"></i></a>
+                  <a type="button" class="d-inline btn btn-warning btn-icon" title="Visualizar" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="mimapa({{$sol->x_aprox}},{{$sol->y_aprox}})" id="btn_mostrar_mapa">
+                      <i class="fas fa-eye"></i></a>
               </td>
           </tr>
       @endforeach
           @endcan
-          
+
         </tbody>
         <tfoot>
             <tr>
@@ -145,7 +145,7 @@
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div id="map" class="modal-content">
-      
+
     </div>
   </div>
 </div>
@@ -156,7 +156,7 @@
         src="https://maps.googleapis.com/maps/api/js?language=en&key=AIzaSyBUW9zimMRIYLdOBY4FrSyqd13IaJ7N4Y0">
 </script>
 
-    
+
 @stop
 @section('js')
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -176,11 +176,11 @@
                map:map,
            });
         }
-        
+
         $('.select2').select2();
         $.fn.modal.Constructor.prototype._enforceFocus = function() {};
-   
-        
+
+
     </script>
     <script src="{{asset('js/cronograma.js')}}"></script>
 @stop

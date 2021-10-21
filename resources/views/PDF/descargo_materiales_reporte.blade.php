@@ -91,6 +91,7 @@
             @php
             $precio_total = 0.00;
             $n = 1;
+            $costo_total = 0.00;
             @endphp
             @foreach ($materiales as $mat )
             @if ($mat->observador == 'Elapas')
@@ -110,11 +111,14 @@
             @endphp
             @endif
             @endforeach
+            @php
+                $costo_total = $costo_total + $precio_total;
+            @endphp
             <tr>
                 <td style="border-bottom: hidden; border-left: hidden;"></td>
                 <td style="border-bottom: hidden; border-left: hidden;"></td>
                 <td colspan="3" style="text-align:right; border-bottom: 1px solid black"><b>COSTO TOTAL MATERIALES Bs.</b></td>
-                <td style="text-align:center">{{$precio_total}}</td>
+                <td style="text-align:center">{{round($precio_total,2)}}</td>
             </tr>
         </table>
     </div>
@@ -151,11 +155,14 @@
             @endphp
             @endif
             @endforeach
+            @php
+            $costo_total = $costo_total + $precio_total;
+            @endphp
             <tr>
                 <td style="border-bottom: hidden; border-left: hidden;"></td>
                 <td style="border-bottom: hidden; border-left: hidden;"></td>
                 <td colspan="3" style="text-align:right; border-bottom: 1px solid black"><b>COSTO TOTAL MATERIALES Bs.</b></td>
-                <td style="text-align:center">{{$precio_total}}</td>
+                <td style="text-align:center">{{round($precio_total,2)}}</td>
             </tr>
         </table>
     </div>
@@ -258,11 +265,14 @@
             @endphp
             @endif
             @endforeach
+            @php
+            $costo_total = $costo_total + $precio_total;
+            @endphp
             <tr>
                 <td style="border-bottom: hidden; border-left: hidden;"></td>
                 <td style="border-bottom: hidden; border-left: hidden;"></td>
                 <td colspan="3" style="text-align:right; border-bottom: 1px solid black"><b>C. TOTAL</b></td>
-                <td style="text-align:center">{{$precio_total}}</td>
+                <td style="text-align:center">{{round($precio_total,2)}}</td>
             </tr>
         </table>
 
@@ -300,11 +310,21 @@
             @endphp
             @endif
             @endforeach
+            @php
+            $costo_total = $costo_total + $precio_total;
+            @endphp
             <tr>
                 <td style="border-bottom: hidden; border-left: hidden;"></td>
                 <td style="border-bottom: hidden; border-left: hidden;"></td>
                 <td colspan="3" style="text-align:right; border-bottom: 1px solid black"><b>C. TOTAL</b></td>
-                <td style="text-align:center">{{$precio_total}}</td>
+                <td style="text-align:center">{{round($precio_total,2)}}</td>
+            </tr>
+        </table>
+        <br>
+        <table align="right">
+            <tr>
+                <td> <b>COSTO TOTAL DEL PROYECTO Bs.</b> </td>
+                <td class="centrar" width="125px">{{$costo_total}}</td>
             </tr>
         </table>
 

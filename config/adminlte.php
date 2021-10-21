@@ -297,9 +297,9 @@ return [
 
         ],
         [
-            'text' => 'Asignar Ejecución',
+            'text' => 'Informes Concluidos',
             'route'  => 'informes.concluido',
-            'icon' => 'far fa-fw fa-circle text-yellow',
+            'icon' => 'fa fa-fw fa-file-pdf',
             'can' => 'jefe-red',
 
         ],
@@ -315,8 +315,9 @@ return [
             ],
             'can' => 'inspector'
         ],
-        ['header' => 'CRONOGRAMAS',
-            'can' =>'jefe-red',
+        [
+            'header' => 'CRONOGRAMAS',
+            'can' => 'jefe-red',
         ],
         [
             'text'       => 'Asignar inspector',
@@ -336,7 +337,8 @@ return [
             'url'        => '#',
             'can' => 'inspector',
         ],
-        ['header' => 'DESCARGOS',
+        [
+            'header' => 'DESCARGOS',
             // 'can' =>'jefe-red',
         ],
         [

@@ -100,7 +100,7 @@ Route::delete('Computo_eliminar/{descargo}/{fecha_descargo?}/{valor?}', [Descarg
 //Monitoreo y Prroyectista
 Route::get('Monitoreo', [MonitorController::class, 'index'])->middleware('can:Monitor')->name('monitoreo.index');
 Route::get('Proyectos', [MonitorController::class, 'index'])->middleware('can:Proyectista')->name('proyectos.index');
-Route::get('Proyecto/{informe}/descargar', [PDFController::class, 'PDF_proyecto'])->middleware('can:Proyectista')->name('descargarPDF.proyecto');
+Route::get('Proyecto/{informe}/descargar', [PDFController::class, 'PDF_proyecto'])->name('descargarPDF.proyecto');
 
 // Ejecucion
 

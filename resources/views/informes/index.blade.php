@@ -34,8 +34,6 @@
           </tr>
         </thead>
         <tbody>
-            {{$informes}}
-            {{'El id es : '.$id}}
             @foreach ($informes as $inf)
                 <tr>
                     <td>{{$n++}}</td>
@@ -45,15 +43,15 @@
                     <td>{{$inf->zona_sol}}</td>
                     <td align="center"><span class="badge badge-primary">{{strtoupper($inf->estado)}}</span></td>
                     <td>
-                        <a type="button" class="d-inline btn btn-warning btn-icon btn-xs" onclick="visualizarMapa({{$inf->x_aprox}},{{$inf->y_aprox}}, {{$inf->id_solicitud}})">
-                            Visualizar <i class="fas fa-eye"></i></a>
+                        <a type="button" class="d-inline btn btn-warning btn-icon" title="visualizar" onclick="visualizarMapa({{$inf->x_aprox}},{{$inf->y_aprox}}, {{$inf->id_solicitud}})">
+                            <i class="fas fa-eye"></i></a>
                         @if ($inf->estado =='autorizado')
                             <button type="button" class='btn btn-warning btn-icon btn-xs' data-toggle="modal" data-target=".bd-example-modal-lg"ç
-                            onclick="llamar('{{route('informes.show',$inf->id_informe)}}')">Material <i class="fas fa-box"></i></button>
+                            onclick="llamar('{{route('informes.show',$inf->id_informe)}}')" title="Material" ><i class="fas fa-box"></i></button>
                         @endif
 
                         <a href='{{route('descargarPDF.informe',$inf->id_informe)}}' target="_blank"
-                        class='btn btn-danger btn-icon btn-xs'>Informe <i class="fas fa-file-pdf"></i></a>
+                        class='btn btn-danger btn-icon' title="Informe"><i class="fas fa-file-pdf"></i></a>
                         @if($inf->estado=='registrado')
                         @can('inspector')
                         {{-- <a href='{{route('informes.edit',$inf->id_informe)}}'
@@ -62,7 +60,7 @@
                         @else
                         @can('informes.edit')
                         <a href='{{route('informes.edit',$inf->id_informe)}}'
-                            class='btn btn-info btn-icon btn-xs'>Llenar <i class="fas fa-pencil-alt"></i></a>
+                            class='btn btn-info btn-icon ' title="Llenar"><i class="fas fa-pencil-alt"></i></a>
                         @endcan
                         @endif
 

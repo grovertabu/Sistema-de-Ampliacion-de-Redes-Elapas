@@ -8,7 +8,8 @@ use App\Models\Informe;
 
 class EjecucionController extends Controller
 {
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $informe = Informe::find($request->informe_id);
         $informe->estado_in = 'programado';
         $informe->save();
@@ -22,7 +23,12 @@ class EjecucionController extends Controller
         return redirect()->route('informes.concluido');
     }
 
-    public function ejecutada($id_ejecucion,  Request $request){
+    public function ejecutada($id_ejecucion,  Request $request)
+    {
+        $informe = Informe::find($request->id_informe);
+        $informe->estado_in = "ejecutando";
+        $informe->save();
+
         $ejecucion = Ejecucion::find($id_ejecucion);
         $ejecucion->fecha_ejecutada = $request->fecha_ejecutada;
         $ejecucion->save();
