@@ -351,7 +351,7 @@ return [
             'text' => 'Actividades',
             'route'  => 'actividad.index',
             'icon_color' => 'red',
-            // 'can' => 'informes.index',
+            'can' => 'jefe-red',
         ],
         // [
         //     'text'       => 'information',
