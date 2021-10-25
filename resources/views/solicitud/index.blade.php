@@ -62,8 +62,8 @@
                         class='d-inline btn btn-info btn-icon'title="Editar"><i class="fas fa-pencil-alt"></i></a>
                         @endcan
                         @can('jefe-red')
-                        <a href='{{route('solicitud.aprobar',$sol)}}'
-                        class='d-inline btn btn-success btn-icon boton-aprobar'title="Aprobar"><i class="fas fa-pencil-alt"></i></a>
+                        <a type="button" href='{{route('solicitud.aprobar',$sol)}}'
+                        class='d-inline btn btn-success btn-icon boton-aprobar'title="Aprobar"><i class="fas fa-check"></i></a>
                         @endcan
                         @can('jefe-red')
                         <a type="button" data-toggle="modal" data-toggle="modal" data-target="#exampleModal" onclick="modalObservaciones({{$sol->id }})"

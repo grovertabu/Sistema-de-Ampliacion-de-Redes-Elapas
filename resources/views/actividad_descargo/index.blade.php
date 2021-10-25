@@ -16,32 +16,30 @@
     <div class="table table-bordered table-hover dataTable table-responsive">
         <table class="table table-bordered datatable" id="example">
         <thead>
-          <tr>	
+          <tr>
             <th>NRO</th>
             <th>NOMBRE</th>
-            <th>ESTADO </th>                
+            <th>UNIDAD DE MEDIDA</th>
+            <th>PRECIO UNITARIO</th>
             <th>ACCIONES</th>
-            
+
           </tr>
         </thead>
         <tbody>
             @foreach ($actividads as $actividad)
                 <tr>
                     <td>{{$n++}}</td>
-                    <td align="center">{{$actividad->nombre_actividad}}</td>
-                    @if($actividad->estado=="habilitado")
-                    <td align="center"><span class="badge badge-success" >{{$actividad->estado}}</span></td>
-                    @else
-                    <td align="center"><span class="badge badge-danger" >{{$actividad->estado}}</span></td>
-                    @endif
+                    <td align="center">{{$actividad->descripcion}}</td>
+                    <td align="center">{{$actividad->unidad_medida}}</td>
+                    <td align="center">{{$actividad->precio_unitario}}</td>
                     <td>
-                        <a href='{{route('actividad.edit',$actividad)}}' 
-                        class='btn btn-info btn-icon btn-xs'>Editar <i class="fas fa-pencil-alt"></i></a>
+                        <a href='{{route('actividad.edit',$actividad)}}'
+                        class='btn btn-info btn-icon'><i class="fas fa-pencil-alt"></i></a>
                         <form action="{{route('actividad.destroy',$actividad)}}" class="d-inline" method="POST">
                             @csrf
                             @method('delete')
-                            <button class='btn btn-danger btn-icon btn-xs' type="submit">Eliminar  <i class="fas fa-trash"></i></button>
-                        
+                            <button class='btn btn-danger btn-icon' type="submit"><i class="fas fa-trash"></i></button>
+
                         </form>
                     </td>
                 </tr>
@@ -50,8 +48,9 @@
         <tfoot>
             <tr>
                 <th>NRO</th>
-                <th>NOMBRE MATERIAL</th>
-                <th>ESTADO </th>
+                <th>NOMBRE</th>
+                <th>UNIDAD DE MEDIDA</th>
+                <th>PRECIO UNITARIO</th>
                 <th>ACCIONES</th>
             </tr>
         </tfoot>

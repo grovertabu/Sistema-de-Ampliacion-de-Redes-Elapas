@@ -18,16 +18,17 @@ class CreateInformeMaterialsTable extends Migration
             $table->unsignedBigInteger('informe_id');
             $table->unsignedBigInteger('material_id');
             $table->integer('cantidad');
-            $table->string('u_medida',20);
-            $table->string('observador',7);
+            $table->string('u_medida', 20);
+            $table->string('observador', 7);
+            $table->float('precio_unitario', 8, 2);
             $table->foreign('informe_id')
-                    ->references('id')
-                    ->on('informes')
-                    ->onDelete('cascade');
+                ->references('id')
+                ->on('informes')
+                ->onDelete('cascade');
             $table->foreign('material_id')
-                    ->references('id')
-                    ->on('materials')
-                    ->onDelete('cascade');
+                ->references('id')
+                ->on('materials')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

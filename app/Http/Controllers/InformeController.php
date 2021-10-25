@@ -74,9 +74,9 @@ class InformeController extends Controller
 
     public function aprobar_proyecto(Informe $informe)
     {
-        $informe->estado_in = "ejecutado";
+        $informe->estado_in = "ejecutando";
         $informe->save();
-        return redirect()->route('monitoreo.index');
+        return redirect()->route('proyectos.index');
         // return $solicitud->estado_in;
     }
 
@@ -84,31 +84,9 @@ class InformeController extends Controller
     {
         $id = Auth::user()->id;
         $aux = Auth::user()->tipo_user;
-        $ej = "";
         if ($aux == 'Inspector') {
-            $ej = "ins";
-            // $informes = DB::table('informes')
-            //     ->join('solicituds', 'solicituds.id', '=', 'informes.solicitud_id')
-            //     ->join('cronogramas', 'cronogramas.solicitud_id', '=', 'solicituds.id')
-            //     ->leftJoin('ejecucions', 'ejecucions.informe_id', '=', 'informes.id')
-            //     ->select(
-            //         'informes.id as id_informe',
-            //         'solicituds.id as id_solicitud',
-            //         'solicituds.nombre_sol as nombre_sol',
-            //         'solicituds.zona_sol as zona_sol',
-            //         'informes.fecha_hora_in as fecha_inspeccion',
-            //         'informes.estado_in as estado',
-            //         'cronogramas.user_id as user_id',
-            //         'ejecucions.id as id_ejecucion',
-            //         'ejecucions.fecha_progrmada as fecha_programada',
-            //         'ejecucions.fecha_ejecutada as fecha_ejecutada'
-            //     )
-            //     ->where('cronogramas.user_id', $id)
-            //     ->where('informes.estado_in', 'registrado')
-            //     ->orWhere('informes.estado_in', 'autorizado')
-            //     ->orWhere('informes.estado_in', 'firmado')
-            //     ->orWhere('informes.estado_in', 'ejecutando')
-            //     ->get();
+
+
             $cadena = "SELECT informes.id as id_informe,
             solicituds.id as id_solicitud,
             solicituds.x_aprox as x_aprox,
@@ -126,10 +104,9 @@ class InformeController extends Controller
             INNER JOIN cronogramas ON cronogramas.solicitud_id = solicituds.id
             LEFT JOIN ejecucions ON ejecucions.informe_id = informes.id
             WHERE cronogramas.user_id = " . $id . "
-            AND (informes.estado_in = 'registrado' OR informes.estado_in = 'autorizado' OR informes.estado_in = 'firmado' OR informes.estado_in = 'ejecutando')";
+            AND (informes.estado_in = 'registrado' OR informes.estado_in = 'autorizado' OR informes.estado_in = 'firmado' OR informes.estado_in = 'en proyeccion')";
             $informes = DB::select($cadena);
         } else {
-            $ej = "jefe";
             $informes = DB::table('informes')
                 ->join('solicituds', 'solicituds.id', '=', 'informes.solicitud_id')
                 ->join('cronogramas', 'cronogramas.solicitud_id', '=', 'solicituds.id')
@@ -152,11 +129,11 @@ class InformeController extends Controller
                 ->where('informes.estado_in', 'registrado')
                 ->orWhere('informes.estado_in', 'autorizado')
                 ->orWhere('informes.estado_in', 'firmado')
-                ->orWhere('informes.estado_in', 'ejecutando')
+                ->orWhere('informes.estado_in', 'en proyeccion')
                 ->get();
         }
 
-        return view('informes.autorizado', compact('informes', 'id', 'aux', 'ej'));
+        return view('informes.autorizado', compact('informes'));
         // return $informes;
     }
 
@@ -179,7 +156,7 @@ class InformeController extends Controller
                 )
                 // ->where('informes.estado_in','registrado')
                 ->where('cronogramas.user_id', $id)
-                ->where('informes.estado_in', 'ejecutado')
+                ->where('informes.estado_in', 'ejecutando')
                 ->get();
         } else {
             $informes = DB::table('informes')
@@ -193,7 +170,7 @@ class InformeController extends Controller
                     'informes.fecha_hora_in as fecha_inspeccion',
                     'informes.estado_in as estado'
                 )
-                ->where('informes.estado_in', 'ejecutado')
+                ->where('informes.estado_in', 'ejecutando')
                 ->get();
         }
 
@@ -270,6 +247,7 @@ class InformeController extends Controller
                 'materials.nombre_material as material_n',
                 'informe_materials.cantidad as cantidad',
                 'materials.unidad_med as unidad',
+                'informe_materials.precio_unitario as precio',
                 'informe_materials.observador as observador',
             )
             ->where('materials.estado', 'disponible')

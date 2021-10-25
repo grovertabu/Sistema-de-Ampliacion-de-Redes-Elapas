@@ -26,7 +26,7 @@ class EjecucionController extends Controller
     public function ejecutada($id_ejecucion,  Request $request)
     {
         $informe = Informe::find($request->id_informe);
-        $informe->estado_in = "ejecutando";
+        $informe->estado_in = "en proyeccion";
         $informe->save();
 
         $ejecucion = Ejecucion::find($id_ejecucion);

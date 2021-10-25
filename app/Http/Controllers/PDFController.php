@@ -41,7 +41,7 @@ class PDFController extends Controller
                 'informe_materials.cantidad as cantidad',
                 'informe_materials.u_medida as u_medida',
                 'informe_materials.observador as observador',
-                'materials.precio_unitario as precio_unitario',
+                'informe_materials.precio_unitario as precio_unitario',
                 'materials.nombre_material as nombre_material'
             )
             ->where('informe_materials.informe_id', $informe->id)
@@ -90,7 +90,7 @@ class PDFController extends Controller
                 'informe_materials.cantidad as cantidad',
                 'informe_materials.u_medida as u_medida',
                 'informe_materials.observador as observador',
-                'materials.precio_unitario as precio_unitario',
+                'informe_materials.precio_unitario as precio_unitario',
                 'materials.nombre_material as nombre_material'
             )
             ->where('informe_materials.informe_id', $informe->id)
@@ -208,7 +208,7 @@ class PDFController extends Controller
                 'informe_materials.cantidad as cantidad',
                 'informe_materials.u_medida as u_medida',
                 'informe_materials.observador as observador',
-                'materials.precio_unitario as precio_unitario',
+                'informe_materials.precio_unitario as precio_unitario',
                 'materials.nombre_material as nombre_material'
             )
             ->where('informe_materials.informe_id', $informe->id)

@@ -46,14 +46,20 @@
                     <td>{{$n++}}</td>
                     <td>{{$inf->zona_sol}}</td>
                     <td>{{$inf->nombre_sol}}</td>
-                    <td>@if($inf->estado == 'ejecutando')  {{$inf->fecha_programada}} @else {{$inf->fecha_inspeccion}} @endif</td>
+                    <td>
+                        @if($inf->estado == 'en proyeccion' || $inf->estado == 'autorizado')
+                        {{$inf->fecha_programada}}
+                        @else
+                        {{$inf->fecha_inspeccion}}
+                        @endif
+                    </td>
                     <td align="center"><span class="badge badge-primary">{{$inf->estado}}</span></td>
                     <td>
                         <a type="button" class="d-inline btn btn-warning btn-icon" title="Visualizar" onclick="visualizarMapa({{$inf->x_aprox}},{{$inf->y_aprox}}, '{{route('solicitud.obtenerAmpliaciones',$inf->id_solicitud)}}')">
                             <i class="fas fa-eye"></i></a>
 
                         @can('inspector')
-                        @if($inf->estado=='autorizado' || $inf->estado=='ejecutando')
+                        @if($inf->estado=='autorizado' || $inf->estado=='en proyeccion')
                         <button type="button" class='btn btn-warning btn-icon ' data-toggle="modal" data-target=".bd-example-modal-lg"
                         onclick="llamar('{{route('informes.show',$inf->id_informe)}}')" title="Material"><i class="fas fa-box"></i></button>
                         <a href='{{route('mano_obra.create',$inf->id_ejecucion)}}'
@@ -102,7 +108,7 @@
                                                         </div>
                                                         <!-- /.card-body -->
                                                         <div class="card-footer">
-                                                            <button type="submit" class="btn btn-block btn-primary">Programar</button>
+                                                            <button type="submit" class="btn btn-block btn-primary">Enviar</button>
                                                         </div>
                                                     </form>
                                                   </div>
@@ -188,7 +194,7 @@
                           </div>
 
                         @can('jefe-red')
-                        @if($inf->estado=='ejecutando')
+                        @if($inf->estado=='en proyeccion')
                             <a href='{{route('informes.firmar',$inf->id_informe)}}'
                             class='btn btn-success btn-icon ' title="firmar"><i class="fas fa-pencil-alt"></i></a>
                         @endif

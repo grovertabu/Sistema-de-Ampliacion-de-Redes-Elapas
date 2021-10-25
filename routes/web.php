@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ActividadController;
+use App\Http\Controllers\ActividadManoObraController;
 use App\Http\Controllers\CronogramaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\inicioControl;
@@ -90,7 +90,7 @@ Route::post('Descargos/registrar_aporte_v', [DescargoController::class, 'registr
 Route::delete('Aporte_eliminar/{descargo}/{fecha_descargo?}/{valor?}', [DescargoController::class, 'eliminar_aporte'])->name('descargo.eliminar_aporte');
 // ----------------------------------------------------------------------------------------------------
 // Actividades del computo de elapas y vecinos
-Route::resource('actividad', ActividadController::class)->names('actividad');
+Route::resource('actividad', ActividadManoObraController::class)->middleware('can:jefe-red')->names('actividad');
 // ___________________________________________________________________________________________________________________-
 Route::get('Descargos/{descargo}/{fecha_descargo?}/{valor?}/mostrar_computo_e', [DescargoController::class, 'mostrar_computos_e'])->name('descargo.mostrar_computo_e');
 Route::get('Descargos/{descargo}/{fecha_descargo?}/{valor?}/crear_computo_e', [DescargoController::class, 'crear_computo_e'])->name('descargo.crear_computo_e');
@@ -99,7 +99,7 @@ Route::delete('Computo_eliminar/{descargo}/{fecha_descargo?}/{valor?}', [Descarg
 
 //Monitoreo y Prroyectista
 Route::get('Monitoreo', [MonitorController::class, 'index'])->middleware('can:Monitor')->name('monitoreo.index');
-Route::get('Proyectos', [MonitorController::class, 'index'])->middleware('can:Proyectista')->name('proyectos.index');
+Route::get('Proyectos', [MonitorController::class, 'proyectista_index'])->middleware('can:Proyectista')->name('proyectos.index');
 Route::get('Proyecto/{informe}/descargar', [PDFController::class, 'PDF_proyecto'])->name('descargarPDF.proyecto');
 
 // Ejecucion

@@ -56,14 +56,14 @@
                 @endif
                 @endcan
                 @can('Proyectista')
-                @if ($sol->estado_in =='ejecutado')
+                @if ($sol->estado_in =='ejecutando')
 
                 <a href="{{route('descargarPDF.proyecto',$sol->id)}}" target="_blank" class="btn btn-danger btn-icon" title="Informe Proyeccion">
                     <i class="fas fa-file-pdf"></i></a>
                 @endif
                 @if ($sol->estado_in =='firmado')
 
-                <a href="{{route('informes.aprobar_proyecto',$sol->id)}}" target="_blank" class="btn btn-success btn-icon" title="Aprobar Proyecto">
+                <a href="{{route('informes.aprobar_proyecto',$sol->id)}}" class="btn btn-success btn-icon" title="Aprobar Proyecto">
                     <i class="fas fa-check"></i></a>
                 @endif
                 @endcan

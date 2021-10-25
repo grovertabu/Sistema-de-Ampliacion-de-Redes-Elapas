@@ -19,20 +19,31 @@
             @method('put')
             <div class="card-body">
                 <div class="form-group">
-                    <label for="nombre_actividad">Nombre de la actividad</label>
+                    <label for="nombre_material">Nombre de la actividad</label>
                     <div class="input-group ">
                         <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-box-open"></i></span>
                         </div>
-                        <input type="text" name="nombre_actividad" id="nombre_actividad" class="form-control" value="{{$actividad->nombre_actividad}}" placeholder="nombre de la actividad">
+                        <input type="text" name="descripcion" id="nombre_actividad" class="form-control" value="{{$actividad->descripcion}}" placeholder="nombre de la actividad" required>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="nombre_material">Estado</label>
-                    <select class="form-control" name="estado" id="estado">
-                        <option value="habilitado">Habilitado</option>
-                        <option value="deshabilitado">Deshabilitado</option>
-                      </select>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="nombre_material">Unidad de Medida</label>
+                            <div class="input-group ">
+                                <input type="text" name="unidad_medida"  class="form-control" placeholder="Unidad de medida de la actividad" value="{{$actividad->unidad_medida}}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="nombre_material">Precio Unitario</label>
+                            <div class="input-group ">
+                                <input type="number" min="0.00" step="0.01" name="precio" id="nombre_actividad" class="form-control" value="{{$actividad->precio_unitario}}" placeholder="Precio unitario de la actividad" required>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- /.card-body -->
