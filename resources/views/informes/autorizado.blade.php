@@ -32,7 +32,7 @@
             <th>NRO</th>
             <th>ZONA O BARRIO</th>
             <th>NOMBRE SOLICITANTE</th>
-            <th>FECHA <br>INSPECCION O EJECUCION PROGRAMADA</th>
+            <th>FECHA DE EJECUCION PROGRAMADA</th>
             <th>ESTADO</th>
             <th>Acciones</th>
           </tr>
@@ -47,11 +47,7 @@
                     <td>{{$inf->zona_sol}}</td>
                     <td>{{$inf->nombre_sol}}</td>
                     <td>
-                        @if($inf->estado == 'en proyeccion' || $inf->estado == 'autorizado')
                         {{$inf->fecha_programada}}
-                        @else
-                        {{$inf->fecha_inspeccion}}
-                        @endif
                     </td>
                     <td align="center"><span class="badge badge-primary">{{$inf->estado}}</span></td>
                     <td>
@@ -65,81 +61,9 @@
                         <a href='{{route('mano_obra.create',$inf->id_ejecucion)}}'
                             class='btn btn-warning btn-icon' title="Registrar Mano de Obra" ><i class="fas fa-hammer"></i></a>
                         @endif
-                        @if($inf->estado_informe == 1 && $inf->fecha_ejecutada == null)
-                        <button type="button" class='btn btn-primary btn-icon' data-toggle="modal" data-target=".bd-example-modal-lg{{$inf->id_ejecucion}}"
-                            onclick="" title="Generar Informes"><i class="fas fa-file-signature"></i></button>
-                            <!-- Large modal -->
-                           <div class="modal fade bd-example-modal-lg{{$inf->id_ejecucion}}" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="overflow:hidden;">
-                                <div class="modal-dialog modal-md">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Ejecución</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body" id="contenido" >
-                                            <div class="justify-content-center row">
-                                                <!-- left column -->
-                                                <div class="col-md-12">
-                                                <!-- general form elements -->
-                                                    <div class="card card-primary ">
-                                                    <div class="card-header">
-                                                        <h3 class="card-title">Prgramar Ejecución</h3>
-                                                    </div>
-                                                    <!-- /.card-header -->
-                                                    <!-- formulario inicio -->
-                                                    <form action="{{route('ejecucion.ejecutada',$inf->id_ejecucion)}}" method="POST" role="form" id="form_materials">
-                                                        @csrf
-                                                        <div class="card-body">
-                                                            <input type="hidden" name="id_informe" value="{{$inf->id_informe}}">
-                                                            <div class="form-group">
-                                                                <label for="nombre_material">Solicitud</label>
-                                                                <p class="form-control">{{$inf->nombre_sol}} - {{$inf->zona_sol}} </p>
-                                                            </div>
-                                                            <div class="form-group col-md-6">
-                                                                <label for="fecha_inspe">Fecha de ejecución</label>
-                                                                <div class="input-group ">
-                                                                    <div class="input-group-prepend">
-                                                                    </div>
-                                                                    <input class="form-control" id="fecha_inspe" name="fecha_ejecutada" type="date" value="" required>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- /.card-body -->
-                                                        <div class="card-footer">
-                                                            <button type="submit" class="btn btn-block btn-primary">Enviar</button>
-                                                        </div>
-                                                    </form>
-                                                  </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
                         @endcan
 
 
-                        {{-- <a href='{{route('descargarPDF.informe',$inf->id_informe)}}' target="_blank"
-                        class='btn btn-danger btn-icon btn-xs'>Informe <i class="fas fa-file-pdf"></i></a>
-
-                        @if($inf->estado!='registrado')
-                            <a href='{{route('pedidoPDF.informe',$inf->id_informe)}}' target="_blank"
-                            class='btn btn-danger btn-icon btn-xs'>Reporte de pedido <i class="fas fa-box-open"></i></a>
-                        @endif
-                        @if($inf->fecha_ejecutada != null)
-
-                        <a href='{{route('reportePDF.informe_material',$inf->id_informe)}}' target="_blank"
-                            class='btn btn-danger btn-icon btn-xs'>Informe Ampliacion <i class="fas fa-file-pdf"></i></a>
-
-                        <a href='{{route('reportePDF.informe_descargo_material',$inf->id_informe)}}' target="_blank"
-                            class='btn btn-danger btn-icon btn-xs'>Informe Descargo Material<i class="fas fa-box-open"></i></a>
-                        @endif --}}
 
                         <button type="button" class="d-inline btn btn-primary btn-icon" title="Informes" data-toggle="modal" data-target="#exampleModal{{$num}}">
                         <i class="fa fa-file"></i>
@@ -158,23 +82,17 @@
                                     <div style="text-align: center;" >
                                             <p >
                                                 <a  href='{{route('descargarPDF.informe',$inf->id_informe)}}' target="_blank"
-                                                    class='btn btn-danger btn-icon w-75'>Informe <i class="fas fa-file-pdf"></i></a>
-
+                                                    class='btn btn-danger btn-icon w-75'>Informe de Inspección <i class="fas fa-file-pdf"></i></a>
                                             </p>
-
-                                            @if($inf->estado!='registrado')
                                             <p>
                                                 <a href='{{route('pedidoPDF.informe',$inf->id_informe)}}' target="_blank"
-                                                class='btn btn-danger btn-icon w-75'>Reporte de pedido <i class="fas fa-box-open"></i></a>
-
+                                                class='btn btn-danger btn-icon w-75'>Pedido de Material <i class="fas fa-file-pdf"></i></a>
                                             </p>
-                                            @endif
-                                            @if($inf->fecha_ejecutada != null)
-                                                <p>
-                                                    <a href='{{route('reportePDF.informe_material',$inf->id_informe)}}' target="_blank"
-                                                        class='btn btn-danger btn-icon w-75'>Informe Ampliacion <i class="fas fa-file-pdf"></i></a>
-
-                                                </p>
+                                            <p>
+                                                <a href='{{route('reportePDF.informe_material',$inf->id_informe)}}' target="_blank"
+                                                    class='btn btn-danger btn-icon w-75'>Informe Ampliacion <i class="fas fa-file-pdf"></i></a>
+                                            </p>
+                                            {{-- @if($inf->fecha_ejecutada != null)
                                                 <p>
                                                     <a href='{{route('reportePDF.informe_descargo_material',$inf->id_informe)}}' target="_blank"
                                                         class='btn btn-danger btn-icon w-75'>Informe Descargo Material<i class="fas fa-box-open"></i></a>
@@ -182,7 +100,7 @@
                                                 </p>
 
 
-                                            @endif
+                                            @endif --}}
                                     </div>
 
                                 </div>
@@ -194,93 +112,11 @@
                           </div>
 
                         @can('jefe-red')
-                        @if($inf->estado=='en proyeccion')
+                        @if($inf->estado=='autorizado')
                             <a href='{{route('informes.firmar',$inf->id_informe)}}'
                             class='btn btn-success btn-icon ' title="firmar"><i class="fas fa-pencil-alt"></i></a>
                         @endif
                         @endcan
-
-
-
-                        {{-- @if($inf->estado=='firmado')
-
-                            <a href='{{route('reportePDF.informe_material',$inf->id_informe)}}' target="_blank"
-                            class='btn btn-danger btn-icon btn-xs'>Reporte ampliacion <i class="fas fa-box-open"></i></a>
-                        @endif --}}
-                        @can('jefe-red')
-                        @if($inf->estado=='registrado')
-                            <button type="button" class='btn btn-success btn-icon ' data-toggle="modal" data-target=".bd-example-modal-lg{{$inf->id_informe}}"
-                                onclick="" title="Autorizar"><i class="fas fa-check"></i></button>
-                                <!-- Large modal -->
-                               <div class="modal fade bd-example-modal-lg{{$inf->id_informe}}" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="overflow:hidden;">
-                                    <div class="modal-dialog modal-md">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Ejecución</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body" id="contenido" >
-                                                <div class="justify-content-center row">
-                                                    <!-- left column -->
-                                                    <div class="col-md-12">
-                                                    <!-- general form elements -->
-                                                        <div class="card card-primary ">
-                                                        <div class="card-header">
-                                                            <h3 class="card-title">Prgramar Ejecución</h3>
-                                                        </div>
-                                                        <!-- /.card-header -->
-                                                        <!-- formulario inicio -->
-                                                        <form action="{{route('informes.autorizar',$inf->id_informe)}}" method="POST" role="form" id="form_materials">
-                                                            @csrf
-                                                            <div class="card-body">
-                                                                <div class="form-group">
-                                                                    <label for="nombre_material">Solicitud</label>
-                                                                    <p class="form-control">{{$inf->nombre_sol}} - {{$inf->zona_sol}} </p>
-                                                                    <input type="hidden" name="informe_id" value="{{$inf->id_informe}}">
-                                                                </div>
-                                                                <input type="hidden" name="user_id" value={{$inf->user_id}}>
-                                                                <div class="form-group col-md-6">
-                                                                    <label for="fecha_inspe">Fecha programada de ejecución</label>
-                                                                    <div class="input-group ">
-                                                                        <div class="input-group-prepend">
-                                                                        </div>
-                                                                        <input class="form-control" id="fecha_inspe" name="fecha_programada" type="date" value="" required>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- /.card-body -->
-                                                            <div class="card-footer">
-                                                                <button type="submit" class="btn btn-block btn-primary">Asignar</button>
-                                                            </div>
-                                                        </form>
-                                                      </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                        @endif
-                        @endcan
-                        @can('jefe-red')
-                        @if($inf->estado=='registrado')
-                            <a type="button" href='{{route('informes.no_autorizar',$inf->id_informe)}}'
-                            class='d-inline btn btn-danger btn-icon' title="No Autorizar"><i class="fas fa-times"></i></a>
-                        @endif
-                        @endcan
-
-                        @can('inspector')
-                        @if($inf->estado=='registrado')
-                        <a href='{{route('informes.edit',$inf->id_informe)}}'
-                        class='d-inline btn btn-warning btn-icon' title="Editar"><i class="fas fa-pencil-alt"></i></a>
-                        @endif
-                        @endcan
-
 
                     </td>
 
@@ -295,7 +131,7 @@
                 <th>NRO</th>
                 <th>ZONA O BARRIO</th>
                 <th>NOMBRE SOLICITANTE</th>
-                <th>FECHA <br>INSPECCION O EJECUCION PROGRAMADA</th>
+                <th>FECHA DE EJECUCION PROGRAMADA</th>
                 <th>ESTADO</th>
                 <th>Acciones</th>
             </tr>

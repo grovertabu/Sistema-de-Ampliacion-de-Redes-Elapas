@@ -128,6 +128,7 @@ class PDFController extends Controller
                 'materials.nombre_material as nombre_material'
             )
             ->where('informe_materials.informe_id', $informe->id)
+            ->where('informe_materials.observador', 'Elapas')
             ->get();
         $inspector = DB::table('informes')
             ->join('solicituds', 'solicituds.id', '=', 'informes.solicitud_id')

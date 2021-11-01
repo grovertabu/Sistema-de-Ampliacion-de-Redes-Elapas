@@ -16,6 +16,7 @@ class Mano_ObrasController extends Controller
     public function create($id_ejecucion)
     {
         $ejecucion = Ejecucion::find($id_ejecucion);
+        $informe = Informe::find($ejecucion->informe_id);
         $mano_obra = DB::table('mano_obras')
             ->join('actividad_mano_obras', 'actividad_mano_obras.id', '=', 'mano_obras.actividad_id')
             ->select(
@@ -31,17 +32,12 @@ class Mano_ObrasController extends Controller
             )
             ->where('mano_obras.ejecucion_id', $id_ejecucion)->get();
         $actividad = Actividad_mano_obra::all();
-        return view('mano_obras.create', compact('ejecucion', 'mano_obra', 'actividad'));
+        return view('mano_obras.create', compact('ejecucion', 'mano_obra', 'actividad', 'informe'));
         // return $ejecucion;
     }
 
     public function store(Request $request)
     {
-
-        $ejecucion = Ejecucion::find($request->id_ejecucion);
-        $ejecucion->estado_informe = 1;
-        $ejecucion->save();
-
         $mano = new Mano_obra();
         $mano->actividad_id = $request->id_actividad;
         $mano->ejecucion_id = $request->id_ejecucion;

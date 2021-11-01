@@ -52,7 +52,7 @@
 
                         <a href='{{route('descargarPDF.informe',$inf->id_informe)}}' target="_blank"
                         class='btn btn-danger btn-icon' title="Informe"><i class="fas fa-file-pdf"></i></a>
-                        @if($inf->estado=='registrado')
+                        @if($inf->estado=='inspeccionado')
                         @can('inspector')
                         {{-- <a href='{{route('informes.edit',$inf->id_informe)}}'
                         class='d-inline btn btn-primary btn-icon btn-xs'>Editar <i class="fas fa-pencil-alt"></i></a> --}}
@@ -63,6 +63,75 @@
                             class='btn btn-info btn-icon ' title="Llenar"><i class="fas fa-pencil-alt"></i></a>
                         @endcan
                         @endif
+                        @can('inspector')
+                        @if($inf->estado=='inspeccionado')
+                        <a href='{{route('informes.edit',$inf->id_informe)}}'
+                        class='d-inline btn btn-warning btn-icon' title="Editar"><i class="fas fa-pencil-alt"></i></a>
+                        @endif
+                        @endcan
+
+                        @can('jefe-red')
+                        @if($inf->estado=='inspeccionado')
+                            <button type="button" class='btn btn-success btn-icon ' data-toggle="modal" data-target=".bd-example-modal-lg{{$inf->id_informe}}"
+                                onclick="" title="Autorizar"><i class="fas fa-check"></i></button>
+                                <!-- Large modal -->
+                               <div class="modal fade bd-example-modal-lg{{$inf->id_informe}}" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="overflow:hidden;">
+                                    <div class="modal-dialog modal-md">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Ejecución</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body" id="contenido" >
+                                                <div class="justify-content-center row">
+                                                    <!-- left column -->
+                                                    <div class="col-md-12">
+                                                    <!-- general form elements -->
+                                                        <div class="card card-primary ">
+                                                        <div class="card-header">
+                                                            <h3 class="card-title">Prgramar Ejecución</h3>
+                                                        </div>
+                                                        <!-- /.card-header -->
+                                                        <!-- formulario inicio -->
+                                                        <form action="{{route('informes.autorizar',$inf->id_informe)}}" method="POST" role="form" id="form_materials">
+                                                            @csrf
+                                                            <div class="card-body">
+                                                                <div class="form-group">
+                                                                    <label for="nombre_material">Solicitud</label>
+                                                                    <p class="form-control">{{$inf->nombre_sol}} - {{$inf->zona_sol}} </p>
+                                                                    <input type="hidden" name="informe_id" value="{{$inf->id_informe}}">
+                                                                </div>
+                                                                <input type="hidden" name="user_id" value={{$inf->user_id}}>
+                                                                <div class="form-group col-md-6">
+                                                                    <label for="fecha_inspe">Fecha programada de ejecución</label>
+                                                                    <div class="input-group ">
+                                                                        <div class="input-group-prepend">
+                                                                        </div>
+                                                                        <input class="form-control" id="fecha_inspe" name="fecha_programada" type="date" value="" required>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- /.card-body -->
+                                                            <div class="card-footer">
+                                                                <button type="submit" class="btn btn-block btn-primary">Asignar</button>
+                                                            </div>
+                                                        </form>
+                                                      </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <a type="button" href='{{route('informes.no_autorizar',$inf->id_informe)}}'
+                            class='d-inline btn btn-danger btn-icon' title="No Autorizar"><i class="fas fa-times"></i></a>
+                        @endif
+                        @endcan
 
                     </td>
 

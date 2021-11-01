@@ -5,11 +5,11 @@
 @section('content_header')
     <style>
    #map {
-      margin-top: 20px; 
+      margin-top: 20px;
       width: 80%;
       height: 400px;
       position: absolute;
-    }   
+    }
     </style>
     <h1>Informes de ampliacion de redes</h1>
 @stop
@@ -41,22 +41,22 @@
                         {{--  --}}
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-7">
-                        <label for="fecha_hora_in">Fecha de inspeccion</label>
+                        <label for="fecha_hora_in">Fecha de inspección</label>
                         <div class="input-group ">
                             <div class="input-group-prepend">
                             </div>
                             <input class="form-control" id="fecha_hora_in" name="fecha_hora_in" type="datetime-local" value="{{$fecha_arreglada}}" id="example-datetime-local-input" required>
                         </div>
-                        
+
                     </div>
                     <div class="col-5"><br>
-                        <label for="espesifiar">Espesifiar el area de concesion</label><br>
+                        <label for="espesifiar">Dentro del area de concesión</label><br>
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="espesifiar_in" id="inlineRadio1" 
+                            <input class="form-check-input" type="radio" name="espesifiar_in" id="inlineRadio1"
                             @if($informe->espesifiar_in != null && $informe->espesifiar_in == "Si") @php echo "checked" @endphp @endif value="Si" required> Si
                             </label>
                         </div>
@@ -67,22 +67,22 @@
                             </label>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <label for="Ubicacion_georeferencial">Ubicacion Georeferencial</label>
+                        <label for="Ubicacion_georeferencial">Ubicación Georeferencial</label>
                         <div class="input-group ">
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                             </div>
-                            
+
                                 <input type="text" name="ubicacion_geo" id="ubicacion_geo" class="form-control" value="" placeholder="Ubicacion georeferencial" required>
                                 {{--  --}}
-                                
+
                                 {{--  --}}
                             </div>
-                        
+
                     </div>
                 </div>
 
@@ -106,29 +106,35 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                    
+
                         <button type="button" class="btn btn-block btn-outline-success" onclick="drawMapa(true)" {{-- data-toggle="modal" data-target=".bd-example-modal" --}}  >
-                        Registrar ubicacion exacta</button>
+                        Registrar Ampliación</button>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-6">
-                        <label for="longitud_in">Longitud de la Ampliacion</label>
+                        <label for="longitud_in">Longitud de la Ampliación</label>
                         <div class="input-group ">
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                             </div>
-                                <input type="text" name="longitud_in" id="longitud_in" value="{{$informe->longitud_in}}" class="form-control" placeholder="Longitud" required>
+                                <input type="number" min="1" name="longitud_in" id="longitud_in" value="{{$informe->longitud_in}}" class="form-control" placeholder="Longitud" required>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">mts.</span>
+                        </div>
                         </div>
                     </div>
                     <div class="col-6">
-                        <label for="diametro_in">Diametro de la ampliacion</label>
+                        <label for="diametro_in">Diametro de la ampliación</label>
                         <div class="input-group ">
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                             </div>
-                                <input type="text" name="diametro_in" id="diametro_in" value="{{$informe->diametro_in}}" class="form-control" placeholder="Diametro" required>
+                                <input type="number" min="0.01" step="0.01" name="diametro_in" id="diametro_in" value="{{$informe->diametro_in}}" class="form-control" placeholder="Diametro" required>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">mts.</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -139,7 +145,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-clipboard-list"></i></span>
                             </div>
-                                <input type="text" name="num_ben_in" id="num_ben_in" value="{{$informe->num_ben_in}}" class="form-control" placeholder="Nº:...." required>
+                                <input type="number" min="1" name="num_ben_in" id="num_ben_in" value="{{$informe->num_ben_in}}" class="form-control" placeholder="Nº:...." required>
                         </div>
                     </div>
                     <div class="col-6">
@@ -148,7 +154,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-clipboard-list"></i></span>
                             </div>
-                                <input type="text" name="num_flia_in" id="num_flia_in" value="{{$informe->num_flia_in}}" class="form-control" placeholder="Flia::...." required>
+                                <input type="number" min="1" name="num_flia_in" id="num_flia_in" value="{{$informe->num_flia_in}}" class="form-control" placeholder="Flia::...." required>
                         </div>
                     </div>
                 </div>
@@ -157,13 +163,13 @@
                         <label for="espesifiar">Condiciones de Rasante</label><br>
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="condicion_rasante" id="inlineRadio1" 
+                            <input class="form-check-input" type="radio" name="condicion_rasante" id="inlineRadio1"
                             @if($informe->condicion_rasante != null && $informe->condicion_rasante == "BUENA") @php echo "checked" @endphp @endif value="BUENA" required> BUENA
                             </label>
                         </div>
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="condicion_rasante" id="inlineRadio2" 
+                            <input class="form-check-input" type="radio" name="condicion_rasante" id="inlineRadio2"
                             @if($informe->condicion_rasante != null && $informe->condicion_rasante == "MALA") @php echo "checked" @endphp @endif value="MALA" required> MALA
                             </label>
                         </div>
@@ -179,7 +185,7 @@
                                 <input type="text" name="reservorio" id="reservorio" value="{{$informe->reservorio}}" class="form-control" placeholder="Nº:...." required>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="row">
                     <div class="col-6">
@@ -189,7 +195,7 @@
                             <input type="hidden" name="textMap" id="textMap">
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
             <!-- /.card-body -->
@@ -205,7 +211,7 @@
 {{-- <div class="modal fade bd-example-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div id="map" class="modal-content">
-        
+
       </div>
     </div>
   </div> --}}
@@ -229,7 +235,7 @@
 <script src="{{asset('vendor/leaflet/js/leaflet.js')}}" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 <script src="{{asset('vendor/leaflet/js/esri-leaflet.js')}}" integrity="sha512-6LVib9wGnqVKIClCduEwsCub7iauLXpwrd5njR2J507m3A2a4HXJDLMiSZzjcksag3UluIfuW1KzuWVI5n/cuQ==" crossorigin=""></script>
 <script src="{{asset('vendor/leaflet/js/esri-leaflet-geocoder.js')}}" integrity="sha512-8twnXcrOGP3WfMvjB0jS5pNigFuIWj4ALwWEgxhZ+mxvjF5/FBPVd5uAxqT8dd2kUmTVK9+yQJ4CmTmSg/sXAQ==" crossorigin=""></script>
-<script src="{{asset('vendor/leaflet/js/easy-button.js')}}"></script> 
+<script src="{{asset('vendor/leaflet/js/easy-button.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
 <script src="{{asset('js/html2canvas.min.js')}}"></script>
 <script src="{{asset('js/leaflet_export.js')}}"></script>
@@ -253,7 +259,7 @@
             title: 'Oops...',
             text: 'Algo salió mal!',
         })
-        
+
     </script>
 @endif
 @endif
@@ -293,5 +299,5 @@
     <link rel="stylesheet" href="{{asset('vendor/leaflet/css/esri-leaflet-geocoder.css')}}" integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g==" crossorigin="">
     <link rel="stylesheet" href="{{asset('vendor/leaflet/css/easy-button.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw-src.css"/>
-    
+
 @stop

@@ -33,7 +33,7 @@
                         {{--  --}}
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-7">
                         <label for="fecha_hora_in">Fecha de inspeccion</label>
@@ -42,10 +42,10 @@
                             </div>
                             <input class="form-control" name="fecha_hora_in" type="datetime-local" value="{{date('Y-m-d\TH:i')}}" id="example-datetime-local-input">
                         </div>
-                        
+
                     </div>
                     <div class="col-5"><br>
-                        <label for="espesifiar">Espesifiar el area de concesion</label><br>
+                        <label for="espesifiar">Dentro del area de concesion</label><br>
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
                             <input class="form-check-input" type="radio" name="espesifiar_in" id="inlineRadio1" value="Si"> Si
@@ -57,7 +57,7 @@
                             </label>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="row">
                     <div class="col-12">
@@ -66,13 +66,13 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                             </div>
-                            
+
                                 <input type="text" name="ubicacion_geo" id="ubicacion_geo" class="form-control" placeholder="Ubicacion georeferencial">
                                 {{--  --}}
-                                
+
                                 {{--  --}}
                             </div>
-                        
+
                     </div>
                 </div>
 
@@ -163,7 +163,7 @@
                                 <input type="text" name="reservorio" id="reservorio" class="form-control" placeholder="Nº:....">
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
             <!-- /.card-body -->

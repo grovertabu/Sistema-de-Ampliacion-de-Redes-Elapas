@@ -70,7 +70,7 @@ class Materials_informesController extends Controller
         $mat_inf->cantidad    = $request->cantidad;
         $mat_inf->u_medida    = $u_material->unidad_med;
         $mat_inf->observador = $request->observador;
-        $mat_inf->precio_unitario = $request->precio;
+        $mat_inf->precio_unitario = $request->precio == null ? $request->precio_elapas : $request->precio;
         $mat_inf->save();
 
         return redirect()->route('informes.registrar_material', $request->id_informe);

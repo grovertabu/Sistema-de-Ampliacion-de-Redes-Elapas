@@ -34,6 +34,12 @@ function habilitarCampos(flag) {
     }
 }
 
+function visualizarMapa(lat, long, ruta) {
+    mostrarTabla(true);
+    document.querySelector('#obtenerAmpliaciones').value = ruta;
+    ruta == null ? initMap(lat, long, 'mostrar') : initMap(lat, long);
+}
+
 function decimalAdjust(type, value, exp) {
     // Si el exp no está definido o es cero...
     if (typeof exp === 'undefined' || +exp === 0) {

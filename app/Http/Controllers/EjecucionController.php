@@ -26,13 +26,13 @@ class EjecucionController extends Controller
     public function ejecutada($id_ejecucion,  Request $request)
     {
         $informe = Informe::find($request->id_informe);
-        $informe->estado_in = "en proyeccion";
+        $informe->estado_in = "ejecutando";
         $informe->save();
 
         $ejecucion = Ejecucion::find($id_ejecucion);
         $ejecucion->fecha_ejecutada = $request->fecha_ejecutada;
         $ejecucion->save();
 
-        return redirect()->route('informes.autorizado');
+        return redirect()->route('informes.concluido');
     }
 }

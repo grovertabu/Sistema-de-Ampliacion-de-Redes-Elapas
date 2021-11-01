@@ -246,7 +246,14 @@ return [
             'icon' => 'fa fa-fw fa-users',
             'can' => 'users.index',
         ],
-        ['header' => 'SOLICITUD ELAPAS'],
+        // [
+        //     'header' => 'SOLICITUDES AMPLIACION',
+        //     'can' => ''
+        // ],
+        [
+            'header' => 'SOLICITUDES AMPLIACION',
+            'can' => 'menu-solicitud'
+        ],
         [
             'text' => 'Solicitudes',
             'route'  => 'solicitud.index',
@@ -256,63 +263,77 @@ return [
         ],
 
         [
-            'text' => 'Solicitudes',
+            'header' => 'INFORMES DE AMPLIACION',
+            'can' => 'menu-informes'
+        ],
+        [
+            'text' => 'Inspecciones',
             'route'  => 'monitoreo.index',
             'icon' => 'fas fa-fw fa-folder',
             'can' => 'Monitor',
 
         ],
         [
-            'text' => 'Solicitudes',
+            'text' => 'Inspecciones',
             'route'  => 'proyectos.index',
             'icon' => 'fas fa-fw fa-folder',
             'can' => 'Proyectista',
 
         ],
         [
-            'text' => 'Informes',
+            'text' => 'Inspecciones',
             'route'  => 'informes.index',
             'icon' => 'fa fa-fw fa-file-pdf',
             'can' => 'informes.index',
         ],
         [
-            'text' => 'Informes Autorizados',
+            'text' => 'Inspecciones Autorizados',
             'route'  => 'informes.autorizado',
             'icon' => 'fa fa-fw fa-file-pdf',
             'can' => 'inspector',
 
         ],
         [
-            'text' => 'Informes Concluidos',
+            'text' => 'Inspecciones en Ejecución',
             'route'  => 'informes.concluido',
             'icon' => 'fa fa-fw fa-file-pdf',
             'can' => 'inspector',
 
         ],
         [
-            'text' => 'Informes Autorizados',
+            'text' => 'Inspecciones Autorizadas',
             'route'  => 'informes.autorizado',
             'icon' => 'fa fa-fw fa-file-pdf',
             'can' => 'jefe-red',
 
         ],
         [
-            'text' => 'Informes Concluidos',
+            'text' => 'Inspecciones en Ejecución',
             'route'  => 'informes.concluido',
             'icon' => 'fa fa-fw fa-file-pdf',
             'can' => 'jefe-red',
 
         ],
-        [
-            'text'    => 'Materiales',
-            'icon'    => 'fas fa-fw fa-box-open',
-            'submenu' => [
-                [
-                    'text' => 'Material',
-                    'route'  => 'materials.index',
-                ],
+        // [
+        //     'text'    => 'Materiales',
+        //     'icon'    => 'fas fa-fw fa-box-open',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'Material',
+        //             'route'  => 'materials.index',
+        //         ],
 
-            ],
+        //     ],
+        //     'can' => 'inspector'
+        // ],
+        [
+            'header' => 'MATERIALES',
+            'can' => 'inspector'
+        ],
+        [
+            'text' => 'Registrar Material',
+            'icon' => 'fas fa-fw fa-box-open',
+            'route' => 'materials.index',
             'can' => 'inspector'
         ],
         [
@@ -331,22 +352,22 @@ return [
             'route'  => 'cronograma.reporte',
             'can' => 'jefe-red',
         ],
+        // [
+        //     'text'       => 'Ampliacion en ejecucion',
+        //     'icon_color' => 'yellow',
+        //     'url'        => '#',
+        //     'can' => 'inspector',
+        // ],
         [
-            'text'       => 'Ampliacion en ejecucion',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-            'can' => 'inspector',
+            'header' => 'ACTIVIDADES MANO DE OBRA',
+            'can' => 'jefe-red',
         ],
-        [
-            'header' => 'DESCARGOS',
-            // 'can' =>'jefe-red',
-        ],
-        [
-            'text' => 'Descargo de material',
-            'route'  => 'descargo.index',
-            'icon' => 'fa fa-fw fa-file-pdf',
-            // 'can' => 'informes.index',
-        ],
+        // [
+        //     'text' => 'Descargo de material',
+        //     'route'  => 'descargo.index',
+        //     'icon' => 'fa fa-fw fa-file-pdf',
+        //     // 'can' => 'informes.index',
+        // ],
         [
             'text' => 'Actividades',
             'route'  => 'actividad.index',

@@ -7,35 +7,60 @@ use Illuminate\Http\Request;
 use App\Models\Informe;
 use App\Models\Solicitud;
 use App\Models\Material;
-use App\Models\User;
+// use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Polyfill\Intl\Idn\Info;
+// use Symfony\Polyfill\Intl\Idn\Info;
 
 class InformeController extends Controller
 {
     public function index()
     {
         $id = Auth::user()->id;
-        $informes = DB::table('informes')
-            ->join('solicituds', 'solicituds.id', '=', 'informes.solicitud_id')
-            ->join('cronogramas', 'cronogramas.solicitud_id', '=', 'solicituds.id')
-            ->select(
-                'informes.id as id_informe',
-                'solicituds.id as id_solicitud',
-                'solicituds.nombre_sol as nombre_sol',
-                'solicituds.calle_sol as calle_sol',
-                'solicituds.zona_sol as zona_sol',
-                'solicituds.x_aprox as x_aprox',
-                'solicituds.y_aprox as y_aprox',
-                'informes.fecha_hora_in as fecha_inspeccion',
-                'informes.estado_in as estado'
-            )
-            ->where('cronogramas.user_id', $id)
-            ->where('informes.estado_in', 'asignado')
-            // ->groupBy('solicituds.id','informes.id','solicituds.nombre_sol')
-            ->get();
+        $aux = Auth::user()->tipo_user;
+        if ($aux == 'Inspector') {
+            $informes = DB::table('informes')
+                ->join('solicituds', 'solicituds.id', '=', 'informes.solicitud_id')
+                ->join('cronogramas', 'cronogramas.solicitud_id', '=', 'solicituds.id')
+                ->select(
+                    'informes.id as id_informe',
+                    'solicituds.id as id_solicitud',
+                    'solicituds.nombre_sol as nombre_sol',
+                    'solicituds.calle_sol as calle_sol',
+                    'solicituds.zona_sol as zona_sol',
+                    'solicituds.x_aprox as x_aprox',
+                    'solicituds.y_aprox as y_aprox',
+                    'informes.fecha_hora_in as fecha_inspeccion',
+                    'informes.estado_in as estado'
+                )
+                ->where('cronogramas.user_id', $id)
+                ->where(function ($query) {
+                    $query->where('informes.estado_in', 'asignado')
+                        ->orwhere('informes.estado_in', 'inspeccionado');
+                })
+                ->get();
+        } else if ($aux == 'Jefe de red') {
+            $informes = DB::table('informes')
+                ->join('solicituds', 'solicituds.id', '=', 'informes.solicitud_id')
+                ->join('cronogramas', 'cronogramas.solicitud_id', '=', 'solicituds.id')
+                ->select(
+                    'informes.id as id_informe',
+                    'solicituds.id as id_solicitud',
+                    'solicituds.nombre_sol as nombre_sol',
+                    'solicituds.calle_sol as calle_sol',
+                    'solicituds.zona_sol as zona_sol',
+                    'solicituds.x_aprox as x_aprox',
+                    'solicituds.y_aprox as y_aprox',
+                    'informes.fecha_hora_in as fecha_inspeccion',
+                    'informes.estado_in as estado',
+                    'cronogramas.user_id as user_id'
+                )
+                ->where('informes.estado_in', 'asignado')
+                ->orWhere('informes.estado_in', 'inspeccionado')
+
+                ->get();
+        }
         // $informes = Informe::all();
         return view('informes.index', compact('informes', 'id'));
         // return $informes;
@@ -54,14 +79,14 @@ class InformeController extends Controller
         $ejecucion->informe_id = $informe->id;
         $ejecucion->save();
 
-        return redirect()->route('informes.autorizado');
+        return redirect()->route('informes.index');
         // return $informe;
     }
     public function no_autorizar(Informe $informe)
     {
         $informe->estado_in = "no autorizado";
         $informe->save();
-        return redirect()->route('informes.autorizado');
+        return redirect()->route('informes.index');
         // return $solicitud->estado_in;
     }
     public function firmar_informe(Informe $informe)
@@ -74,7 +99,7 @@ class InformeController extends Controller
 
     public function aprobar_proyecto(Informe $informe)
     {
-        $informe->estado_in = "ejecutando";
+        $informe->estado_in = "en proyeccion";
         $informe->save();
         return redirect()->route('proyectos.index');
         // return $solicitud->estado_in;
@@ -85,27 +110,30 @@ class InformeController extends Controller
         $id = Auth::user()->id;
         $aux = Auth::user()->tipo_user;
         if ($aux == 'Inspector') {
-
-
-            $cadena = "SELECT informes.id as id_informe,
-            solicituds.id as id_solicitud,
-            solicituds.x_aprox as x_aprox,
-            solicituds.y_aprox as y_aprox,
-            solicituds.nombre_sol as nombre_sol,
-            solicituds.zona_sol as zona_sol,
-            informes.fecha_hora_in as fecha_inspeccion,
-            informes.estado_in as estado,
-            cronogramas.user_id as user_id,
-            ejecucions.id as id_ejecucion,
-            ejecucions.fecha_progrmada as fecha_programada,
-            ejecucions.fecha_ejecutada as fecha_ejecutada,
-            ejecucions.estado_informe as estado_informe
-            FROM informes INNER JOIN solicituds ON solicituds.id = informes.solicitud_id
-            INNER JOIN cronogramas ON cronogramas.solicitud_id = solicituds.id
-            LEFT JOIN ejecucions ON ejecucions.informe_id = informes.id
-            WHERE cronogramas.user_id = " . $id . "
-            AND (informes.estado_in = 'registrado' OR informes.estado_in = 'autorizado' OR informes.estado_in = 'firmado' OR informes.estado_in = 'en proyeccion')";
-            $informes = DB::select($cadena);
+            $informes = DB::table('informes')
+                ->join('solicituds', 'solicituds.id', '=', 'informes.solicitud_id')
+                ->join('cronogramas', 'cronogramas.solicitud_id', '=', 'solicituds.id')
+                ->leftJoin('ejecucions', 'ejecucions.informe_id', '=', 'informes.id')
+                ->select(
+                    'solicituds.id as id_solicitud',
+                    'solicituds.x_aprox as x_aprox',
+                    'solicituds.y_aprox as y_aprox',
+                    'solicituds.nombre_sol as nombre_sol',
+                    'solicituds.zona_sol as zona_sol',
+                    'informes.fecha_hora_in as fecha_inspeccion',
+                    'informes.estado_in as estado',
+                    'informes.id as id_informe',
+                    'cronogramas.user_id as user_id',
+                    'ejecucions.id as id_ejecucion',
+                    'ejecucions.fecha_progrmada as fecha_programada',
+                    'ejecucions.fecha_ejecutada as fecha_ejecutada'
+                )
+                ->where('cronogramas.user_id', $id)
+                ->where(function ($query) {
+                    $query->where('informes.estado_in', 'autorizado')
+                        ->orWhere('informes.estado_in', 'firmado');
+                })
+                ->get();
         } else {
             $informes = DB::table('informes')
                 ->join('solicituds', 'solicituds.id', '=', 'informes.solicitud_id')
@@ -125,11 +153,8 @@ class InformeController extends Controller
                     'ejecucions.fecha_progrmada as fecha_programada',
                     'ejecucions.fecha_ejecutada as fecha_ejecutada'
                 )
-
-                ->where('informes.estado_in', 'registrado')
-                ->orWhere('informes.estado_in', 'autorizado')
+                ->where('informes.estado_in', 'autorizado')
                 ->orWhere('informes.estado_in', 'firmado')
-                ->orWhere('informes.estado_in', 'en proyeccion')
                 ->get();
         }
 
@@ -146,17 +171,25 @@ class InformeController extends Controller
             $informes = DB::table('informes')
                 ->join('solicituds', 'solicituds.id', '=', 'informes.solicitud_id')
                 ->join('cronogramas', 'cronogramas.solicitud_id', '=', 'solicituds.id')
+                ->join('ejecucions', 'ejecucions.informe_id', '=', 'informes.id')
                 ->select(
                     'informes.id as id_informe',
                     'solicituds.id as id_solicitud',
                     'solicituds.nombre_sol as nombre_sol',
                     'solicituds.zona_sol as zona_sol',
                     'informes.fecha_hora_in as fecha_inspeccion',
-                    'informes.estado_in as estado'
+                    'informes.estado_in as estado',
+                    'solicituds.zona_sol as zonal_sol',
+                    'solicituds.calle_sol as calle_sol',
+                    'ejecucions.id as id_ejecucion',
+                    'ejecucions.fecha_ejecutada as fecha_ejecutada'
+
                 )
-                // ->where('informes.estado_in','registrado')
                 ->where('cronogramas.user_id', $id)
-                ->where('informes.estado_in', 'ejecutando')
+                ->where(function ($query) {
+                    $query->where('informes.estado_in', 'en proyeccion')
+                        ->orWhere('informes.estado_in', 'ejecutando');
+                })
                 ->get();
         } else {
             $informes = DB::table('informes')
@@ -170,7 +203,8 @@ class InformeController extends Controller
                     'informes.fecha_hora_in as fecha_inspeccion',
                     'informes.estado_in as estado'
                 )
-                ->where('informes.estado_in', 'ejecutando')
+                ->where('informes.estado_in', 'en proyeccion')
+                ->orWhere('informes.estado_in', 'ejecutando')
                 ->get();
         }
 
@@ -292,7 +326,7 @@ class InformeController extends Controller
         $informe->num_flia_in = $request->num_flia_in;
         $informe->condicion_rasante = $request->condicion_rasante;
         $informe->reservorio = $request->reservorio;
-        $informe->estado_in = 'registrado';
+        $informe->estado_in = 'inspeccionado';
         $informe->solicitud_id = $request->solicitud_id;
         $informe->imagen_amp = 'informe_' . $request->solicitud_id . '.png';
         if ($request->textMap != null) {
