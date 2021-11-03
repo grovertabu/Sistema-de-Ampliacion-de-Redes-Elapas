@@ -51,21 +51,59 @@
                 @can('Monitor')
                 @if ($sol->estado_sol == 'asignado')
 
-                <a href="{{route('descargarPDF.informe',$sol->id)}}" target="_blank" class="btn btn-danger btn-icon" title="Informe">
+                <a href="{{route('descargarPDF.informe',$sol->informe_id)}}" target="_blank" class="btn btn-danger btn-icon" title="Informe">
                     <i class="fas fa-file-pdf"></i></a>
                 @endif
                 @endcan
                 @can('Proyectista')
-                @if ($sol->estado_in =='ejecutando')
+                <button type="button" class="d-inline btn btn-primary btn-icon" title="Informes" data-toggle="modal" data-target="#exampleModal{{$n}}">
+                    <i class="fa fa-file"></i>
+                    </button>
 
-                <a href="{{route('descargarPDF.proyecto',$sol->id)}}" target="_blank" class="btn btn-danger btn-icon" title="Informe Proyeccion">
-                    <i class="fas fa-file-pdf"></i></a>
-                @endif
-                @if ($sol->estado_in =='firmado')
+                    <div class="modal fade" id="exampleModal{{$n}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Informes</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <div style="text-align: center;" >
+                                        <p>
+                                            <a href='{{route('reportePDF.informe_material',$sol->informe_id)}}' target="_blank"
+                                                class='btn btn-danger btn-icon w-75'>Informe Ampliacion <i class="fas fa-file-pdf"></i></a>
+                                        </p>
+                                        @if ($sol->estado_in =='en proyeccion' || $sol->estado_in =='ejecutando')
+                                        <p>
+                                            <a href="{{route('descargarPDF.proyecto',$sol->informe_id)}}" target="_blank" class="btn btn-danger btn-icon w-75" title="Informe Proyeccion">
+                                                Informe Proyección<i class="fas fa-file-pdf"></i></a>
+                                        </p>
+                                        @endif
+                                        {{-- @if($inf->fecha_ejecutada != null)
+                                            <p>
+                                                <a href='{{route('reportePDF.informe_descargo_material',$inf->id_informe)}}' target="_blank"
+                                                    class='btn btn-danger btn-icon w-75'>Informe Descargo Material<i class="fas fa-box-open"></i></a>
 
-                <a href="{{route('informes.aprobar_proyecto',$sol->id)}}" class="btn btn-success btn-icon" title="Aprobar Proyecto">
-                    <i class="fas fa-check"></i></a>
-                @endif
+                                            </p>
+
+
+                                        @endif --}}
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      @if ($sol->estado_in =='firmado')
+
+                      <a href="{{route('informes.aprobar_proyecto',$sol->informe_id)}}" class="btn btn-success btn-icon" title="Aprobar Proyecto">
+                          <i class="fas fa-check"></i></a>
+                      @endif
                 @endcan
             </td>
         </tr>

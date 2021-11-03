@@ -88,6 +88,7 @@
         </tr>
         @php
             $precio_total = 0.00;
+            $costo_total = 0.00;
         @endphp
         @foreach ($materiales as $material )
         @php
@@ -107,6 +108,9 @@
         @endphp
         @endforeach
     </table>
+    @php
+        $costo_total = $costo_total + $precio_total;
+    @endphp
     <div class="centrar total" >{{$precio_total}}</div>
 
     <br><br>
@@ -145,10 +149,20 @@
             $precio_total = $precio_total + $sub_total;
         @endphp
         @endforeach
-
     </table>
+    @php
+    $costo_total = $costo_total + $precio_total;
+    @endphp
     <div class="centrar total" >{{$precio_total}}</div>
 </div>
+<br>
+<br>
+<table align="right">
+    <tr>
+        <td> <b>COSTO TOTAL DEL PROYECTO Bs.</b> </td>
+        <td class="centrar" width="125px">{{$costo_total}}</td>
+    </tr>
+</table>
     <div><br><br>
         @foreach ($inspector as $i )
         <p align="center">{{$i->nombre_inspector}} <br> INSPECTOR</p>

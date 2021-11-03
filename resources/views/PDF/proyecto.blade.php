@@ -31,6 +31,10 @@
     th{
         padding: 10px;
     }
+    table,td{
+        border: 1px solid black;
+        border-collapse:collapse;
+    }
     #contenedor{
         width: 680px;
         margin: 0 auto;
@@ -151,6 +155,7 @@
         </tr>
         @php
             $precio_total = 0.00;
+            $costo_total = 0.00;
         @endphp
         @foreach ($materiales as $material )
         @php
@@ -170,6 +175,9 @@
         @endphp
         @endforeach
     </table>
+    @php
+        $costo_total = $costo_total + $precio_total;
+    @endphp
     <div class="centrar total" >{{$precio_total}} Bs.</div>
 
     <br><br>
@@ -212,6 +220,17 @@
     </table>
     <div class="centrar total" >{{$precio_total}} Bs.</div>
 </div>
+@php
+$costo_total = $costo_total + $precio_total;
+@endphp
+<br><br>
+<table align="right">
+    <tr>
+        <td> <b>COSTO TOTAL DEL PROYECTO Bs.</b> </td>
+        <td class="centrar" width="125px">{{$costo_total}}</td>
+    </tr>
+</table>
+<br>
 <br>
 <p style="text-align:left; margin-left:10px">
     El proyecto de ampliación de red ha sido aprobado y generado para la solicitud N° <b>{{$informe->solicitud_id.'/'.date('Y')}}</b>

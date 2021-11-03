@@ -6,7 +6,7 @@
 <style>
     #map {
         margin-top: 20px;
-        width: 80%;
+        width: 100%;
         height: 400px;
         position: absolute;
       }
@@ -241,8 +241,10 @@
     <input type="hidden" id="obtenerAmpliaciones" >
 
     <button onclick="mostrarTabla(false)" class="btn btn-primary"> <i class="fas fa-arrow-circle-left"></i> Volver </button>
+    <div class="col-md-12">
+        <div id="map">
+        </div>
 
-    <div id="map">
     </div>
 </div>
 @stop

@@ -6,7 +6,7 @@
     <style>
    #map {
       margin-top: 20px;
-      width: 80%;
+      width: 100%;
       height: 400px;
       position: absolute;
     }
@@ -221,7 +221,10 @@
     <button onclick="downloadMap()" class="btn btn-danger"> <i class="fas fa-save"></i> Guardar Imagen</button>
     <form action="{{route('solicitud.guardarAmpliacion',$informe->solicitud)}}" method="POST" id="formAmpliaciones">@csrf</form>
     <input type="hidden" id="obtenerAmpliaciones" value="{{route('solicitud.obtenerAmpliaciones',$informe->solicitud)}}" >
-    <div id="map">
+    <div class="col-md-12">
+        <div  id="map">
+        </div>
+
     </div>
   </div>
   {{-- Modal fin --}}
@@ -269,6 +272,7 @@
         calcularDistancia();
         mapLink()
         fechaInspeccion = document.querySelector('#fecha_hora_in').value;
+        // document.querySelector('#map').style.width = window.screen.width ;
     });
     document.querySelector("#fecha_hora_in").addEventListener('change',()=>{
         document.querySelector("#fecha_hora_in").value = fechaInspeccion;

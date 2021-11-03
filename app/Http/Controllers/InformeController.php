@@ -195,13 +195,16 @@ class InformeController extends Controller
             $informes = DB::table('informes')
                 ->join('solicituds', 'solicituds.id', '=', 'informes.solicitud_id')
                 ->join('cronogramas', 'cronogramas.solicitud_id', '=', 'solicituds.id')
+                ->join('ejecucions', 'ejecucions.informe_id', '=', 'informes.id')
                 ->select(
                     'informes.id as id_informe',
                     'solicituds.id as id_solicitud',
                     'solicituds.nombre_sol as nombre_sol',
                     'solicituds.zona_sol as zona_sol',
                     'informes.fecha_hora_in as fecha_inspeccion',
-                    'informes.estado_in as estado'
+                    'informes.estado_in as estado',
+                    'ejecucions.fecha_ejecutada as fecha_ejecutada'
+
                 )
                 ->where('informes.estado_in', 'en proyeccion')
                 ->orWhere('informes.estado_in', 'ejecutando')

@@ -55,7 +55,7 @@
                                 <div class="modal-body" style="text-align: center;">
                                     <p>
                                         <a href='{{route('descargarPDF.informe',$inf->id_informe)}}' target="_blank"
-                                            class='btn btn-danger btn-icon w-75'>Informe de Inspección<i class="fas fa-file-pdf"></i></a>
+                                            class='btn btn-danger btn-icon w-75'>Informe de Inspección <i class="fas fa-file-pdf"></i></a>
 
                                     </p>
                                     <p>
