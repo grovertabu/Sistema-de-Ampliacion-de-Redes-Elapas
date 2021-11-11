@@ -534,7 +534,6 @@ return [
                 ],
             ],
         ],
-
         'funciones' => [
             'active' => true,
             'files' => [
@@ -547,6 +546,42 @@ return [
                     'type' => 'css',
                     'asset' => true,
                     'location' => 'vendor/funciones/estilos.css',
+                ],
+            ],
+        ],
+        [
+            'name' => 'AdminLTE-Components-DG',
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/vendor/dg-plugins/moment/moment.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/vendor/dg-plugins/moment/moment-with-locales.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '/vendor/dg-plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/vendor/dg-plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/vendor/dg-plugins/daterangepicker/daterangepicker.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => '/vendor/dg-plugins/daterangepicker/daterangepicker.css',
                 ],
             ],
         ],
