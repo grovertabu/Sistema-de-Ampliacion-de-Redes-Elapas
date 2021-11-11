@@ -82,7 +82,7 @@
             <td class="centrar">DESCRIPCION</td>
             <td class="centrar">UNIDAD</td>
             <td class="centrar">CANTIDAD</td>
-            <td class="centrar">OBSERVACION</td>
+            <td class="centrar">PROVEEDOR</td>
             <td class="centrar">P.UNITARIO</td>
             <td class="centrar">P.TOTAL</td>
         </tr>
@@ -124,7 +124,7 @@
             <td class="centrar">DESCRIPCION</td>
             <td class="centrar">UNIDAD</td>
             <td class="centrar">CANTIDAD</td>
-            <td class="centrar">OBSERVACION</td>
+            <td class="centrar">PROVEEDOR</td>
             <td class="centrar">P.UNITARIO</td>
             <td class="centrar">P.TOTAL</td>
         </tr>
@@ -184,6 +184,17 @@
             html2pdf().set(opt).from(element).outputPdf().then(function(pdf) {
                 pdf = btoa(pdf);
                 console.log(pdf.length)
+                // var obj = document.createElement('iframe');
+                // obj.style.width = '100%';
+                // obj.title = "Ampliación"
+                // obj.style.height = window.screen.height + 'px';
+                // obj.style.margin = '-10px'
+                // obj.style.position = 'absolute'
+                // obj.type = 'application/pdf';
+                // obj.data = 'data:application/pdf;base64,' + pdf;
+                // element.style.display = 'none';
+                // document.body.appendChild(obj);
+
                 var obj = document.createElement('object');
                 obj.style.width = '100%';
                 obj.style.height = window.screen.height + 'px';
@@ -191,8 +202,10 @@
                 obj.style.position = 'absolute'
                 obj.type = 'application/pdf';
                 obj.data = 'data:application/pdf;base64,' + pdf;
+                // document.getElementById('title').innerText = "Ampliacion";
                 element.style.display = 'none';
                 document.body.appendChild(obj);
+
 
             });
            }

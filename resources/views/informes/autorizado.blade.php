@@ -57,9 +57,9 @@
                         @can('inspector')
                         @if($inf->estado=='autorizado' || $inf->estado=='en proyeccion')
                         <button type="button" class='btn btn-warning btn-icon ' data-toggle="modal" data-target=".bd-example-modal-lg"
-                        onclick="llamar('{{route('informes.show',$inf->id_informe)}}')" title="Material"><i class="fas fa-box"></i></button>
-                        <a href='{{route('mano_obra.create',$inf->id_ejecucion)}}'
-                            class='btn btn-warning btn-icon' title="Registrar Mano de Obra" ><i class="fas fa-hammer"></i></a>
+                        onclick="llamar('{{route('informes.show',$inf->id_informe)}}','material')" title="Material"><i class="fas fa-box"></i></button>
+                        <button type="button" onclick="llamar('{{route('mano_obra.show',$inf->id_ejecucion)}}','mano_obra')" data-toggle="modal" data-target="#modal_mano_obra"
+                            class='btn btn-warning btn-icon' title="Registrar Mano de Obra" ><i class="fas fa-hammer"></i></button>
                         @endif
                         @endcan
 
@@ -159,6 +159,24 @@
             </div>
         </div>
     </div>
+    <div class="modal fade bd-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="modal_mano_obra" style="overflow:hidden;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ACTIVIDADES DE MANO DE OBRA</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body" id="contenido_mano_obra" >
+                      {{--  --}}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                  </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="contenedor-mapa" style="display: none">
@@ -169,7 +187,7 @@
         <div id="map">
         </div>
     </div>
-  </div>
+</div>
 @stop
 
 @section('js')
@@ -177,11 +195,15 @@
         $('.select2').select2();
         $.fn.modal.Constructor.prototype._enforceFocus = function() {};
 
-        function llamar (url) {
+        function llamar (url, opcion) {
             var ajax = new XMLHttpRequest();
             ajax.onreadystatechange = function(){
                 if (ajax.readyState==4 && ajax.status==200) {
-                    document.getElementById("contenido").innerHTML=ajax.responseText;
+                    if(opcion == 'material')
+                        document.getElementById("contenido").innerHTML=ajax.responseText;
+                    else{
+                        document.getElementById("contenido_mano_obra").innerHTML=ajax.responseText;
+                    }
                 }
             };
             ajax.open("GET",url,true);

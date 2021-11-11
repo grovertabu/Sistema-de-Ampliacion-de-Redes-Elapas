@@ -12,11 +12,11 @@
       }
     </style>
 <div class="row">
-    <h1 class="col-md-10" id="txtActividad">Registro de Mano de Obra</h1>
-    <div class="col-md-2">
+    <h1 class="col-md-9" id="txtActividad">Registro de Mano de Obra</h1>
+    <div class="col-md-3">
         @can('inspector')
         <a href="{{route('informes.autorizado')}}" class="btn btn-danger btn-rounded" style="float: right;">
-            <i class="fa fa-arrow-circle-left"></i> Volver
+            <i class="fa fa-arrow-circle-left"></i> Inspecciones Autorizadas
         </a>
         @endcan
     </div>
@@ -49,36 +49,32 @@
                         </div>
                     </div>
                     <div>
-                        <label for="informe">Dentro del Area de Concesión: </label>
+                        <label for="informe">Dentro del Area de Concesión: </label> {{$informe->espesifiar_in}}
                         <div class="input-group ">
-                            {{$informe->espesifiar_in}}
                         </div>
                     </div>
                     <div>
-                        <label for="informe">Longitud de la Ampliación: </label>
+                        <label for="informe">Longitud de la Ampliación: </label> {{$informe->longitud_in}} metros
                         <div class="input-group ">
-                            {{$informe->longitud_in}} metros
                         </div>
                     </div>
                     <div>
-                        <label for="informe">Diametro de la Ampliación : </label>
+                        <label for="informe">Diametro de la Ampliación : </label> {{$informe->diametro_in}} pulgadas
                         <div class="input-group ">
-                            {{$informe->diametro_in}} metros
                         </div>
                     </div>
                     <div>
-                        <label for="informe">Condiciones de Rasante: </label>
+                        <label for="informe">Condiciones de Rasante: </label> {{$informe->condicion_rasante}}
                         <div class="input-group ">
-                            {{$informe->condicion_rasante}}
                         </div>
                     </div>
-                    <br>
                     <br>
                     {{-- <a type="button" class="btn btn-warning btn-icon w-100" title="Visualizar" onclick="visualizarMapa({{$informe->x_aprox}},{{$informe->y_aprox}}, '{{route('solicitud.obtenerAmpliaciones',$informe->solicitud_id)}}')">
                         <i class="fas fa-eye"></i> Visualizar Mapa</a> --}}
-                    <button type="button" class="btn btn-warning btn-icon w-100" onclick="visualizarMapa({{$informe->x_exact}},{{$informe->y_exact}}, '{{route('solicitud.obtenerAmpliaciones',$informe->solicitud_id)}}')" >
-                        <i class="fas fa-eye"></i> Visualizar Mapa
-                    </button>
+                        {{-- <a type="button" class="d-inline btn btn-warning btn-icon" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="visualizarMapa({{$informe->solicitud->x_aprox}},{{$informe->solicitud->y_aprox}}, {{$informe->solicitud_id}})" title="Visualizar" id="btn_mostrar_mapa" >
+                            <i class="fas fa-eye"></i></a> --}}
+                                {{-- <a type="button" class="d-inline btn btn-warning btn-icon" title="Visualizar" onclick="visualizarMapa({{$informe->solicitud->x_aprox}},{{$informe->solicitud->y_aprox}}, '{{route('solicitud.obtenerAmpliaciones',$informe->solicitud_id)}}')">
+                                    <i class="fas fa-eye"></i></a> --}}
 
 
                 </div>
@@ -111,33 +107,24 @@
                 <input type="hidden" name="id_informe" value="{{$ejecucion->informe_id}}">
                 <input type="hidden" name="id_actividad" id="id_actividad" value="">
                 <div class="row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="ancho">Ancho (mts.)</label>
                         <div class="input-group">
                             <input class="form-control" type="number" min="0.00" step="0.01" oninput="calcularVolumen()"  name="ancho" id="ancho" placeholder="Ancho" disabled>
                         </div>
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-4">
                         <label for="cantidad">Alto (mts.)</label>
                         <div class="input-group">
                             <input type="number" min="0.00" step="0.01" name="alto" id="alto" oninput="calcularVolumen()"   class="form-control" placeholder="Alto" disabled>
                         </div>
 
                     </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="nombre_material">Largo (mts.)</label>
                         <div class="input-group">
                             <input class="form-control" type="number" min="0.00" step="0.01" oninput="calcularVolumen()"  name="largo" id="largo" placeholder="Largo" disabled>
                         </div>
-                    </div>
-                    <div class="form-group col-6">
-                        <label for="cantidad">Unidad</label>
-                        <div class="input-group">
-                            <input type="text" name="unidad" id="unidad" onchange="calcularVolumen()" class="form-control" placeholder="Unidad de Medida"  disabled required>
-                        </div>
-
                     </div>
                 </div>
                 <div class="row">
@@ -149,6 +136,16 @@
 
                     </div>
                     <div class="form-group col-6">
+                        <label for="cantidad">Unidad</label>
+                        <div class="input-group">
+                            <input type="text" name="unidad" id="unidad" onchange="calcularVolumen()" class="form-control" placeholder="Unidad de Medida"  disabled required>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="form-group col-6">
                         <label for="cantidad">Precio Unitario</label>
                         <div class="input-group">
                             <input type="number" min="0.00" step="0.01" name="precio_uni" id="precio" class="form-control" placeholder="Precio Unitario del Material" required disabled>
@@ -156,8 +153,6 @@
 
                     </div>
 
-                </div>
-                <div class="row">
                     <div class="form-group col-6">
                         <label for="observador">Proveedor</label>
                         <div class="input-group" >
@@ -178,11 +173,8 @@
                         </div>
 
                     </div>
+
                 </div>
-
-
-
-            </div>
             <!-- /.card-body -->
             <div class="card-footer">
                 <button id="btnRegistrar" type="submit" class="btn btn-block btn-primary" disabled>Registrar</button>
@@ -244,7 +236,6 @@
     <div class="col-md-12">
         <div id="map">
         </div>
-
     </div>
 </div>
 @stop
@@ -253,12 +244,12 @@
     <script>
     $('.select2').select2();
     </script>
-    <script src="{{asset('js/mano_obra.js')}}"></script>
-    <script src="{{asset('vendor/leaflet/js/leaflet.js')}}" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+        <script src="{{asset('vendor/leaflet/js/leaflet.js')}}" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
     <script src="{{asset('vendor/leaflet/js/esri-leaflet.js')}}" integrity="sha512-6LVib9wGnqVKIClCduEwsCub7iauLXpwrd5njR2J507m3A2a4HXJDLMiSZzjcksag3UluIfuW1KzuWVI5n/cuQ==" crossorigin=""></script>
     <script src="{{asset('vendor/leaflet/js/esri-leaflet-geocoder.js')}}" integrity="sha512-8twnXcrOGP3WfMvjB0jS5pNigFuIWj4ALwWEgxhZ+mxvjF5/FBPVd5uAxqT8dd2kUmTVK9+yQJ4CmTmSg/sXAQ==" crossorigin=""></script>
     <script src="{{asset('vendor/leaflet/js/easy-button.js')}}"></script>
     <script src="{{asset('js/mapas.js') }}"></script>
+    <script src="{{asset('js/mano_obra.js')}}"></script>
 
 @stop
 @section('css')

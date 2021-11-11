@@ -13,7 +13,7 @@
 <div class="table table-bordered table-hover dataTable table-responsive">
     <table class="table table-bordered datatable" id="example">
     <thead>
-        <tr>	
+        <tr>
             <th width="170">ID</th>
             <th >MATERIAL</th>
             <th width="150">CANTIDAD <br> SOLICITADA </th>
@@ -22,7 +22,7 @@
         </tr>
     </thead>
     <tbody>
-        
+
         @foreach($mat_inf as $value)
         <tr>
             <td>{{$value->id}}</td>

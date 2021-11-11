@@ -67,7 +67,6 @@ function calcularVolumen(flag = false) {
     let altura = document.getElementById('alto').value;
     let ancho = document.getElementById('ancho').value;
     let largo = document.getElementById('largo').value;
-    console.log(`${altura}-${ancho}-${largo}`);
     if (altura <= 0.00 || altura == "") {
         altura = 1.00;
     }

@@ -76,7 +76,7 @@
                                     @if($inf->estado == 'ejecutando')
                                     <p>
                                         <a href='{{route('reportePDF.informe_descargo_material',$inf->id_informe)}}' target="_blank"
-                                            class='btn btn-danger btn-icon w-75'>Informe Descargo Material <i class="fas fa-file-pdf"></i></a>
+                                            class='btn btn-danger btn-icon w-75'>Informe de Ejecución de Proyecto<i class="fas fa-file-pdf"></i></a>
 
                                     </p>
                                     @endif

@@ -281,13 +281,24 @@ return [
 
         ],
         [
+            'header' => 'REPORTES',
+            'can' => 'Proyectista'
+        ],
+        [
+            'text' => 'Reportes de inversion',
+            'route'  => 'proyectos.reporte',
+            'icon' => 'fas fa-fw fa-folder',
+            'can' => 'Proyectista',
+
+        ],
+        [
             'text' => 'Inspecciones',
             'route'  => 'informes.index',
             'icon' => 'fa fa-fw fa-file-pdf',
             'can' => 'informes.index',
         ],
         [
-            'text' => 'Inspecciones Autorizados',
+            'text' => 'Inspecciones Autorizadas',
             'route'  => 'informes.autorizado',
             'icon' => 'fa fa-fw fa-file-pdf',
             'can' => 'inspector',
@@ -497,7 +508,7 @@ return [
                 [
                     'type' => 'css',
                     'asset' => true,
-                    'location' => 'vendor/pace/blue/pace-theme-center-radar.css',
+                    'location' => 'vendor/pace/blue/pace-theme-center-flash.css',
                     // 'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-center-radar.min.css',
                 ],
                 [

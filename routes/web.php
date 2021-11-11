@@ -99,6 +99,7 @@ Route::delete('Computo_eliminar/{descargo}/{fecha_descargo?}/{valor?}', [Descarg
 
 //Monitoreo y Prroyectista
 Route::get('Monitoreo', [MonitorController::class, 'index'])->middleware('can:Monitor')->name('monitoreo.index');
+Route::get('Proyectos/Reporte_inversiones', [MonitorController::class, 'proyectista_reporte'])->middleware('can:Proyectista')->name('proyectos.reporte');
 Route::get('Proyectos', [MonitorController::class, 'proyectista_index'])->middleware('can:Proyectista')->name('proyectos.index');
 Route::get('Proyecto/{informe}/descargar', [PDFController::class, 'PDF_proyecto'])->name('descargarPDF.proyecto');
 
@@ -112,6 +113,7 @@ Route::post('Ejecucion/{id_ejecucion}/ejecutar', [EjecucionController::class, 'e
 
 // Route::get('mano_obra/registrar',[Mano_ObrasController::class, 'index'])->middleware('can:inspector')->name('mano_obra.index');
 Route::get('mano_obra/{Ejecucion}/crear', [Mano_ObrasController::class, 'create'])->middleware('can:inspector')->name('mano_obra.create');
+Route::get('mano_obra/{Ejecucion}/show', [Mano_ObrasController::class, 'show'])->middleware('can:inspector')->name('mano_obra.show');
 Route::post('mano_obra/store', [Mano_ObrasController::class, 'store'])->middleware('can:inspector')->name('mano_obra.store');
 
 Route::delete('mano_obra/{mano_obra}/eliminar', [Mano_ObrasController::class, 'eliminar'])->middleware('can:inspector')->name('mano_obra.eliminar');

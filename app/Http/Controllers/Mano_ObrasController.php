@@ -36,6 +36,25 @@ class Mano_ObrasController extends Controller
         // return $ejecucion;
     }
 
+    public function show($id_ejecucion)
+    {
+        $mano_obra = DB::table('mano_obras')
+            ->join('actividad_mano_obras', 'actividad_mano_obras.id', '=', 'mano_obras.actividad_id')
+            ->select(
+                'actividad_mano_obras.descripcion as descripcion',
+                'actividad_mano_obras.unidad_medida as unidad',
+                'mano_obras.id as mano_obras_id',
+                'mano_obras.ancho as ancho',
+                'mano_obras.alto as alto',
+                'mano_obras.largo as largo',
+                'mano_obras.cantidad as cantidad',
+                'mano_obras.precio_uni as precio_uni',
+                'mano_obras.observador as observador'
+            )
+            ->where('mano_obras.ejecucion_id', $id_ejecucion)->get();
+        return view('mano_obras.index', compact('id_ejecucion', 'mano_obra'));
+    }
+
     public function store(Request $request)
     {
         $mano = new Mano_obra();

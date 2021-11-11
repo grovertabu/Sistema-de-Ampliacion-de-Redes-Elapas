@@ -133,7 +133,7 @@
                             </div>
                                 <input type="number" min="0.01" step="0.01" name="diametro_in" id="diametro_in" value="{{$informe->diametro_in}}" class="form-control" placeholder="Diametro" required>
                             <div class="input-group-prepend">
-                                <span class="input-group-text">mts.</span>
+                                <span class="input-group-text">plg.</span>
                             </div>
                         </div>
                     </div>
@@ -188,7 +188,7 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12">
                         <label for="reservorio">Imagen Vista Previa</label>
                         <div class="input-group ">
                             <img src="{{$informe->imagen_amp== null ?  asset('images/no-disponible.png'): asset('storage/'.$informe->imagen_amp)}}" width="650px" height="342px"alt="Vista Previa" id="imgMap">
@@ -221,10 +221,9 @@
     <button onclick="downloadMap()" class="btn btn-danger"> <i class="fas fa-save"></i> Guardar Imagen</button>
     <form action="{{route('solicitud.guardarAmpliacion',$informe->solicitud)}}" method="POST" id="formAmpliaciones">@csrf</form>
     <input type="hidden" id="obtenerAmpliaciones" value="{{route('solicitud.obtenerAmpliaciones',$informe->solicitud)}}" >
-    <div class="col-md-12">
+    <div class="col-12">
         <div  id="map">
         </div>
-
     </div>
   </div>
   {{-- Modal fin --}}

@@ -261,15 +261,26 @@ $costo_total = $costo_total + $precio_total;
             html2pdf().set(opt).from(element).outputPdf().then(function(pdf) {
                 pdf = btoa(pdf);
                 console.log(pdf.length)
-                var obj = document.createElement('object');
+                var obj = document.createElement('embed');
                 obj.style.width = '100%';
                 obj.style.height = window.screen.height + 'px';
                 obj.style.margin = '-10px'
                 obj.style.position = 'absolute'
                 obj.type = 'application/pdf';
-                obj.data = 'data:application/pdf;base64,' + pdf;
+                obj.src = 'data:application/pdf;base64,' + pdf;
                 element.style.display = 'none';
                 document.body.appendChild(obj);
+
+                // var obj = document.createElement('iframe');
+                // obj.style.width = '100%';
+                // obj.style.height = window.screen.height + 'px';
+                // obj.style.margin = '-10px'
+                // obj.style.position = 'absolute'
+                // obj.type = 'application/pdf';
+                // obj.src = 'data:application/pdf;base64,' + pdf;
+                // element.style.display = 'none';
+                // document.body.appendChild(obj);
+
 
             });
            }

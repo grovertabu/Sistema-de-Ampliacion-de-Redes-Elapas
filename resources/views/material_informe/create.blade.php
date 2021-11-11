@@ -14,7 +14,7 @@
     <h1>Asignacion de Material
     @can('inspector')
     <a href="{{route('informes.autorizado')}}" class="btn btn-danger btn-rounded" style="float: right;">
-        <i class="fa fa-arrow-circle-left"></i> Volver
+        <i class="fa fa-arrow-circle-left"></i> Inspecciones Autorizadas
     </a> </h1>
     @endcan
 
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div>
-                    <label for="informe">Diametro de la Ampliación : </label> {{$informe->diametro_in}} metros
+                    <label for="informe">Diametro de la Ampliación : </label> {{$informe->diametro_in}} pulgadas
                     <div class="input-group ">
                     </div>
                 </div>
