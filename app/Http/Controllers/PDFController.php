@@ -232,4 +232,33 @@ class PDFController extends Controller
         return view('PDF/proyecto', compact('informe', 'inspector', 'materiales', 'mano_obra'));
         // return $informe;
     }
+
+    public function generar_reporte_proyectista(Request $request)
+    {
+        $materiales = null;
+        $mano_obras = null;
+        //dd($request->mano_obra_check);
+        if ($request->material_check != null) {
+            $materiales = DB::table('materials')
+                ->join('informe_materials', 'informe_materials.material_id', '=', 'materials.id')
+                ->join('informes', 'informes.id', '=', 'informe_materials.informe_id')
+                ->join('ejecucions', 'ejecucions.informe_id', '=', 'informes.id')
+                ->whereIn('informe_materials.material_id', $request->material_check)
+                ->whereBetween('ejecucions.fecha_ejecutada', [$request->fecha_i, $request->fecha_h])
+                ->orderBy('informe_materials.material_id')
+                ->get();
+        }
+        if ($request->mano_obra_check != null) {
+            $mano_obras = DB::table('actividad_mano_obras')
+                ->join('mano_obras', 'mano_obras.actividad_id', '=', 'actividad_mano_obras.id')
+                ->join('ejecucions', 'ejecucions.id', '=', 'mano_obras.ejecucion_id')
+                ->whereIn('mano_obras.actividad_id', $request->mano_obra_check)
+                ->whereBetween('ejecucions.fecha_ejecutada', [$request->fecha_i, $request->fecha_h])
+                ->orderBy('mano_obras.actividad_id')
+                ->get();
+        }
+        return response(compact('mano_obras', 'materiales'));
+        // $pdf = PDF::loadview('PDF/informe', compact('informe'));
+        //return $pdf->stream('Informe.pdf');
+    }
 }

@@ -27,7 +27,7 @@
             </div>
             <button type="submit" class='btn btn-primary btn-icon'  id="cronograma">Buscar <i class="fas fa-search"></i></button>
          </form>
-         
+
         </div>
       </div>
     @stop
@@ -41,15 +41,15 @@
         @else
             <div></div>
         @endif
-    
+
     </h5>
-    
+
     <div class="card-body">
         <div id="cronograma" class="table table-bordered table-hover dataTable table-responsive">
             @if(!empty($cronogramas))
             <table class="table table-bordered datatable" id="example">
                 <thead>
-                    <tr>	
+                    <tr>
                         <th>Nro</th>
                         <th>BARRIO</th>
                         <th>NOMBRE DEL SOLICITANTE</th>
@@ -79,8 +79,8 @@
                         <td>{{$cronograma->name}}</td>
                     </tr>
                     @endforeach
-            
-                    
+
+
                 </tbody>
                 <tfoot>
                     <tr>
@@ -97,15 +97,15 @@
             @else
                 <div>Sin datos a mostrar</div>
             @endif
-            
+
         </div>
     </div>
 </div>
-    
+
 
 
 @stop
-    
+
 @section('js')
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
@@ -113,7 +113,7 @@
 
         $('.select2').select2();
         $.fn.modal.Constructor.prototype._enforceFocus = function() {};
-        
+
         // function llamar () {
         //     var fecha= $('#fecha_id').val();
         //     alert($fecha)
@@ -124,9 +124,9 @@
         //     //     }
         //     // };
         //     // ajax.open("GET",url,true);
-        //     // ajax.send();		
+        //     // ajax.send();
         // }
-        
+
     </script>
 @stop
 @section('css')

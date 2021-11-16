@@ -508,7 +508,7 @@ return [
                 [
                     'type' => 'css',
                     'asset' => true,
-                    'location' => 'vendor/pace/blue/pace-theme-center-flash.css',
+                    'location' => 'vendor/pace/blue/pace-theme-flash.css',
                     // 'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-center-radar.min.css',
                 ],
                 [
@@ -549,42 +549,42 @@ return [
                 ],
             ],
         ],
-        [
-            'name' => 'AdminLTE-Components-DG',
-            'active' => true,
-            'files' => [
-                [
-                    'type' => 'js',
-                    'asset' => true,
-                    'location' => '/vendor/dg-plugins/moment/moment.min.js',
-                ],
-                [
-                    'type' => 'js',
-                    'asset' => true,
-                    'location' => '/vendor/dg-plugins/moment/moment-with-locales.min.js',
-                ],
-                [
-                    'type' => 'css',
-                    'asset' => true,
-                    'location' => '/vendor/dg-plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css',
-                ],
-                [
-                    'type' => 'js',
-                    'asset' => true,
-                    'location' => '/vendor/dg-plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js',
-                ],
-                [
-                    'type' => 'js',
-                    'asset' => true,
-                    'location' => '/vendor/dg-plugins/daterangepicker/daterangepicker.js',
-                ],
-                [
-                    'type' => 'css',
-                    'asset' => true,
-                    'location' => '/vendor/dg-plugins/daterangepicker/daterangepicker.css',
-                ],
-            ],
-        ],
+        // [
+        //     'name' => 'AdminLTE-Components-DG',
+        //     'active' => true,
+        //     'files' => [
+        //         [
+        //             'type' => 'js',
+        //             'asset' => true,
+        //             'location' => '/vendor/dg-plugins/moment/moment.min.js',
+        //         ],
+        //         [
+        //             'type' => 'js',
+        //             'asset' => true,
+        //             'location' => '/vendor/dg-plugins/moment/moment-with-locales.min.js',
+        //         ],
+        //         [
+        //             'type' => 'css',
+        //             'asset' => true,
+        //             'location' => '/vendor/dg-plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css',
+        //         ],
+        //         [
+        //             'type' => 'js',
+        //             'asset' => true,
+        //             'location' => '/vendor/dg-plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js',
+        //         ],
+        //         [
+        //             'type' => 'js',
+        //             'asset' => true,
+        //             'location' => '/vendor/dg-plugins/daterangepicker/daterangepicker.js',
+        //         ],
+        //         [
+        //             'type' => 'css',
+        //             'asset' => true,
+        //             'location' => '/vendor/dg-plugins/daterangepicker/daterangepicker.css',
+        //         ],
+        //     ],
+        // ],
     ],
 
     /*

@@ -12,7 +12,7 @@
   #map {
     margin-top: 20px;
       width: 80%;
-      height: 400px;
+      height: 500px;
       position: absolute;
     }
   </style>
