@@ -4,8 +4,8 @@
 
 @section('content_header')
     <div class="row col-sm-12">
-        <h1 class="col-sm-11">ELAPAS - GENERAR REPORTES</h1>
-        <button style="display:none;" id="btnVolver" onclick="ocultarVolver()" class=" col-sm-1 btn btn-danger btn-icon"><i class="fas fa-arrow-circle-left"> Volver</i></button>
+        <h1 class="col-sm-10">ELAPAS - GENERAR REPORTES</h1>
+        <button style="display:none;" id="btnVolver" onclick="ocultarVolver()" class=" col-sm-2 btn btn-danger btn-icon"><i class="fas fa-arrow-circle-left"> Volver</i></button>
     </div>
 
 
@@ -94,9 +94,12 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td  colspan="6" align="right"><b>TOTAL Bs.</b></td>
-                        <td   align="center" id="total_elp_materiañl"><b>0</b></td>
+                        <td   rowspan="2" colspan="6" align="right"><b>TOTAL Bs.</b></td>
+                        <td   align="center" id="total_elp_materiales"><b>0</b></td>
                         <td   align="center" id="total_vecinos_materiales"><b>0</b></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center" id="costo_total_materiales"></td>
                     </tr>
                 </tfoot>
             </table>
@@ -125,9 +128,12 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="6" align="right"><b>TOTAL Bs.</b></td>
+                        <td rowspan="2" colspan="6" align="right"><b>TOTAL Bs.</b></td>
                         <td  align="center" id="total_elp_mano_obras"><b>0</b></td>
                         <td  align="center" id="total_vecinos_mano_obras"><b>0</b></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center" id="costo_total_mano_obras"></td>
                     </tr>
                 </tfoot>
             </table>
