@@ -50,7 +50,7 @@
                             onclick="llamar('{{route('informes.show',$inf->id_informe)}}')" title="Material" ><i class="fas fa-box"></i></button>
                         @endif
 
-                        <a href='{{route('descargarPDF.informe',$inf->id_informe)}}' target="_blank"
+                        <a onclick="mostrarPDF('{{route('descargarPDF.informe',$inf->id_informe)}}')" target="_blank"
                         class='btn btn-danger btn-icon' title="Informe"><i class="fas fa-file-pdf"></i></a>
                         @if($inf->estado=='inspeccionado')
                         @can('inspector')
@@ -217,6 +217,7 @@
    <script src="{{asset('vendor/leaflet/js/esri-leaflet-geocoder.js')}}" integrity="sha512-8twnXcrOGP3WfMvjB0jS5pNigFuIWj4ALwWEgxhZ+mxvjF5/FBPVd5uAxqT8dd2kUmTVK9+yQJ4CmTmSg/sXAQ==" crossorigin=""></script>
    <script src="{{asset('vendor/leaflet/js/easy-button.js')}}"></script>
    <script src="{{asset('js/mapas.js') }}"></script>
+   <script src="{{asset('js/informes.js') }}"></script>
 
 @stop
 @section('footer')
@@ -227,4 +228,10 @@
     <link rel="stylesheet" href="{{asset('vendor/leaflet/css/leaflet.css')}}" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
     <link rel="stylesheet" href="{{asset('vendor/leaflet/css/esri-leaflet-geocoder.css')}}" integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g==" crossorigin="">
     <link rel="stylesheet" href="{{asset('vendor/leaflet/css/easy-button.css')}}">
+    <style>
+        @media print {
+            @page { margin: 0; }
+            body { margin: 1.6cm; }
+        }
+    </style>
 @stop

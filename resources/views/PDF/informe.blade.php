@@ -5,8 +5,8 @@
     $mes=date("M", $fecha);
     $dia=date("d", $fecha);
     setlocale(LC_TIME, "spanish");
-			
-    $Mes_ = strftime("%B", strtotime($mes));    
+
+    $Mes_ = strftime("%B", strtotime($mes));
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -21,8 +21,8 @@
 
 <style>
     .botones{
-        width: 700px; 
-        margin: 0 auto;  
+        width: 700px;
+        margin: 0 auto;
     }
     button{
         width: 100%;
@@ -30,11 +30,11 @@
         height: 40px;
         font-size: 20px;
         color: white;
-    }   
+    }
     #contenedor{
-        width: 680px; 
-        margin: 0 auto;  
-    }  
+        width: 680px;
+        margin: 0 auto;
+    }
     th{
         padding: 10px;
     }
@@ -44,7 +44,7 @@
       width: 100%;
       padding: 5px;
     }
-    
+
     #table1{
       border-collapse: collapse;
       border-spacing: 10px;
@@ -81,7 +81,7 @@
                     <th class="centrar">AÑ0</th>
                     <th class="centrar">MES</th>
                     <th class="centrar">DIA</th>
-                  
+
                 </tr>
                 <tr>
                     <td class="centrar">{{$anio}}</td>
@@ -89,10 +89,10 @@
                     <td class="centrar">{{$dia}}</td>
                 </tr>
                 <tr>
-                    <td class="centrar" colspan="2" ><strong>ESPESIFIAR EL AREA DE CONCESION</strong></td>
+                    <td class="centrar" colspan="2" ><strong>ESPECIFICAR EL AREA DE CONCESION</strong></td>
                     <td class="centrar">{{$informe->espesifiar_in=='Si'?'SI':''}}</td>
                     <td class="centrar">{{$informe->espesifiar_in=='No'?'NO':''}}</td>
-                  
+
                 </tr>
                 <tr>
                     <td  colspan="4">
@@ -102,14 +102,14 @@
                         <img src="{{asset('storage/'.$informe->imagen_amp)}}" width="680px" height="400px" alt="">
                         @endif
                         {{-- <img src="https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/static/geojson(%7B%22type%22%3A%22FeatureCollection%22%2C%22features%22%3A%5B%7B%22type%22%3A%22Feature%22%2C%22properties%22%3A%7B%22stroke%22%3A%22red%22%2C%22stroke-width%22%3A6%2C%22stroke-opacity%22%3A1%7D%2C%22geometry%22%3A%7B%22type%22%3A%22LineString%22%2C%22coordinates%22%3A%5B%5B-65.25664865970612%2C-19.02013081578586%5D%2C%5B-65.25647699832916%2C-19.019983740975054%5D%5D%7D%7D%5D%7D)/-65.25674,-19.02012,17/680x400?access_token=pk.eyJ1IjoiZ3JvdmVydDEyIiwiYSI6ImNrbnExMm1kZjAxbTEycXFxdWJlM2QyOWoifQ._OTf1cgFjXutCJPx2zMl1w" > --}}
-            
+
                     </td>
                 </tr>
                 <tr>
                     <td class="centrar" colspan="2" rowspan="2">UBICACION GEO REFERENCIAL</td>
                     <td class="centrar">LATITUD</td>
                     <td class="centrar">LONGITUD</td>
-                  
+
                 </tr>
                 <tr>
                     <td class="centrar">{{isset($informe->x_exact)?$informe->x_exact:'....'}}</td>
@@ -117,7 +117,7 @@
                 </tr>
                 <tr>
                     <td class="centrar" colspan="2">UBICACION GEOREFERENCIAL</td>
-                    <td class="" colspan="2"><u>{{isset($informe->ubicacion_geo)?$informe->ubicacion_geo:'....'}}</u></td>
+                    <td class="" colspan="2"><a href="{{isset($informe->ubicacion_geo)?$informe->ubicacion_geo:'#'}}">{{isset($informe->ubicacion_geo)?$informe->ubicacion_geo:'....'}}</a></td>
                 </tr>
                 <tr>
                     <td colspan="4">LONGITUD DE LA AMPLIACION: {{isset($informe->longitud_in)?$informe->longitud_in:'....'}} metros</td>
@@ -134,47 +134,17 @@
                     <td class="centrar" colspan="2">CONDICIONES DE RASANTE</td>
                     <td class="centrar">{{$informe->condicion_rasante=='BUENA'?'BUENA':''}}</td>
                     <td class="centrar">{{$informe->condicion_rasante=='MALA'?'MALA':''}}</td>
-                  
+
                 </tr>
             </table>
             <br><br><br>
             <div class="firma">............................................     ......................................
             </div>
             <div class="firma">FIRMA DEL INSPECTOR
-                
+
                 &nbsp;&nbsp;&nbsp;&nbsp;                       FIRMA JEFE DE RED
             </div>
 
         </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-       <script>
-           function convertirPDF(){
-            const element = document.querySelector('#contenedor');
-            var opt = {
-                margin:       0.5,
-                filename:     'informe.pdf',
-                image:        { type: 'jpeg', quality: 0.98},
-                html2canvas:  { scale: 2 },
-                jsPDF:        { unit: 'in', format: 'legal', orientation: 'p' }
-            };
-            html2pdf().set(opt).from(element).outputPdf().then(function(pdf) {
-                pdf = btoa(pdf);
-                console.log(pdf.length)
-                var obj = document.createElement('object'); 
-                obj.style.width = '100%';
-                obj.style.height = window.screen.height + 'px';
-                obj.style.margin = '-10px'
-                obj.style.position = 'absolute'
-                obj.type = 'application/pdf';
-                obj.data = 'data:application/pdf;base64,' + pdf;
-                element.style.display = 'none';
-                document.body.appendChild(obj);
-                
-            });
-           }
-           window.onload = function(){
-               convertirPDF();
-           }
-        </script> 
 </body>
 </html>

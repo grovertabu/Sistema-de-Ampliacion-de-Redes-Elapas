@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Reporte de Proyectos')
+@section('title', 'Reporte Inversion')
 
 @section('content_header')
     <div class="row col-sm-12">
@@ -20,11 +20,11 @@
         <div class="row">
             <div class="form-group col-sm-6">
                 <label for="nombre_material">De :&nbsp;</label>
-                <input type="date" name='fecha_i' id="fecha_i" value="2021-11-09" required class="form-control" >
+                <input type="date" name='fecha_i' id="fecha_i" required class="form-control" >
             </div>
             <div class="form-group col-sm-6">
                 <label for="nombre_material">Hasta :&nbsp;</label>
-                <input type="date" name='fecha_h' id="fecha_h" value="2021-12-15" required class="form-control" >
+                <input type="date" name='fecha_h' id="fecha_h" required class="form-control" >
             </div>
         </div>
         <div class="row">
@@ -71,7 +71,7 @@
 
     </div>
     <div  style="display:none;" class="card col-12" id=respuesta>
-        <h2 align="center">Reporte Inversion</h2>
+        <h2 id="titulo_reporte"align="center">Reporte Inversion</h2>
         <div id="div_materiales">
             <h3>Inversión Materiales</h3>
             <table width="100%" border=1 id="table_materiales">
@@ -150,10 +150,11 @@
 
 @stop
 @section('js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
 
 {{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script> --}}
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
+<script src="{{asset('js/informes.js')}}"></script>
 <script src="{{asset('js/generar_reporte.js')}}"></script>
 
 @stop

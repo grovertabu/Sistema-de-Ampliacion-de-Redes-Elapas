@@ -59,7 +59,7 @@ class PDFController extends Controller
             ->where('ejecucions.informe_id', $informe->id)
             ->get();
 
-        // $pdf = PDF::loadview('PDF/informe_material',compact('informe','materiales','inspector','mano_obra'));
+        // $pdf = PDF::loadview('PDF/informe_material', compact('informe', 'materiales', 'inspector', 'mano_obra'));
         // return $pdf->stream('Informe_material.pdf');
 
         return view('PDF.informe_material', compact('informe', 'materiales', 'inspector', 'mano_obra'));
@@ -111,10 +111,10 @@ class PDFController extends Controller
             ->where('ejecucions.informe_id', $informe->id)
             ->get();
 
-        $pdf = PDF::loadview('PDF.descargo_materiales_reporte', compact('informe', 'materiales', 'inspector', 'mano_obra'));
-        return $pdf->stream('Reporte_Descargo_Material.pdf');
+        // $pdf = PDF::loadview('PDF.descargo_materiales_reporte', compact('informe', 'materiales', 'inspector', 'mano_obra'));
+        // return $pdf->stream('Reporte_Descargo_Material.pdf');
 
-        //return view('PDF.descargo_materiales_reporte',compact('informe','materiales','inspector','mano_obra'));
+        return view('PDF.descargo_materiales_reporte', compact('informe', 'materiales', 'inspector', 'mano_obra'));
     }
 
     public function PDF_pedido(Informe $informe)
@@ -235,8 +235,8 @@ class PDFController extends Controller
 
     public function generar_reporte_proyectista(Request $request)
     {
-        $materiales = null;
-        $mano_obras = null;
+        $materiales = [];
+        $mano_obras = [];
         //dd($request->mano_obra_check);
         if ($request->material_check != null) {
             $materiales = DB::table('materials')
@@ -257,7 +257,9 @@ class PDFController extends Controller
                 ->orderBy('mano_obras.actividad_id')
                 ->get();
         }
-        return response(compact('mano_obras', 'materiales'));
+        $fecha_i = $request->fecha_i;
+        $fecha_h = $request->fecha_h;
+        return response(compact('mano_obras', 'materiales', 'fecha_i', 'fecha_h'));
         // $pdf = PDF::loadview('PDF/informe', compact('informe'));
         //return $pdf->stream('Informe.pdf');
     }

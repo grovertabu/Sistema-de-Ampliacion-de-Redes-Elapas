@@ -54,28 +54,28 @@
                                 </div>
                                 <div class="modal-body" style="text-align: center;">
                                     <p>
-                                        <a href='{{route('descargarPDF.informe',$inf->id_informe)}}' target="_blank"
+                                        <a onclick="mostrarPDF('{{route('descargarPDF.informe',$inf->id_informe)}}')" target="_blank"
                                             class='btn btn-danger btn-icon w-75'>Informe de Inspección <i class="fas fa-file-pdf"></i></a>
 
                                     </p>
                                     <p>
-                                        <a href='{{route('pedidoPDF.informe',$inf->id_informe)}}' target="_blank"
+                                        <a onclick="mostrarPDF('{{route('pedidoPDF.informe',$inf->id_informe)}}')" target="_blank"
                                         class='btn btn-danger btn-icon w-75'>Pedido de Material <i class="fas fa-file-pdf"></i></a>
 
                                     </p>
                                     <p>
-                                        <a href='{{route('reportePDF.informe_material',$inf->id_informe)}}' target="_blank"
+                                        <a onclick="mostrarPDF('{{route('reportePDF.informe_material',$inf->id_informe)}}')" target="_blank"
                                             class='btn btn-danger btn-icon w-75'>Informe de Ampliacion <i class="fas fa-file-pdf"></i></a>
 
                                     </p>
                                     <p>
-                                        <a href="{{route('descargarPDF.proyecto',$inf->id_informe)}}" target="_blank"
+                                        <a onclick="mostrarPDF('{{route('descargarPDF.proyecto',$inf->id_informe)}}')" target="_blank"
                                             class="btn btn-danger btn-icon w-75">Informe de Proyección <i class="fas fa-file-pdf"></i></a>
 
                                     </p>
                                     @if($inf->estado == 'ejecutando')
                                     <p>
-                                        <a href='{{route('reportePDF.informe_descargo_material',$inf->id_informe)}}' target="_blank"
+                                        <a onclick="mostrarPDF('{{route('reportePDF.informe_descargo_material',$inf->id_informe)}}')" target="_blank"
                                             class='btn btn-danger btn-icon w-75'>Informe de Ejecución de Proyecto<i class="fas fa-file-pdf"></i></a>
 
                                     </p>
@@ -207,7 +207,14 @@
         }
 
     </script>
+    <script src="{{asset('js/informes.js')}}"></script>
 @stop
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
+    <style>
+        @media print {
+            @page { margin: 0; }
+            body { margin: 1.6cm; }
+        }
+    </style>
 @stop

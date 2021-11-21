@@ -2,46 +2,30 @@ var formulario = document.getElementById('formReporteInversion');
 const btnMaterial = document.getElementById('btnMateriales');
 const btnManoObra = document.getElementById('btnManoObra');
 
+function mostrarPDF(url) {
+    let es_chrome = navigator.userAgent.toLowerCase().indexOf("chrome") > -1;
+    if (es_chrome) {
+        var iframe = document.createElement("iframe");
+        iframe.style.display = "none";
+        iframe.srcdoc = url;
+        iframe.title = "Reporte Inversion";
+        document.body.appendChild(iframe);
+        iframe.focus();
+        console.log(iframe.contentWindow);
+        iframe.contentWindow.print();
+
+    } else {
+        var win = window.open(url, "_blank");
+        win.focus();
+    }
+}
+
+
 function convertirPDF() {
     const element = document.querySelector('#respuesta');
-    element.style.display = "block";
+    element.focus()
     console.log(element)
-    const formulario = document.querySelector('#formulario');
-    var opt = {
-        margin: 0.5,
-        filename: 'informe.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'legal', orientation: 'p' }
-    };
-    html2pdf().set(opt).from(element).outputPdf().then(function (pdf) {
-        pdf = btoa(pdf);
-        console.log(pdf.length)
-        var obj = document.createElement('embed');
-        const cardPDF = document.getElementById('cardPDF')
-        obj.style.width = '100%';
-        obj.style.height = window.screen.height + 'px';
-        obj.style.margin = '-10px'
-        obj.style.position = 'absolute'
-        obj.type = 'application/pdf';
-        obj.src = 'data:application/pdf;base64,' + pdf;
-        formulario.style.display = 'none';
-        document.getElementById('btnVolver').style.display = 'block';
-        cardPDF.appendChild(obj);
-        cardPDF.style.display = "block";
-
-        // var obj = document.createElement('iframe');
-        // obj.style.width = '100%';
-        // obj.style.height = window.screen.height + 'px';
-        // obj.style.margin = '-10px'
-        // obj.style.position = 'absolute'
-        // obj.type = 'application/pdf';
-        // obj.src = 'data:application/pdf;base64,' + pdf;
-        // element.style.display = 'none';
-        // document.body.appendChild(obj);
-
-
-    });
+    mostrarPDF(element.innerHTML);
 }
 
 function ocultarVolver() {
@@ -53,6 +37,25 @@ function ocultarVolver() {
     formulario.style.display = "block";
 }
 
+function poner_titulo(fecha_i, fecha_h) {
+    const titulo = document.getElementById('titulo_reporte');
+    const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+    const date_i = fecha_i.split('-');
+    const date_h = fecha_h.split('-');
+    let cadena = "";
+    console.log(date_i)
+    console.log(date_h)
+    if (date_i[0] == date_h[0] && date_i[1] == date_h[1]) {
+        console.log("iguales")
+        cadena = `del ${date_i[2]} al ${date_h[2]}, ${meses[date_i[1] - 1]} de ${date_i[0]}`
+    } else if (date_i[0] == date_h[0] && date_i[1] != date_h[1]) {
+        console.log("iguales 2")
+        cadena = `del ${date_i[2]} de ${meses[date_i[1] - 1]} al ${date_h[2]} de ${meses[date_h[1] - 1]} del ${date_i[0]}`
+    } else {
+        cadena = `Reporte Inversión del ${fecha_i} al ${fecha_h}`
+    }
+    titulo.innerText = cadena;
+}
 
 formulario.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -60,26 +63,36 @@ formulario.addEventListener('submit', (e) => {
     const fecha_h = new Date(document.getElementById('fecha_h').value).getTime();
     if (fecha_i <= fecha_h) {
         $.post(e.target.action, $("#formReporteInversion").serialize(), (data) => {
-            let indice = 0;
-            let num = 1;
-            let cantidad_elp = 0;
-            let cantidad_vecinos = 0;
-            let sub_total_elp = 0;
-            let sub_total_vecinos = 0;
-            let total_elp = 0;
-            let total_vecinos = 0;
-            console.log(data)
-            filtrar_data_materiales(data, 'materiales', num, cantidad_elp, cantidad_vecinos, sub_total_elp, sub_total_vecinos, indice, sub_total_elp, sub_total_vecinos, total_elp, total_vecinos);
-            indice = 0;
-            num = 1;
-            cantidad_elp = 0;
-            cantidad_vecinos = 0;
-            sub_total_elp = 0;
-            sub_total_vecinos = 0;
-            total_elp = 0;
-            total_vecinos = 0;
-            filtrar_data_mano_obra(data, 'mano_obras', num, cantidad_elp, cantidad_vecinos, sub_total_elp, sub_total_vecinos, indice, sub_total_elp, sub_total_vecinos, total_elp, total_vecinos);
-            convertirPDF();
+            if (data['materiales'].length > 0 || data['mano_obras'].length > 0) {
+                let indice = 0;
+                let num = 1;
+                let cantidad_elp = 0;
+                let cantidad_vecinos = 0;
+                let sub_total_elp = 0;
+                let sub_total_vecinos = 0;
+                let total_elp = 0;
+                let total_vecinos = 0;
+                console.log(data)
+                filtrar_data_materiales(data, 'materiales', num, cantidad_elp, cantidad_vecinos, sub_total_elp, sub_total_vecinos, indice, sub_total_elp, sub_total_vecinos, total_elp, total_vecinos);
+                indice = 0;
+                num = 1;
+                cantidad_elp = 0;
+                cantidad_vecinos = 0;
+                sub_total_elp = 0;
+                sub_total_vecinos = 0;
+                total_elp = 0;
+                total_vecinos = 0;
+                filtrar_data_mano_obra(data, 'mano_obras', num, cantidad_elp, cantidad_vecinos, sub_total_elp, sub_total_vecinos, indice, sub_total_elp, sub_total_vecinos, total_elp, total_vecinos);
+                poner_titulo(data.fecha_i, data.fecha_h);
+                convertirPDF();
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No existen datos',
+                    text: 'No existen datos entre las fechas seleccionadas',
+                })
+            }
+
         });
 
     } else {
@@ -92,7 +105,7 @@ formulario.addEventListener('submit', (e) => {
 })
 
 function filtrar_data_materiales(data, dato_tabla, num, cantidad_elp, cantidad_vecinos, indice, sub_total_elp, sub_total_vecinos, total_elp, total_vecinos) {
-    if (data[dato_tabla] != null) {
+    if (data[dato_tabla].length > 0) {
         document.getElementById('tbody_materiales').innerHTML = "";
         document.getElementById('div_materiales').style.display = "block";
         for (let i = 0; i < data[dato_tabla].length; i++) {
@@ -134,7 +147,7 @@ function filtrar_data_materiales(data, dato_tabla, num, cantidad_elp, cantidad_v
 }
 
 function filtrar_data_mano_obra(data, dato_tabla, num, cantidad_elp, cantidad_vecinos, indice, sub_total_elp, sub_total_vecinos, total_elp, total_vecinos) {
-    if (data[dato_tabla] != null) {
+    if (data[dato_tabla].length > 0) {
         document.getElementById('tbody_mano_obras').innerHTML = "";
         document.getElementById('div_mano_obras').style.display = "block"
         for (let i = 0; i < data[dato_tabla].length; i++) {
@@ -205,8 +218,8 @@ function dibujar_tabla(num, tabla, descripcion, unidad, precio, cantidad_elp, ca
     console.log(tabla)
     document.getElementById('tbody_' + tabla).appendChild(tr_inversion);
     if (total_elp != null && total_vecinos != null) {
-        document.getElementById('total_elp_' + tabla).innerHTML = '<b>' + total_elp + '</b>'
-        document.getElementById('total_vecinos_' + tabla).innerHTML = '<b>' + total_vecinos + '</b>'
+        document.getElementById('total_elp_' + tabla).innerHTML = '<b>' + Math.round10(total_elp, -2) + '</b>'
+        document.getElementById('total_vecinos_' + tabla).innerHTML = '<b>' + Math.round(total_vecinos, -2) + '</b>'
         document.getElementById('costo_total_' + tabla).innerHTML = '<b>' + Math.round10(total_elp + total_vecinos, -2) + '</b>'
     }
 }

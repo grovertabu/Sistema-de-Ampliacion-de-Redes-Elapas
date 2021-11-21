@@ -247,46 +247,5 @@ $costo_total = $costo_total + $precio_total;
     PROYECTISTA
 </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
-               function convertirPDF(){
-            const element = document.querySelector('#contenedor');
-            var opt = {
-                margin:       0.5,
-                filename:     'informe.pdf',
-                image:        { type: 'jpeg', quality: 0.98},
-                html2canvas:  { scale: 2 },
-                jsPDF:        { unit: 'in', format: 'legal', orientation: 'p' }
-            };
-            html2pdf().set(opt).from(element).outputPdf().then(function(pdf) {
-                pdf = btoa(pdf);
-                console.log(pdf.length)
-                var obj = document.createElement('embed');
-                obj.style.width = '100%';
-                obj.style.height = window.screen.height + 'px';
-                obj.style.margin = '-10px'
-                obj.style.position = 'absolute'
-                obj.type = 'application/pdf';
-                obj.src = 'data:application/pdf;base64,' + pdf;
-                element.style.display = 'none';
-                document.body.appendChild(obj);
-
-                // var obj = document.createElement('iframe');
-                // obj.style.width = '100%';
-                // obj.style.height = window.screen.height + 'px';
-                // obj.style.margin = '-10px'
-                // obj.style.position = 'absolute'
-                // obj.type = 'application/pdf';
-                // obj.src = 'data:application/pdf;base64,' + pdf;
-                // element.style.display = 'none';
-                // document.body.appendChild(obj);
-
-
-            });
-           }
-           window.onload = function(){
-               convertirPDF();
-           }
-</script>
 </body>
 </html>
