@@ -32,6 +32,9 @@ class InformeController extends Controller
                     'solicituds.x_aprox as x_aprox',
                     'solicituds.y_aprox as y_aprox',
                     'informes.fecha_hora_in as fecha_inspeccion',
+                    'informes.ubicacion_geo as ubicacion',
+                    'informes.x_exact as x_exact',
+                    'informes.y_exact as y_exact',
                     'informes.estado_in as estado'
                 )
                 ->where('cronogramas.user_id', $id)
@@ -54,6 +57,9 @@ class InformeController extends Controller
                     'solicituds.y_aprox as y_aprox',
                     'informes.fecha_hora_in as fecha_inspeccion',
                     'informes.estado_in as estado',
+                    'informes.x_exact as x_exact',
+                    'informes.y_exact as y_exact',
+                    'informes.ubicacion_geo as ubicacion',
                     'cronogramas.user_id as user_id'
                 )
                 ->where('informes.estado_in', 'asignado')
@@ -116,13 +122,13 @@ class InformeController extends Controller
                 ->leftJoin('ejecucions', 'ejecucions.informe_id', '=', 'informes.id')
                 ->select(
                     'solicituds.id as id_solicitud',
-                    'solicituds.x_aprox as x_aprox',
-                    'solicituds.y_aprox as y_aprox',
                     'solicituds.nombre_sol as nombre_sol',
                     'solicituds.zona_sol as zona_sol',
                     'informes.fecha_hora_in as fecha_inspeccion',
                     'informes.estado_in as estado',
                     'informes.id as id_informe',
+                    'informes.x_exact as x_exact',
+                    'informes.y_exact as y_exact',
                     'cronogramas.user_id as user_id',
                     'ejecucions.id as id_ejecucion',
                     'ejecucions.fecha_progrmada as fecha_programada',
@@ -142,12 +148,12 @@ class InformeController extends Controller
                 ->select(
                     'informes.id as id_informe',
                     'solicituds.id as id_solicitud',
-                    'solicituds.x_aprox as x_aprox',
-                    'solicituds.y_aprox as y_aprox',
                     'solicituds.nombre_sol as nombre_sol',
                     'solicituds.zona_sol as zona_sol',
                     'informes.fecha_hora_in as fecha_inspeccion',
                     'informes.estado_in as estado',
+                    'informes.x_exact as x_exact',
+                    'informes.y_exact as y_exact',
                     'cronogramas.user_id as user_id',
                     'ejecucions.id as id_ejecucion',
                     'ejecucions.fecha_progrmada as fecha_programada',

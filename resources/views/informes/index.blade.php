@@ -35,6 +35,9 @@
         </thead>
         <tbody>
             @foreach ($informes as $inf)
+                @php
+                    $mapa_geo = $inf->ubicacion == null? 'https://maps.google.com/?q='.$inf->x_aprox.','.$inf->y_aprox.'':$inf->ubicacion;
+                @endphp
                 <tr>
                     <td>{{$n++}}</td>
                     <td>{{$inf->nombre_sol}}</td>
@@ -43,8 +46,11 @@
                     <td>{{$inf->zona_sol}}</td>
                     <td align="center"><span class="badge badge-primary">{{strtoupper($inf->estado)}}</span></td>
                     <td>
-                        <a type="button" class="d-inline btn btn-warning btn-icon" title="visualizar" onclick="visualizarMapa({{$inf->x_aprox}},{{$inf->y_aprox}}, {{$inf->id_solicitud}})">
+                        <a type="button" class="d-inline btn btn-warning btn-icon" title="visualizar" onclick="visualizarMapa({{$inf->x_exact == null ? $inf->x_aprox: $inf->x_exact}},{{$inf->y_exact == null ? $inf->y_aprox: $inf->y_exact}}, {{$inf->id_solicitud}})">
                             <i class="fas fa-eye"></i></a>
+                        <a type="button" href="{{$mapa_geo}}" target="_blank" class="d-inline btn btn-success btn-icon" >
+                            <i class="fas fa-map-marker-alt"></i>
+                        </a>
                         @if ($inf->estado =='autorizado')
                             <button type="button" class='btn btn-warning btn-icon btn-xs' data-toggle="modal" data-target=".bd-example-modal-lg"ç
                             onclick="llamar('{{route('informes.show',$inf->id_informe)}}')" title="Material" ><i class="fas fa-box"></i></button>
@@ -224,8 +230,7 @@
 <strong>{{date("Y")}} || ELAPAS - SISTEMA DE AMPLIACION DE REDES DE AGUA </strong>
 @stop
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-    <link rel="stylesheet" href="{{asset('vendor/leaflet/css/leaflet.css')}}" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <link rel="stylesheet" href="{{asset('vendor/leaflet/css/leaflet.css')}}" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
     <link rel="stylesheet" href="{{asset('vendor/leaflet/css/esri-leaflet-geocoder.css')}}" integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g==" crossorigin="">
     <link rel="stylesheet" href="{{asset('vendor/leaflet/css/easy-button.css')}}">
     <style>

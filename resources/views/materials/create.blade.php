@@ -79,6 +79,4 @@
     $('.select2').select2();
     </script>
 @stop
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
+

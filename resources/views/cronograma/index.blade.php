@@ -184,6 +184,4 @@
     </script>
     <script src="{{asset('js/cronograma.js')}}"></script>
 @stop
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
+

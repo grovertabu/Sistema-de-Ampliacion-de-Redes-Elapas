@@ -11,8 +11,8 @@ function mostrarPDF(url) {
         iframe.title = "Reporte Inversion";
         document.body.appendChild(iframe);
         iframe.focus();
-        console.log(iframe.contentWindow);
         iframe.contentWindow.print();
+
 
     } else {
         var win = window.open(url, "_blank");
@@ -24,7 +24,6 @@ function mostrarPDF(url) {
 function convertirPDF() {
     const element = document.querySelector('#respuesta');
     element.focus()
-    console.log(element)
     mostrarPDF(element.innerHTML);
 }
 
@@ -43,13 +42,9 @@ function poner_titulo(fecha_i, fecha_h) {
     const date_i = fecha_i.split('-');
     const date_h = fecha_h.split('-');
     let cadena = "";
-    console.log(date_i)
-    console.log(date_h)
     if (date_i[0] == date_h[0] && date_i[1] == date_h[1]) {
-        console.log("iguales")
         cadena = `del ${date_i[2]} al ${date_h[2]}, ${meses[date_i[1] - 1]} de ${date_i[0]}`
     } else if (date_i[0] == date_h[0] && date_i[1] != date_h[1]) {
-        console.log("iguales 2")
         cadena = `del ${date_i[2]} de ${meses[date_i[1] - 1]} al ${date_h[2]} de ${meses[date_h[1] - 1]} del ${date_i[0]}`
     } else {
         cadena = `Reporte Inversión del ${fecha_i} al ${fecha_h}`
@@ -72,7 +67,6 @@ formulario.addEventListener('submit', (e) => {
                 let sub_total_vecinos = 0;
                 let total_elp = 0;
                 let total_vecinos = 0;
-                console.log(data)
                 filtrar_data_materiales(data, 'materiales', num, cantidad_elp, cantidad_vecinos, sub_total_elp, sub_total_vecinos, indice, sub_total_elp, sub_total_vecinos, total_elp, total_vecinos);
                 indice = 0;
                 num = 1;
@@ -111,9 +105,8 @@ function filtrar_data_materiales(data, dato_tabla, num, cantidad_elp, cantidad_v
         for (let i = 0; i < data[dato_tabla].length; i++) {
             if (indice != 0) {
                 if (indice == data[dato_tabla][i].material_id) {
-                    console.log("repetir")
                     data[dato_tabla][i].observador == "Elapas" ? cantidad_elp = cantidad_elp + data[dato_tabla][i].cantidad : cantidad_vecinos = cantidad_vecinos + data[dato_tabla][i].cantidad;
-                    // console.log(data[i].precio_uni + '*' + data[i].cantidad)
+
                     data[dato_tabla][i].observador == "Elapas" ? sub_total_elp = sub_total_elp + Math.round10(data[dato_tabla][i].precio_unitario * data[dato_tabla][i].cantidad, -2) : sub_total_vecinos = sub_total_vecinos + Math.round10(data[dato_tabla][i].precio_unitario * data[dato_tabla][i].cantidad, -2);
                     if (i == data[dato_tabla].length - 1) {
                         total_elp = total_elp + sub_total_elp;
@@ -121,7 +114,6 @@ function filtrar_data_materiales(data, dato_tabla, num, cantidad_elp, cantidad_v
                         dibujar_tabla(num++, dato_tabla, data[dato_tabla][i].nombre_material, data[dato_tabla][i].u_medida, data[dato_tabla][i].precio_unitario, cantidad_elp, cantidad_vecinos, sub_total_elp, sub_total_vecinos, total_elp, total_vecinos);
                     }
                 } else {
-                    console.log("añadir")
                     total_elp = total_elp + sub_total_elp;
                     total_vecinos = total_vecinos + sub_total_vecinos;
                     dibujar_tabla(num++, dato_tabla, data[dato_tabla][i - 1].nombre_material, data[dato_tabla][i - 1].u_medida, data[dato_tabla][i - 1].precio_unitario, cantidad_elp, cantidad_vecinos, sub_total_elp, sub_total_vecinos, total_elp, total_vecinos);
@@ -134,7 +126,6 @@ function filtrar_data_materiales(data, dato_tabla, num, cantidad_elp, cantidad_v
 
                 }
             } else {
-                console.log("primero")
                 indice = data[dato_tabla][i].material_id;
                 i = -1;
             }
@@ -153,9 +144,8 @@ function filtrar_data_mano_obra(data, dato_tabla, num, cantidad_elp, cantidad_ve
         for (let i = 0; i < data[dato_tabla].length; i++) {
             if (indice != 0) {
                 if (indice == data[dato_tabla][i].actividad_id) {
-                    console.log("repetir")
                     data[dato_tabla][i].observador == "Elapas" ? cantidad_elp = cantidad_elp + data[dato_tabla][i].cantidad : cantidad_vecinos = cantidad_vecinos + data[dato_tabla][i].cantidad;
-                    // console.log(data[i].precio_uni + '*' + data[i].cantidad)
+
                     data[dato_tabla][i].observador == "Elapas" ? sub_total_elp = sub_total_elp + Math.round10(data[dato_tabla][i].precio_uni * data[dato_tabla][i].cantidad, -2) : sub_total_vecinos = sub_total_vecinos + Math.round10(data[dato_tabla][i].precio_uni * data[dato_tabla][i].cantidad, -2);
                     if (i == data[dato_tabla].length - 1) {
                         total_elp = total_elp + sub_total_elp;
@@ -163,7 +153,6 @@ function filtrar_data_mano_obra(data, dato_tabla, num, cantidad_elp, cantidad_ve
                         dibujar_tabla(num++, dato_tabla, data[dato_tabla][i].descripcion, data[dato_tabla][i].unidad_medida, data[dato_tabla][i].precio_uni, cantidad_elp, cantidad_vecinos, sub_total_elp, sub_total_vecinos, total_elp, total_vecinos);
                     }
                 } else {
-                    console.log("añadir")
                     total_elp = total_elp + sub_total_elp;
                     total_vecinos = total_vecinos + sub_total_vecinos;
                     dibujar_tabla(num++, dato_tabla, data[dato_tabla][i - 1].descripcion, data[dato_tabla][i - 1].unidad_medida, data[dato_tabla][i - 1].precio_uni, cantidad_elp, cantidad_vecinos, sub_total_elp, sub_total_vecinos, total_elp, total_vecinos);
@@ -176,7 +165,6 @@ function filtrar_data_mano_obra(data, dato_tabla, num, cantidad_elp, cantidad_ve
 
                 }
             } else {
-                console.log("primero")
                 indice = data[dato_tabla][i].actividad_id;
                 i = -1;
             }
@@ -206,7 +194,17 @@ function dibujar_tabla(num, tabla, descripcion, unidad, precio, cantidad_elp, ca
     td_sub_total_elp.innerText = sub_total_elp;
     td_sub_total_vecinos.innerText = sub_total_vecinos;
     td_num.innerText = num;
-    td_precio.innerText = precio
+    td_precio.innerText = precio;
+
+    td_actividad.style = "border: 1px solid; border-collapse: collapse;"
+    td_cantidad_elp.style = "border: 1px solid; border-collapse: collapse;"
+    td_cantidad_vecinos.style = "border: 1px solid; border-collapse: collapse;"
+    td_unidad.style = "border: 1px solid; border-collapse: collapse;"
+    td_sub_total_elp.style = "border: 1px solid; border-collapse: collapse;"
+    td_sub_total_vecinos.style = "border: 1px solid; border-collapse: collapse;"
+    td_num.style = "border: 1px solid; border-collapse: collapse;"
+    td_precio.style = "border: 1px solid; border-collapse: collapse;"
+
     tr_inversion.appendChild(td_num);
     tr_inversion.appendChild(td_actividad);
     tr_inversion.appendChild(td_unidad)
@@ -215,7 +213,6 @@ function dibujar_tabla(num, tabla, descripcion, unidad, precio, cantidad_elp, ca
     tr_inversion.appendChild(td_cantidad_vecinos);
     tr_inversion.appendChild(td_sub_total_elp);
     tr_inversion.appendChild(td_sub_total_vecinos);
-    console.log(tabla)
     document.getElementById('tbody_' + tabla).appendChild(tr_inversion);
     if (total_elp != null && total_vecinos != null) {
         document.getElementById('total_elp_' + tabla).innerHTML = '<b>' + Math.round10(total_elp, -2) + '</b>'

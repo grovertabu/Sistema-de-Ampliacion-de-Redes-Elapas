@@ -437,11 +437,6 @@ return [
                 ],
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => 'https://cdn.datatables.net/buttons/1.7.0/js/buttons.flash.min.js',
-                ],
-                [
-                    'type' => 'js',
                     'asset' => true,
                     'location' => 'vendor/datatables/js/dataTables.bootstrap4.min.js',
                 ],

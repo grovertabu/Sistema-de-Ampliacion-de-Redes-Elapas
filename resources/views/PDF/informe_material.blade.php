@@ -10,11 +10,25 @@
     setlocale(LC_TIME, "spanish");
     $fecha=strtotime($informe->fecha_hora_in);
     $anio=date("Y",$fecha);
-    $mes=date("M", $fecha);
+    $mes=date("m", $fecha);
     $dia=date("d", $fecha);
     setlocale(LC_TIME, "spanish");
+    $meses = array(
+        "1"=>"Enero",
+        "2"=>"Febrero",
+        "3"=>"Marzo",
+        "4"=>"Abril",
+        "5"=>"Mayo",
+        "6"=>"Junio",
+        "7"=>"Julio",
+        "8"=>"Agosto",
+        "9"=>"Septiembre",
+        "10"=>"Octubre",
+        "11"=>"Noviembre",
+        "12"=>"Diciembre"
+    );
 	$pedido=10000+$informe->id;
-    $Mes_ = strftime("%B", strtotime($mes));
+    $Mes_ = $meses[$mes];
     $n=1;
 @endphp
 <style>

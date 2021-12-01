@@ -41,6 +41,7 @@ class MonitorController extends Controller
                 'solicituds.estado_sol as estado_sol',
                 'informes.id as informe_id',
                 'informes.solicitud_id as solicitud_id',
+                'informes.ubicacion_geo as ubicacion',
                 'informes.estado_in as estado_in',
                 'solicituds.x_aprox as x_aprox',
                 'solicituds.y_aprox as y_aprox',

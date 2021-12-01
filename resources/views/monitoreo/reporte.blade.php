@@ -1,12 +1,23 @@
 @extends('adminlte::page')
 
 @section('title', 'Reporte Inversion')
+@section('css')
+<style>
+    .tabla_reporte{
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+
+</style>
+@stop
+
 
 @section('content_header')
     <div class="row col-sm-12">
         <h1 class="col-sm-10">ELAPAS - GENERAR REPORTES</h1>
         <button style="display:none;" id="btnVolver" onclick="ocultarVolver()" class=" col-sm-2 btn btn-danger btn-icon"><i class="fas fa-arrow-circle-left"> Volver</i></button>
     </div>
+
 
 
 @stop
@@ -71,35 +82,36 @@
 
     </div>
     <div  style="display:none;" class="card col-12" id=respuesta>
-        <h2 id="titulo_reporte"align="center">Reporte Inversion</h2>
+        <h2 align="center">Reporte Inversión</h2>
+        <h2 id="titulo_reporte"align="center"></h2>
         <div id="div_materiales">
             <h3>Inversión Materiales</h3>
-            <table width="100%" border=1 id="table_materiales">
-                <tr>
-                    <td width="3%"rowspan="2">N°</td>
-                    <td align="center" width="27%"rowspan="2">Nombre Material</td>
-                    <td align="center" width="15%" rowspan="2">Unidad</td>
-                    <td align="center" width="15%" rowspan="2">Precio</td>
-                    <td align="center" width="20%" colspan="2">Cantidad</td>
-                    <td align="center" width="20%" colspan="2">Sub Total</td>
+            <table class="tabla_reporte" style="border: 1px solid; border-collapse: collapse;" width="100%"  id="table_materiales">
+                <tr class="tabla_reporte">
+                    <td style="border: 1px solid; border-collapse: collapse;" width="3%"rowspan="2">N°</td>
+                    <td style="border: 1px solid; border-collapse: collapse;" align="center" width="27%"rowspan="2">Nombre Material</td>
+                    <td style="border: 1px solid; border-collapse: collapse;" align="center" width="15%" rowspan="2">Unidad</td>
+                    <td style="border: 1px solid; border-collapse: collapse;" align="center" width="15%" rowspan="2">Precio</td>
+                    <td style="border: 1px solid; border-collapse: collapse;" align="center" width="20%" colspan="2">Cantidad</td>
+                    <td style="border: 1px solid; border-collapse: collapse;" align="center" width="20%" colspan="2">Sub Total</td>
                 </tr>
-                <tr>
-                    <td align="center" width="10%">Elapas</td>
-                    <td align="center" width="10%">Vecinos</td>
-                    <td align="center" width="10%">Elapas</td>
-                    <td align="center" width="10%">Vecinos</td>
+                <tr class="tabla_reporte">
+                    <td style="border: 1px solid; border-collapse: collapse;" align="center" width="10%">Elapas</td>
+                    <td style="border: 1px solid; border-collapse: collapse;" align="center" width="10%">Vecinos</td>
+                    <td style="border: 1px solid; border-collapse: collapse;" align="center" width="10%">Elapas</td>
+                    <td style="border: 1px solid; border-collapse: collapse;" align="center" width="10%">Vecinos</td>
                 </tr>
                 <tbody id="tbody_materiales">
 
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td   rowspan="2" colspan="6" align="right"><b>TOTAL Bs.</b></td>
-                        <td   align="center" id="total_elp_materiales"><b>0</b></td>
-                        <td   align="center" id="total_vecinos_materiales"><b>0</b></td>
+                        <td   style="border: 1px solid; border-collapse: collapse;" rowspan="2" colspan="6" align="right"><b>TOTAL Bs.</b></td>
+                        <td   style="border: 1px solid; border-collapse: collapse;" align="center" id="total_elp_materiales"><b>0</b></td>
+                        <td   style="border: 1px solid; border-collapse: collapse;" align="center" id="total_vecinos_materiales"><b>0</b></td>
                     </tr>
                     <tr>
-                        <td colspan="2" align="center" id="costo_total_materiales"></td>
+                        <td style="border: 1px solid; border-collapse: collapse;" colspan="2" align="center" id="costo_total_materiales"></td>
                     </tr>
                 </tfoot>
             </table>
@@ -108,32 +120,32 @@
         <br>
         <div id="div_mano_obras">
             <h3>Inversion Mano Obras</h3>
-            <table width="100%" border=1 id="table_mano_obras">
+            <table class="tabla_reporte" style="border: 1px solid; border-collapse: collapse;" width="100%"  id="table_mano_obras">
                 <tr>
-                    <td width="3%"rowspan="2">N°</td>
-                    <td align="center" width="27%"rowspan="2">Actividad</td>
-                    <td align="center" width="15%" rowspan="2">Unidad</td>
-                    <td align="center" width="15%" rowspan="2">Precio</td>
-                    <td align="center" width="20%" colspan="2">Cantidad</td>
-                    <td align="center" width="20%" colspan="2">Sub Total</td>
+                    <td style="border: 1px solid; border-collapse: collapse;" width="3%"rowspan="2">N°</td>
+                    <td style="border: 1px solid; border-collapse: collapse;" align="center" width="27%"rowspan="2">Actividad</td>
+                    <td style="border: 1px solid; border-collapse: collapse;" align="center" width="15%" rowspan="2">Unidad</td>
+                    <td style="border: 1px solid; border-collapse: collapse;" align="center" width="15%" rowspan="2">Precio</td>
+                    <td style="border: 1px solid; border-collapse: collapse;" align="center" width="20%" colspan="2">Cantidad</td>
+                    <td style="border: 1px solid; border-collapse: collapse;" align="center" width="20%" colspan="2">Sub Total</td>
                 </tr>
                 <tr>
-                    <td align="center" width="10%">Elapas</td>
-                    <td align="center" width="10%">Vecinos</td>
-                    <td align="center" width="10%">Elapas</td>
-                    <td align="center" width="10%">Vecinos</td>
+                    <td style="border: 1px solid; border-collapse: collapse;" align="center" width="10%">Elapas</td>
+                    <td style="border: 1px solid; border-collapse: collapse;" align="center" width="10%">Vecinos</td>
+                    <td style="border: 1px solid; border-collapse: collapse;" align="center" width="10%">Elapas</td>
+                    <td style="border: 1px solid; border-collapse: collapse;" align="center" width="10%">Vecinos</td>
                 </tr>
                 <tbody id="tbody_mano_obras">
 
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td rowspan="2" colspan="6" align="right"><b>TOTAL Bs.</b></td>
-                        <td  align="center" id="total_elp_mano_obras"><b>0</b></td>
-                        <td  align="center" id="total_vecinos_mano_obras"><b>0</b></td>
+                        <td style="border: 1px solid; border-collapse: collapse;" rowspan="2" colspan="6" align="right"><b>TOTAL Bs.</b></td>
+                        <td style="border: 1px solid; border-collapse: collapse;"  align="center" id="total_elp_mano_obras"><b>0</b></td>
+                        <td style="border: 1px solid; border-collapse: collapse;"  align="center" id="total_vecinos_mano_obras"><b>0</b></td>
                     </tr>
                     <tr>
-                        <td colspan="2" align="center" id="costo_total_mano_obras"></td>
+                        <td style="border: 1px solid; border-collapse: collapse;" colspan="2" align="center" id="costo_total_mano_obras"></td>
                     </tr>
                 </tfoot>
             </table>
@@ -158,3 +170,4 @@
 <script src="{{asset('js/generar_reporte.js')}}"></script>
 
 @stop
+

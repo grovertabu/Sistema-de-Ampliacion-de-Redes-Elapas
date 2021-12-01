@@ -12,8 +12,8 @@
       }
     </style>
 <div class="row">
-    <h1 class="col-md-9" id="txtActividad">Registro de Mano de Obra</h1>
-    <div class="col-md-3">
+    <h1 class="col-md-8" id="txtActividad">Registro de Mano de Obra</h1>
+    <div class="col-md-4">
         @can('inspector')
         <a href="{{route('informes.autorizado')}}" class="btn btn-danger btn-rounded" style="float: right;">
             <i class="fa fa-arrow-circle-left"></i> Inspecciones Autorizadas
@@ -253,8 +253,7 @@
 
 @stop
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-    <link rel="stylesheet" href="{{asset('vendor/leaflet/css/leaflet.css')}}" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <link rel="stylesheet" href="{{asset('vendor/leaflet/css/leaflet.css')}}" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
     <link rel="stylesheet" href="{{asset('vendor/leaflet/css/esri-leaflet-geocoder.css')}}" integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g==" crossorigin="">
     <link rel="stylesheet" href="{{asset('vendor/leaflet/css/easy-button.css')}}">
 @stop

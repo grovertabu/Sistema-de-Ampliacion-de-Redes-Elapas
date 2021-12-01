@@ -1,21 +1,35 @@
 @php
+    $meses = array(
+        "1"=>"Enero",
+        "2"=>"Febrero",
+        "3"=>"Marzo",
+        "4"=>"Abril",
+        "5"=>"Mayo",
+        "6"=>"Junio",
+        "7"=>"Julio",
+        "8"=>"Agosto",
+        "9"=>"Septiembre",
+        "10"=>"Octubre",
+        "11"=>"Noviembre",
+        "12"=>"Diciembre"
+    );
     setlocale(LC_TIME, "spanish");
     $fecha=strtotime($informe->fecha_hora_in);
     $anio=date("Y",$fecha);
-    $mes=date("M", $fecha);
+    $mes=date("m", $fecha);
     $dia=date("d", $fecha);
     setlocale(LC_TIME, "spanish");
 
-    $Mes_ = strftime("%B", strtotime($mes));
+    $Mes_ = $meses[$mes];
 
     setlocale(LC_TIME, "spanish");
     $fecha_sol=strtotime($informe->solicitud->fecha_sol);
     $anio_sol=date("Y",$fecha_sol);
-    $mes_sol=date("M", $fecha_sol);
+    $mes_sol=date("m", $fecha_sol);
     $dia_sol=date("d", $fecha_sol);
     setlocale(LC_TIME, "spanish");
 
-    $Mes_sol = strftime("%B", strtotime($mes_sol));
+    $Mes_sol = $meses[$mes_sol];
     $n =1;
 @endphp
 <!DOCTYPE html>
@@ -132,7 +146,7 @@
 
     </tr>
     <tr>
-        <td class="centrar" colspan="2" ><strong>ESPESIFIAR EL AREA DE CONCESION</strong></td>
+        <td class="centrar" colspan="2" ><strong>ESPECIFICAR EL AREA DE CONCESION</strong></td>
         <td class="centrar">{{$informe->espesifiar_in=='Si'?'SI':''}}</td>
         <td class="centrar">{{$informe->espesifiar_in=='No'?'NO':''}}</td>
 

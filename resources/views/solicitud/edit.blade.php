@@ -6,11 +6,11 @@
     <h1>ELAPAS</h1>
     <style>
     #map {
-        margin-top: 20px; 
-        width: 80%;
+        margin-top: 20px;
+        width: 100%;
         height: 400px;
         position: absolute;
-      } 
+      }
     </style>
 
 @stop
@@ -49,9 +49,9 @@
                             </div>
                             <input type="text" name="celular_sol" id="celular_sol" class="form-control" placeholder="Celular" value="{{$solicitud->celular_sol}}">
                         </div>
-                        
+
                     </div>
-                    
+
                     <div class="col-6">
                         <label for="zona_sol">Zona</label>
                         <div class="input-group ">
@@ -71,9 +71,9 @@
                             </div>
                             <input type="text" name="calle_sol" id="calle_sol" class="form-control" placeholder="Calle" value="{{$solicitud->calle_sol}}">
                         </div>
-                        
+
                     </div>
-                    
+
                     <div class="col-4">
                         <label for="exampleInputEmail1">fecha</label>
                         <input type="date" name="fecha_sol" id="fecha_sol" class="form-control" placeholder="Zona" value="{{$solicitud->fecha_sol}}">
@@ -89,9 +89,9 @@
                             </div>
                             <input type="text" name="x_aprox" id="x_aprox" class="form-control" placeholder="Latitud" value="{{$solicitud->x_aprox}}">
                         </div>
-                        
+
                     </div>
-                    
+
                     <div class="col-6">
                         <label for="exampleInputEmail1">Longitud</label>
                         <div class="input-group">
@@ -140,10 +140,12 @@
         </div>
     </div>
     <div id="contenedor-mapa" style="display: none">
-    
+
         <button onclick="mostrarTabla(false)" class="btn btn-primary"> <i class="fas fa-arrow-circle-left"></i> Volver </button>
-    
-        <div id="map">
+        <div class="col-md-12">
+            <div id="map">
+            </div>
+
         </div>
     </div>
 
@@ -161,19 +163,18 @@ function editarMapa(){
     initEditMap(lat,long);
 }
 </script>
-<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
-<script src="https://unpkg.com/esri-leaflet@2.3.2/dist/esri-leaflet.js" integrity="sha512-6LVib9wGnqVKIClCduEwsCub7iauLXpwrd5njR2J507m3A2a4HXJDLMiSZzjcksag3UluIfuW1KzuWVI5n/cuQ==" crossorigin=""></script>
-<script src="https://unpkg.com/esri-leaflet-geocoder@2.3.2/dist/esri-leaflet-geocoder.js" integrity="sha512-8twnXcrOGP3WfMvjB0jS5pNigFuIWj4ALwWEgxhZ+mxvjF5/FBPVd5uAxqT8dd2kUmTVK9+yQJ4CmTmSg/sXAQ==" crossorigin=""></script>
-<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script> 
+<script src="{{asset('vendor/leaflet/js/leaflet.js')}}" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+<script src="{{asset('vendor/leaflet/js/esri-leaflet.js')}}" integrity="sha512-6LVib9wGnqVKIClCduEwsCub7iauLXpwrd5njR2J507m3A2a4HXJDLMiSZzjcksag3UluIfuW1KzuWVI5n/cuQ==" crossorigin=""></script>
+<script src="{{asset('vendor/leaflet/js/esri-leaflet-geocoder.js')}}" integrity="sha512-8twnXcrOGP3WfMvjB0jS5pNigFuIWj4ALwWEgxhZ+mxvjF5/FBPVd5uAxqT8dd2kUmTVK9+yQJ4CmTmSg/sXAQ==" crossorigin=""></script>
+<script src="{{asset('vendor/leaflet/js/easy-button.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
 <script src="{{asset('js/mapas.js')}}"></script>
 
 
 @stop
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
-    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.3.2/dist/esri-leaflet-geocoder.css" integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g==" crossorigin="">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+<link rel="stylesheet" href="{{asset('vendor/leaflet/css/leaflet.css')}}" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+<link rel="stylesheet" href="{{asset('vendor/leaflet/css/esri-leaflet-geocoder.css')}}" integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g==" crossorigin="">
+<link rel="stylesheet" href="{{asset('vendor/leaflet/css/easy-button.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw-src.css"/>
 @stop

@@ -210,7 +210,6 @@
     <script src="{{asset('js/informes.js')}}"></script>
 @stop
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
     <style>
         @media print {
             @page { margin: 0; }

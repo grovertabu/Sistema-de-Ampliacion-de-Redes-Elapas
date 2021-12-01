@@ -11,7 +11,7 @@
   <style>
   #map {
     margin-top: 20px;
-      width: 80%;
+      width: 100%;
       height: 500px;
       position: absolute;
     }
@@ -59,6 +59,9 @@
                 <button type="button" class="d-inline btn btn-primary btn-icon" title="Informes" data-toggle="modal" data-target="#exampleModal{{$n}}">
                     <i class="fa fa-file"></i>
                     </button>
+                <a type="button" href="{{$sol->ubicacion}}" target="_blank" class="d-inline btn btn-success btn-icon" title="Ubicación Geografica">
+                    <i class="fas fa-map-marker-alt"></i>
+                </a>
 
                     <div class="modal fade" id="exampleModal{{$n}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -72,12 +75,12 @@
                             <div class="modal-body">
                                 <div style="text-align: center;" >
                                         <p>
-                                            <a href='{{route('reportePDF.informe_material',$sol->informe_id)}}' target="_blank"
+                                            <a onclick="mostrarPDF('{{route('reportePDF.informe_material',$sol->informe_id)}}')" target="_blank"
                                                 class='btn btn-danger btn-icon w-75'>Informe Ampliacion <i class="fas fa-file-pdf"></i></a>
                                         </p>
                                         @if ($sol->estado_in =='en proyeccion' || $sol->estado_in =='ejecutando')
                                         <p>
-                                            <a href="{{route('descargarPDF.proyecto',$sol->informe_id)}}" target="_blank" class="btn btn-danger btn-icon w-75" title="Informe Proyeccion">
+                                            <a onclick="mostrarPDF('{{route('descargarPDF.proyecto',$sol->informe_id)}}')" target="_blank" class="btn btn-danger btn-icon w-75" title="Informe Proyeccion">
                                                 Informe Proyección<i class="fas fa-file-pdf"></i></a>
                                         </p>
                                         @endif
@@ -128,8 +131,10 @@
 <div id="contenedor-mapa" style="display: none">
     <input type="hidden" id="obtenerAmpliaciones" >
     <button onclick="mostrarTabla(false)" class="btn btn-primary"> <i class="fas fa-arrow-circle-left"></i> Volver </button>
+    <div class="col-md-12">
+        <div id="map">
+        </div>
 
-    <div id="map">
     </div>
   </div>
 
@@ -144,6 +149,7 @@
 <script src="{{asset('vendor/leaflet/js/esri-leaflet-geocoder.js')}}" integrity="sha512-8twnXcrOGP3WfMvjB0jS5pNigFuIWj4ALwWEgxhZ+mxvjF5/FBPVd5uAxqT8dd2kUmTVK9+yQJ4CmTmSg/sXAQ==" crossorigin=""></script>
 <script src="{{asset('vendor/leaflet/js/easy-button.js')}}"></script>
 <script src="{{asset('js/mapas.js') }}"></script>
+<script src="{{asset('js/informes.js') }}"></script>
 <script>
     function visualizarMapa(lat, long, ruta){
     mostrarTabla(true);
@@ -155,8 +161,7 @@
 
 @stop
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-    <link rel="stylesheet" href="{{asset('vendor/leaflet/css/leaflet.css')}}" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <link rel="stylesheet" href="{{asset('vendor/leaflet/css/leaflet.css')}}" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
     <link rel="stylesheet" href="{{asset('vendor/leaflet/css/esri-leaflet-geocoder.css')}}" integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g==" crossorigin="">
     <link rel="stylesheet" href="{{asset('vendor/leaflet/css/easy-button.css')}}">
 @stop

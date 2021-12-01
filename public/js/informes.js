@@ -6,8 +6,8 @@ function mostrarPDF(url) {
         iframe.src = url;
         document.body.appendChild(iframe);
         iframe.focus();
-        console.log(iframe);
         iframe.contentWindow.print();
+        console.log(iframe.contentWindow)
     } else {
         var win = window.open(url, "_blank");
         win.focus();
