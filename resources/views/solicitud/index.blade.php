@@ -1,9 +1,7 @@
 @extends('adminlte::page')
 
 @section('title', 'Solicitud')
-@php
-    $n=1;
-@endphp
+
 @section('content_header')
   <style>
    #map {
@@ -46,7 +44,7 @@
 
             @foreach ($solicitud as $sol)
                 <tr>
-                    <td>{{$n++}}</td>
+                    <td>{{$sol->id}}</td>
                     <td>{{$sol->nombre_sol}}</td>
                     <td>{{$sol->celular_sol}}</td>
                     <td>{{$sol->zona_sol}}</td>

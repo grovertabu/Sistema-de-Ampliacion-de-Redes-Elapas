@@ -26,6 +26,7 @@
                     </select>
             </div>
             <button type="submit" class='btn btn-primary btn-icon'  id="cronograma">Buscar <i class="fas fa-search"></i></button>
+            <a href="{{route('cronograma.reporte')}}" class='btn btn-primary text-white ml-2'  title="Limpiar Filtros" id="reload"><i class="fas fa-redo-alt"></i></a>
          </form>
 
         </div>

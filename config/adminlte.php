@@ -262,6 +262,7 @@ return [
 
         ],
 
+
         [
             'header' => 'INFORMES DE AMPLIACION',
             'can' => 'menu-informes'
@@ -280,17 +281,7 @@ return [
             'can' => 'Proyectista',
 
         ],
-        [
-            'header' => 'REPORTES',
-            'can' => 'Proyectista'
-        ],
-        [
-            'text' => 'Reportes de inversion',
-            'route'  => 'proyectos.reporte',
-            'icon' => 'fas fa-fw fa-folder',
-            'can' => 'Proyectista',
 
-        ],
         [
             'text' => 'Inspecciones',
             'route'  => 'informes.index',
@@ -348,7 +339,7 @@ return [
             'can' => 'inspector'
         ],
         [
-            'header' => 'CRONOGRAMAS',
+            'header' => 'PROGRAMACION',
             'can' => 'jefe-red',
         ],
         [
@@ -384,6 +375,28 @@ return [
             'route'  => 'actividad.index',
             'icon_color' => 'red',
             'can' => 'jefe-red',
+        ],
+        [
+            'header' => 'ESTADO SOLICITUDES',
+            'can' => 'Secretaria'
+        ],
+        [
+            'text' => 'Monitoreo de Solicitudes',
+            'route'  => 'monitoreo.index',
+            'icon' => 'fas fa-eye',
+            'can' => 'Secretaria',
+
+        ],
+        [
+            'header' => 'REPORTES',
+            'can' => 'jefe-red'
+        ],
+        [
+            'text' => 'Reportes de inversion',
+            'route'  => 'proyectos.reporte',
+            'icon' => 'fas fa-fw fa-folder',
+            'can' => 'jefe-red',
+
         ],
         // [
         //     'text'       => 'information',

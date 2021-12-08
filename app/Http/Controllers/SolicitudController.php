@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Solicitud;
 use PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class SolicitudController extends Controller
 {
@@ -31,9 +34,10 @@ class SolicitudController extends Controller
             'zona_sol' => 'required',
             'calle_sol' => 'required',
             'x_aprox' => 'required',
-            'y_aprox' => 'required'
+            'y_aprox' => 'required',
+            'sol_escaneada' => 'required'
         ]);
-
+        $sol_anterior = DB::table('solicituds')->orderby('created_at', 'DESC')->take(1)->get();;
         $sol = new Solicitud();
         $sol->nombre_sol = $request->nombre_sol;
         $sol->celular_sol = $request->celular_sol;
@@ -43,7 +47,16 @@ class SolicitudController extends Controller
         $sol->estado_sol = $request->estado_sol;
         $sol->x_aprox = $request->x_aprox;
         $sol->y_aprox = $request->y_aprox;
-        $sol->save();
+        if ($request->hasFile('sol_escaneada')) {
+            if ($request->file('sol_escaneada')->isValid()) {
+                $file = $request->file('sol_escaneada');
+                $extension = $request->file('sol_escaneada')->extension();
+                $nombre = $sol_anterior->isEmpty() ? 1 : $sol_anterior[0]->id + 1;
+                $sol->sol_escaneada = 'solicitud_' . $nombre . '.' . $extension;
+                Storage::disk('solicitudes')->put($sol->sol_escaneada,  File::get($file));
+            }
+            $sol->save();
+        }
         return redirect()->route('solicitud.index')->with('crear', 'ok');
     }
 

@@ -119,7 +119,7 @@
         </div>
         <br>
         <div id="div_mano_obras">
-            <h3>Inversion Mano Obras</h3>
+            <h3>Inversión Mano Obras</h3>
             <table class="tabla_reporte" style="border: 1px solid; border-collapse: collapse;" width="100%"  id="table_mano_obras">
                 <tr>
                     <td style="border: 1px solid; border-collapse: collapse;" width="3%"rowspan="2">N°</td>

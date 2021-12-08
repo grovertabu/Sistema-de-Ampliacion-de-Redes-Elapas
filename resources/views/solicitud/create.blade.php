@@ -29,7 +29,7 @@
 
             <!-- /.card-header -->
             <!-- formulario inicio -->
-            <form action="{{route('solicitud.store')}}" method="POST" role="form" class="create" id="form_solicitud">
+            <form action="{{route('solicitud.store')}}" method="POST" enctype="multipart/form-data" role="form" class="create" id="form_solicitud">
                 @csrf
                 <div class="card-body">
                 <div class="form-group">
@@ -109,6 +109,11 @@
 
                     <button type="button" class="btn btn-block btn-outline-success"  onclick="editarMapa()" >
                     Registrar ubicacion aproximada</button>
+                    <div class="mt-2 custom-file">
+                        <input type="file" lang="es" accept="jpg,png,jpeg" class="custom-file-input" name="sol_escaneada" id="validatedCustomFile" required>
+                        <label class="custom-file-label" for="validatedCustomFile">Subir Solicitud Escaneada</label>
+                        <div class="invalid-feedback">Imagen Requerida</div>
+                      </div>
                 </div>
 
 
@@ -194,6 +199,12 @@ function editarMapa(){
 </script>
 @stop
 @section('css')
+    <style>
+    $custom-file-text: (
+        en: "Browse",
+        es: "Elegir"
+    );
+    </style>
     <link rel="stylesheet" href="{{asset('vendor/leaflet/css/leaflet.css')}}" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
     <link rel="stylesheet" href="{{asset('vendor/leaflet/css/esri-leaflet-geocoder.css')}}" integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g==" crossorigin="">
     <link rel="stylesheet" href="{{asset('vendor/leaflet/css/easy-button.css')}}">

@@ -252,7 +252,7 @@ class InformeController extends Controller
 
         $image = str_replace(' ', '+', $image);
         Storage::disk('public')->put('informe_' + $request->solicitud_id + '.png', base64_decode($image));
-        return var_dump($informe);
+        //return var_dump($informe);
         $informe->save();
         return redirect()->route('informes.index');
     }
