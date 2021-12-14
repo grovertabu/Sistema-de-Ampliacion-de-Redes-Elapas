@@ -40,11 +40,14 @@ Route::get('solicitud/{solicitud}/edit', [SolicitudController::class, 'edit'])->
 Route::put('solicitud/{solicitud}', [SolicitudController::class, 'update'])->middleware('can:solicitud.edit')->name('solicitud.update');
 Route::delete('solicitud/{solicitud}', [SolicitudController::class, 'destroy'])->middleware('can:solicitud.delete')->name('solicitud.destroy');
 Route::get('solicitud/{solicitud}/aprobar', [SolicitudController::class, 'aprobar'])->middleware('can:jefe-red')->name('solicitud.aprobar');
-Route::post('solicitud/{solicitud}/rechazar', [SolicitudController::class, 'rechazar'])->middleware('can:jefe-red')->name('solicitud.rechazar');
-Route::get('Solicitudes_rechazadas', [SolicitudController::class, 'reject'])->middleware('can:jefe-red')->name('solicitud.reject');
+Route::post('solicitud/rechazar', [SolicitudController::class, 'rechazar'])->middleware('can:jefe-red')->name('solicitud.sol_rechazar');
+Route::get('Solicitudes/rechazadas', [SolicitudController::class, 'reject'])->middleware('can:jefe-red')->name('solicitud.reject');
 Route::get('solicitud/{solicitud}/reporte_rechazado', [SolicitudController::class, 'PDF_rechazado'])->middleware('can:jefe-red')->name('solicitud.PDFrechazado');
 Route::post('solicitud/{solicitud}/guardar_ampliacion', [SolicitudController::class, 'guardarAmpliacion'])->middleware('can:inspector')->name('solicitud.guardarAmpliacion');
 Route::get('solicitud/{solicitud}/obtener_ampliacion', [SolicitudController::class, 'obtenerAmpliacion'])->name('solicitud.obtenerAmpliaciones');
+Route::get('solicitud/{solicitud}/solicitud_escaneada', [PDFController::class, 'solicitud_escaneada'])->middleware('can:jefe-red')->name('solicitud.escaneada');
+Route::get('solicitud/{solicitud}/form_rechazar', [SolicitudController::class, 'form_rechazado'])->middleware('can:jefe-red')->name('solicitud.form_rechazado');
+
 // Crud solicitud
 
 // Route::resource('informes', InformeController::class);
@@ -65,7 +68,7 @@ Route::get('Informes/{informe}/firmar', [InformeController::class, 'firmar_infor
 Route::get('Informes/{informe}/aprobar_proyecto', [InformeController::class, 'aprobar_proyecto'])->middleware('can:Proyectista')->name('informes.aprobar_proyecto');
 
 // CRUD MATERIALES
-Route::resource('materials', MaterialController::class)->names('materials');
+Route::resource('materials', MaterialController::class)->middleware('can:jefe-red')->names('materials');
 
 // Asigacion de materiales a los informes´
 Route::resource('material_informe', Materials_informesController::class)->names('material_informe');
@@ -99,7 +102,7 @@ Route::delete('Computo_eliminar/{descargo}/{fecha_descargo?}/{valor?}', [Descarg
 
 //Monitoreo y Prroyectista
 Route::get('Monitoreo', [MonitorController::class, 'index'])->middleware('can:Monitor')->name('monitoreo.index');
-Route::get('Monitoreo_Secretaria', [MonitorController::class, 'index'])->middleware('can:Secretaria')->name('monitoreo.index');
+Route::get('Monitoreo_Secretaria', [MonitorController::class, 'index'])->middleware('can:Secretaria')->name('monitoreo.index_secre');
 Route::get('Proyectos/Reporte_inversiones', [MonitorController::class, 'proyectista_reporte'])->middleware('can:jefe-red')->name('proyectos.reporte');
 Route::post('Proyectos/Generar_reporte', [PDFController::class, 'generar_reporte_proyectista'])->middleware('can:Proyectista')->name('PDF.generar_reporte_proyectista');
 Route::get('Proyectos', [MonitorController::class, 'proyectista_index'])->middleware('can:Proyectista')->name('proyectos.index');

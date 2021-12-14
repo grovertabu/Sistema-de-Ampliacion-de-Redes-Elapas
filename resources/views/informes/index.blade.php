@@ -1,9 +1,6 @@
 @extends('adminlte::page')
 
 @section('title', 'Informes')
-@php
-    $n=1;
-@endphp
 @section('content_header')
 <style>
    #map {
@@ -39,7 +36,7 @@
                     $mapa_geo = $inf->ubicacion == null? 'https://maps.google.com/?q='.$inf->x_aprox.','.$inf->y_aprox.'':$inf->ubicacion;
                 @endphp
                 <tr>
-                    <td>{{$n++}}</td>
+                    <td>{{'S-'.$inf->id_solicitud}}</td>
                     <td>{{$inf->nombre_sol}}</td>
                     <td>{{$inf->fecha_inspeccion}}</td>
                     <td>{{$inf->calle_sol}}</td>
@@ -57,7 +54,7 @@
                         @endif
 
                         <a onclick="mostrarPDF('{{route('descargarPDF.informe',$inf->id_informe)}}')" target="_blank"
-                        class='btn btn-danger btn-icon' title="Informe"><i class="fas fa-file-pdf"></i></a>
+                        class='text-white btn btn-danger btn-icon' title="Informe"><i class="fas fa-file-pdf"></i></a>
                         @if($inf->estado=='inspeccionado')
                         @can('inspector')
                         {{-- <a href='{{route('informes.edit',$inf->id_informe)}}'

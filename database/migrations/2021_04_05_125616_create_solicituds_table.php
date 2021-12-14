@@ -26,6 +26,7 @@ class CreateSolicitudsTable extends Migration
             $table->text('observaciones')->nullable();
             $table->text('ampliaciones')->nullable();
             $table->string('sol_escaneada', 50);
+            $table->string('sol_rechazada', 50)->nullable();
             $table->timestamps();
         });
     }

@@ -8,7 +8,6 @@
       margin-top: 20px;
       width: 100%;
       height: 400px;
-      position: absolute;
     }
   </style>
     <h1>ELAPAS - Solicitud
@@ -36,25 +35,27 @@
             <th>Celular</th>
             <th>Zona</th>
             <th>Calle</th>
-            <th>estado</th>
-            <th width="120">Acciones</th>
+            <th width="155px">Acciones</th>
           </tr>
         </thead>
         <tbody>
 
             @foreach ($solicitud as $sol)
                 <tr>
-                    <td>{{$sol->id}}</td>
+                    <td>{{'S-'.$sol->id}}</td>
                     <td>{{$sol->nombre_sol}}</td>
                     <td>{{$sol->celular_sol}}</td>
                     <td>{{$sol->zona_sol}}</td>
                     <td>{{$sol->calle_sol}}</td>
-                    <td>{{$sol->estado_sol}}</td>
                     <td>
                         <a type="button" class="d-inline btn btn-warning btn-icon" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="visualizarMapa({{$sol->x_aprox}},{{$sol->y_aprox}}, {{$sol->id}})" title="Visualizar" id="btn_mostrar_mapa" >
                             <i class="fas fa-eye"></i></a>
                         @if($sol->estado_sol!='rechazado')
-
+                        @can('jefe-red')
+                            <a type="button" onclick="mostrarPDF('{{route('solicitud.escaneada',$sol->id)}}')"  class=" text-white btn btn-danger d-line btn-icon">
+                                <i class="fa fa-file-pdf"></i>
+                            </a>
+                        @endcan
                         @can('solicitud.edit')
                         <a type="button" href='{{route('solicitud.edit',$sol)}}'
                         class='d-inline btn btn-info btn-icon'title="Editar"><i class="fas fa-pencil-alt"></i></a>
@@ -64,7 +65,7 @@
                         class='d-inline btn btn-success btn-icon boton-aprobar'title="Aprobar"><i class="fas fa-check"></i></a>
                         @endcan
                         @can('jefe-red')
-                        <a type="button" data-toggle="modal" data-toggle="modal" data-target="#exampleModal" onclick="modalObservaciones({{$sol->id }})"
+                        <a type="button" href="{{route('solicitud.form_rechazado',$sol->id)}}"
                         class='d-inline btn btn-danger btn-icon' title="Rechazar"><i class="fas fa-times"></i></a>
                         @endcan
                         @can('solicitud.delete')
@@ -75,8 +76,11 @@
                         </form>
                         @endcan
                         @else
-                        <a href='{{route('solicitud.PDFrechazado',$sol)}}' type="button" target='_blank'
-                            class='d-inline btn btn-danger btn-icon' title="Reporte"><i class="fas fa-file"></i></a>
+                        <a type="button" onclick="mostrarPDF('{{route('solicitud.PDFrechazado',$sol)}}')" target='_blank'
+                            class='text-white d-inline btn btn-danger btn-icon' title="Reporte Rechazado"><i class="fas fa-file"></i></a>
+                        <a type="button" onclick="mostrarPDF('{{route('solicitud.escaneada',$sol->id)}}')" title="Solicitud Escaneada" class=" text-white btn btn-danger d-line btn-icon">
+                            <i class="fa fa-file-pdf"></i>
+                        </a>
                         @endif
 
                     </td>
@@ -90,7 +94,6 @@
                 <th>Celular</th>
                 <th>Zona</th>
                 <th>Calle</th>
-                <th>estado</th>
                 <th>Acciones</th>
             </tr>
         </tfoot>
@@ -109,49 +112,8 @@
     </div>
   </div>
 
-{{-- Modal para el registrar coordenadas --}}
-{{-- <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
 
 
-    </div>
-
-  </div>
-</div> --}}
-
-{{-- Modal fin --}}
-
-@can('jefe-red')
-{{-- Modal para el registrar coordenadas --}}
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Observaciones (opcional)</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form  id="formObservaciones" method="post">
-            @csrf
-            <div class="form-group">
-                <textarea class="form-control" name="observaciones" id="observaciones" rows="3"></textarea>
-                <input type="hidden"  id="id_ruta" name="id_ruta">
-            </div>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="submit"  class="btn btn-danger">Rechazar</button>
-        </div>
-        </form>
-      </div>
-    </div>
-  </div>
-  @endcan
-  {{-- Modal fin --}}
 
 
 
@@ -187,6 +149,7 @@
     @endif
     <script src="{{asset('js/mapas.js') }}"></script>
     <script src="{{asset('js/solicitud.js')}}"></script>
+    <script src="{{asset('js/informes.js')}}"></script>
 
 @stop
 @section('footer')

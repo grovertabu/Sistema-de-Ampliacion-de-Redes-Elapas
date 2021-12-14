@@ -1,9 +1,6 @@
 @extends('adminlte::page')
 
 @section('title', 'Autorizacio')
-@php
-    $n=1;
-@endphp
 @section('content_header')
 <style>
 
@@ -11,7 +8,6 @@
         margin-top: 20px;
         width: 100%;
         height: 400px;
-        position: absolute;
       }
 </style>
 @stop
@@ -43,7 +39,7 @@
             @endphp
             @foreach ($informes as $inf)
                 <tr>
-                    <td>{{$n++}}</td>
+                    <td>{{'S-'.$inf->id_solicitud}}</td>
                     <td>{{$inf->zona_sol}}</td>
                     <td>{{$inf->nombre_sol}}</td>
                     <td>
@@ -80,17 +76,34 @@
                                 </div>
                                 <div class="modal-body">
                                     <div style="text-align: center;" >
+                                            @can('jefe-red')
+                                            <p>
+                                                <a type="button" onclick="mostrarPDF('{{route('solicitud.escaneada',$inf->id_solicitud)}}')"  class=" text-white btn btn-danger btn-icon w-75">
+                                                Solicitud Escaneada <i class="fa fa-file-pdf"></i>
+                                                </a>
+                                            </p>
+                                            @endcan
                                             <p >
                                                 <a  onclick="mostrarPDF('{{route('descargarPDF.informe',$inf->id_informe)}}')" target="_blank"
-                                                    class='btn btn-danger btn-icon w-75'>Informe de Inspección <i class="fas fa-file-pdf"></i></a>
+                                                    class='text-white btn btn-danger btn-icon w-75'>Informe de Inspección <i class="fas fa-file-pdf"></i></a>
                                             </p>
-                                            <p>
-                                                <a onclick="mostrarPDF('{{route('pedidoPDF.informe',$inf->id_informe)}}')" target="_blank"
-                                                class='btn btn-danger btn-icon w-75'>Pedido de Material <i class="fas fa-file-pdf"></i></a>
-                                            </p>
+                                            @can('inspector')
+                                                @if ($inf->estado == "firmado")
+                                                    <p>
+                                                        <a onclick="mostrarPDF('{{route('pedidoPDF.informe',$inf->id_informe)}}')" target="_blank"
+                                                        class='text-white btn btn-danger btn-icon w-75'>Pedido de Material <i class="fas fa-file-pdf"></i></a>
+                                                    </p>
+                                                @endif
+                                            @endcan
+                                            @can('jefe-red')
+                                                <p>
+                                                    <a onclick="mostrarPDF('{{route('pedidoPDF.informe',$inf->id_informe)}}')" target="_blank"
+                                                    class='text-white btn btn-danger btn-icon w-75'>Pedido de Material <i class="fas fa-file-pdf"></i></a>
+                                                </p>
+                                            @endcan
                                             <p>
                                                 <a onclick="mostrarPDF('{{route('reportePDF.informe_material',$inf->id_informe)}}')" target="_blank"
-                                                    class='btn btn-danger btn-icon w-75'>Informe Ampliacion <i class="fas fa-file-pdf"></i></a>
+                                                    class='text-white btn btn-danger btn-icon w-75'>Informe Ampliacion <i class="fas fa-file-pdf"></i></a>
                                             </p>
                                             {{-- @if($inf->fecha_ejecutada != null)
                                                 <p>

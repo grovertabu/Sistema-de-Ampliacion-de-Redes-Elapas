@@ -282,77 +282,76 @@ return [
 
         ],
 
-        [
-            'text' => 'Inspecciones',
-            'route'  => 'informes.index',
-            'icon' => 'fa fa-fw fa-file-pdf',
-            'can' => 'informes.index',
-        ],
-        [
-            'text' => 'Inspecciones Autorizadas',
-            'route'  => 'informes.autorizado',
-            'icon' => 'fa fa-fw fa-file-pdf',
-            'can' => 'inspector',
-
-        ],
-        [
-            'text' => 'Inspecciones en Ejecución',
-            'route'  => 'informes.concluido',
-            'icon' => 'fa fa-fw fa-file-pdf',
-            'can' => 'inspector',
-
-        ],
-        [
-            'text' => 'Inspecciones Autorizadas',
-            'route'  => 'informes.autorizado',
-            'icon' => 'fa fa-fw fa-file-pdf',
-            'can' => 'jefe-red',
-
-        ],
-        [
-            'text' => 'Inspecciones en Ejecución',
-            'route'  => 'informes.concluido',
-            'icon' => 'fa fa-fw fa-file-pdf',
-            'can' => 'jefe-red',
-
-        ],
         // [
-        //     'text'    => 'Materiales',
-        //     'icon'    => 'fas fa-fw fa-box-open',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'Material',
-        //             'route'  => 'materials.index',
-        //         ],
+        //     'text' => 'Inspecciones',
+        //     'route'  => 'informes.index',
+        //     'icon' => 'fa fa-fw fa-file-pdf',
+        //     'can' => 'informes.index',
+        // ],
+        // [
+        //     'text' => 'Inspecciones Autorizadas',
+        //     'route'  => 'informes.autorizado',
+        //     'icon' => 'fa fa-fw fa-file-pdf',
+        //     'can' => 'inspector',
 
-        //     ],
-        //     'can' => 'inspector'
+        // ],
+        // [
+        //     'text' => 'Inspecciones en Ejecución',
+        //     'route'  => 'informes.concluido',
+        //     'icon' => 'fa fa-fw fa-file-pdf',
+        //     'can' => 'inspector',
+
         // ],
         [
-            'header' => 'MATERIALES',
-            'can' => 'inspector'
+            'text'    => 'Informes de Ampliación',
+            'icon'    => 'fa fa-fw fa-file-pdf',
+            'submenu' => [
+                [
+                    'text' => 'Inspecciones',
+                    'route'  => 'informes.index',
+                    'icon' => 'fa fa-fw fa-file-pdf'
+                ],
+                [
+                    'text' => 'Inspecciones Autorizadas',
+                    'route'  => 'informes.autorizado',
+                    'icon' => 'fa fa-fw fa-file-pdf',
+
+
+                ],
+                [
+                    'text' => 'Inspecciones en Ejecución',
+                    'route'  => 'informes.concluido',
+                    'icon' => 'fa fa-fw fa-file-pdf',
+
+
+                ],
+
+            ],
+            'can' => 'informes.index'
         ],
+
+
+
+
         [
-            'text' => 'Registrar Material',
-            'icon' => 'fas fa-fw fa-box-open',
-            'route' => 'materials.index',
-            'can' => 'inspector'
-        ],
-        [
-            'header' => 'PROGRAMACION',
-            'can' => 'jefe-red',
-        ],
-        [
-            'text'       => 'Asignar inspector',
-            'icon_color' => 'red',
-            'route'  => 'cronograma.index',
-            'can' => 'jefe-red',
-        ],
-        [
-            'text'       => 'Cronograma de inspecciones',
-            'icon_color' => 'yellow',
-            'route'  => 'cronograma.reporte',
-            'can' => 'jefe-red',
+            'text'    => 'Programación',
+            'icon' => 'fas fa-calendar-alt',
+            'submenu' => [
+                [
+                    'text'       => 'Asignar inspector',
+                    'icon_color' => 'red',
+                    'route'  => 'cronograma.index',
+                    'can' => 'jefe-red',
+                ],
+                [
+                    'text'       => 'Cronograma de inspecciones',
+                    'icon_color' => 'yellow',
+                    'route'  => 'cronograma.reporte',
+                    'can' => 'jefe-red',
+                ]
+
+            ],
+            'can' => 'jefe-red'
         ],
         // [
         //     'text'       => 'Ampliacion en ejecucion',
@@ -360,9 +359,26 @@ return [
         //     'url'        => '#',
         //     'can' => 'inspector',
         // ],
+
         [
-            'header' => 'ACTIVIDADES MANO DE OBRA',
-            'can' => 'jefe-red',
+            'text'    => 'Recursos de Ampliación',
+            'icon' => 'fas fa-tools',
+            'submenu' => [
+                [
+                    'text' => 'Actividades',
+                    'route'  => 'actividad.index',
+                    'icon_color' => 'red',
+                    'can' => 'jefe-red',
+                ],
+                [
+                    'text' => 'Material',
+                    'icon' => 'fas fa-fw fa-box-open',
+                    'route' => 'materials.index',
+                    'can' => 'jefe-red'
+                ],
+
+            ],
+            'can' => 'jefe-red'
         ],
         // [
         //     'text' => 'Descargo de material',
@@ -370,19 +386,14 @@ return [
         //     'icon' => 'fa fa-fw fa-file-pdf',
         //     // 'can' => 'informes.index',
         // ],
-        [
-            'text' => 'Actividades',
-            'route'  => 'actividad.index',
-            'icon_color' => 'red',
-            'can' => 'jefe-red',
-        ],
+
         [
             'header' => 'ESTADO SOLICITUDES',
             'can' => 'Secretaria'
         ],
         [
             'text' => 'Monitoreo de Solicitudes',
-            'route'  => 'monitoreo.index',
+            'route'  => 'monitoreo.index_secre',
             'icon' => 'fas fa-eye',
             'can' => 'Secretaria',
 

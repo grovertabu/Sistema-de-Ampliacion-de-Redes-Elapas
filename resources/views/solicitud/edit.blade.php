@@ -27,7 +27,7 @@
             </div>
             <!-- /.card-header -->
             <!-- formulario inicio -->
-            <form action="{{route('solicitud.update',$solicitud)}}" method="post" role="form" id="form_solicitud">
+            <form action="{{route('solicitud.update',$solicitud)}}" enctype="multipart/form-data" method="post" role="form" id="form_solicitud">
                 @csrf
                 @method('put')
                 <div class="card-body">
@@ -107,28 +107,11 @@
                     <button type="button" class="btn btn-block btn-outline-success" onclick="editarMapa()">
                     Actualizar ubicacion aproximada</button>
                 </div>
-                {{-- Modal para el registrar coordenadas --}}
-{{--                 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                            {{-- contenio del mapa --}}
-                       {{-- <h2>mi primer modal</h2>
-                          {{-- fin del mapa --}}
-                       {{-- </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                          <button type="button" class="btn btn-primary">Guardar Cambios</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div> --}}
+                <div class="mt-2 custom-file">
+                    <input type="file" lang="es" accept="jpg,png,jpeg" class="custom-file-input" name="sol_escaneada" id="validatedCustomFile">
+                    <label class="custom-file-label" for="validatedCustomFile">Subir Solicitud Escaneada</label>
+                    <div class="invalid-feedback">Imagen Requerida</div>
+                </div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">

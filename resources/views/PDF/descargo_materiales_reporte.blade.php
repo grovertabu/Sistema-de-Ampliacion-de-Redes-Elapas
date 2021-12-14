@@ -335,9 +335,6 @@
         {{$inspector->nombre_inspector}}
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        @if($informe->estado_in=='firmado' || $informe->estado_in=='ejecutando' || $informe->estado_in=='en proyeccion')
-        <img width="120" height="60" src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('images/Rene Iglesias.png'))) }}">
-        @endif
 
 
     </div>

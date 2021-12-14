@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Informe;
 use App\Models\Informe_material;
+use App\Models\Solicitud;
 use Illuminate\Http\Request;
 use PDF;
 use Illuminate\Support\Facades\DB;
@@ -262,5 +263,10 @@ class PDFController extends Controller
         return response(compact('mano_obras', 'materiales', 'fecha_i', 'fecha_h'));
         // $pdf = PDF::loadview('PDF/informe', compact('informe'));
         //return $pdf->stream('Informe.pdf');
+    }
+    public function solicitud_escaneada($id)
+    {
+        $solicitud = Solicitud::find($id);
+        return view('PDF/solicitud_escaneada', compact('solicitud'));
     }
 }

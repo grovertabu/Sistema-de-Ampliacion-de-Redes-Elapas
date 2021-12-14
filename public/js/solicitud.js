@@ -9,21 +9,21 @@ function visualizarMapa(lat, long, ruta) {
 
 }
 // manda form observaciones
-document.querySelector('#formObservaciones').addEventListener('submit', (e) => {
-    e.preventDefault();
-    var formData = new FormData(e.target);
+// document.querySelector('#formObservaciones').addEventListener('submit', (e) => {
+//     e.preventDefault();
+//     var formData = new FormData(e.target);
 
-    $.ajax({
-        url: document.querySelector('#id_ruta').value,
-        data: formData,
-        processData: false,
-        contentType: false,
-        type: 'POST',
-        success: function (data) {
-            window.location.reload();
-        }
-    });
-});
+//     $.ajax({
+//         url: document.querySelector('#id_ruta').value,
+//         data: formData,
+//         processData: false,
+//         contentType: false,
+//         type: 'POST',
+//         success: function (data) {
+//             window.location.reload();
+//         }
+//     });
+// });
 // aprobar solicitud
 document.querySelector('.boton-aprobar').addEventListener('click', (e) => {
     e.preventDefault();

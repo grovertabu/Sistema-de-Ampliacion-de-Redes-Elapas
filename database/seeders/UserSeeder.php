@@ -18,16 +18,32 @@ class UserSeeder extends Seeder
         )->assignRole('administrador');
         User::create(
             [
-                'name'     => 'Grover Taboada',
-                'email'    => 'grovert',
+                'name'     => 'Patricio Condori',
+                'email'    => 'p_condori',
                 'password' =>  bcrypt('password'),
                 'tipo_user' => 'Inspector',
             ]
         )->assignRole('Inspector');
         User::create(
             [
-                'name'     => 'Carlos Vasquez',
-                'email'    => 'carlos',
+                'name'     => 'Alfredo Arízaga',
+                'email'    => 'a_arizada',
+                'password' =>  bcrypt('password'),
+                'tipo_user' => 'Inspector',
+            ]
+        )->assignRole('Inspector');
+        User::create(
+            [
+                'name'     => 'Anacleto Lopez',
+                'email'    => 'a_lopez',
+                'password' =>  bcrypt('password'),
+                'tipo_user' => 'Inspector',
+            ]
+        )->assignRole('Inspector');
+        User::create(
+            [
+                'name'     => 'Desiderio Flores',
+                'email'    => 'd_flores',
                 'password' =>  bcrypt('password'),
                 'tipo_user' => 'Inspector',
             ]
@@ -35,31 +51,31 @@ class UserSeeder extends Seeder
         User::create(
             [
                 'name'     => 'Rene Iglesias',
-                'email'    => 'Catastro',
+                'email'    => 'r_iglesias',
                 'password' =>  bcrypt('password'),
                 'tipo_user' => 'Jefe de red',
             ]
         )->assignRole('Jefe de red');
         User::create(
             [
-                'name'     => 'Sofia Mendez',
-                'email'    => 'sofia',
+                'name'     => 'Nancy Nuñez',
+                'email'    => 'n_nuñez',
                 'password' =>  bcrypt('password'),
                 'tipo_user' => 'Secretaria',
             ]
         )->assignRole('Secretaria');
         User::create(
             [
-                'name'     => 'Pedro Perez',
-                'email'    => 'pedro',
+                'name'     => 'Tomás Hurtado',
+                'email'    => 't_hurtado',
                 'password' =>  bcrypt('password'),
                 'tipo_user' => 'Monitor',
             ]
         )->assignRole('Monitor');
         User::create(
             [
-                'name'     => 'Patricia Patiño',
-                'email'    => 'patricia',
+                'name'     => 'Daniela Barja',
+                'email'    => 'd_barja',
                 'password' =>  bcrypt('password'),
                 'tipo_user' => 'Proyectista',
             ]

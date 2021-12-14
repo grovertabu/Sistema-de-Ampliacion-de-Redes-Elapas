@@ -8,7 +8,6 @@
       margin-top: 20px;
       width: 100%;
       height: 400px;
-      position: absolute;
       }
     </style>
     <h1>ELAPAS</h1>
@@ -113,7 +112,7 @@
                         <input type="file" lang="es" accept="jpg,png,jpeg" class="custom-file-input" name="sol_escaneada" id="validatedCustomFile" required>
                         <label class="custom-file-label" for="validatedCustomFile">Subir Solicitud Escaneada</label>
                         <div class="invalid-feedback">Imagen Requerida</div>
-                      </div>
+                    </div>
                 </div>
 
 

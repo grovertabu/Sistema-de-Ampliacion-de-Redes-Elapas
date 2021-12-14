@@ -2,10 +2,10 @@
 
 @section('title', 'Monitoreo y Proyectos')
 @php
-    $n=1;
     $dias = array("domingo","lunes","martes","miércoles","jueves","viernes","sábado");
     $fecha="12-05-2021";
     $dia = $dias[(date('N', strtotime($fecha)))];
+    $n = 0;
 @endphp
 @section('content_header')
   <style>
@@ -38,8 +38,11 @@
         </thead>
         <tbody>
         @foreach ($solicitudall as $sol)
+        @php
+            $n++;
+        @endphp
         <tr>
-            <td>{{$n++}}</td>
+            <td>{{'S-'.$sol->solicitud_id}}</td>
             <td>{{$sol->nombre_sol}}</td>
             <td>{{$sol->celular_sol}}</td>
             <td>{{$sol->zona_sol}}</td>
@@ -49,11 +52,49 @@
                 <a type="button" class="d-inline btn btn-warning btn-icon" title="Visualizar" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="visualizarMapa({{$sol->x_aprox}},{{$sol->y_aprox}}, {{$sol->solicitud_id}})" id="btn_mostrar_mapa" >
                     <i class="fas fa-eye"></i></a>
                 @can('Monitor')
-                @if ($sol->estado_sol == 'asignado')
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{$n}}">
+                    <i class="fa fa-file"></i>
+                  </button>
 
-                <a href="{{route('descargarPDF.informe',$sol->informe_id)}}" target="_blank" class="btn btn-danger btn-icon" title="Informe">
-                    <i class="fas fa-file-pdf"></i></a>
-                @endif
+                  <div class="modal fade" id="exampleModal{{$n}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Informes</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body" style="text-align: center;">
+                            <p>
+                                <a onclick="mostrarPDF('{{route('descargarPDF.informe',$sol->informe_id)}}')" target="_blank"
+                                    class='text-white btn btn-danger btn-icon w-75'>Informe de Inspección <i class="fas fa-file-pdf"></i></a>
+
+                            </p>
+                            @if ($sol->estado_in == "firmado" || $sol->estado_in == "en proyeccion" || $sol->estado_in == "ejecutando")
+                            <p>
+                                <a onclick="mostrarPDF('{{route('pedidoPDF.informe',$sol->informe_id)}}')" target="_blank"
+                                class='text-white btn btn-danger btn-icon w-75'>Pedido de Material <i class="fas fa-file-pdf"></i></a>
+
+                            </p>
+
+                            @endif
+
+
+                            @if($sol->estado_in  == 'ejecutando')
+                            <p>
+                                <a onclick="mostrarPDF('{{route('reportePDF.informe_descargo_material',$inf->informe_id)}}')" target="_blank"
+                                    class='text-white btn btn-danger btn-icon w-75'>Informe de Ejecución de Proyecto<i class="fas fa-file-pdf"></i></a>
+
+                            </p>
+                            @endif
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 @endcan
                 @can('Proyectista')
                 <button type="button" class="d-inline btn btn-primary btn-icon" title="Informes" data-toggle="modal" data-target="#exampleModal{{$n}}">
@@ -76,11 +117,11 @@
                                 <div style="text-align: center;" >
                                         <p>
                                             <a onclick="mostrarPDF('{{route('reportePDF.informe_material',$sol->informe_id)}}')" target="_blank"
-                                                class='btn btn-danger btn-icon w-75'>Informe Ampliacion <i class="fas fa-file-pdf"></i></a>
+                                                class=' text-white btn btn-danger btn-icon w-75'>Informe Ampliacion <i class="fas fa-file-pdf"></i></a>
                                         </p>
                                         @if ($sol->estado_in =='en proyeccion' || $sol->estado_in =='ejecutando')
                                         <p>
-                                            <a onclick="mostrarPDF('{{route('descargarPDF.proyecto',$sol->informe_id)}}')" target="_blank" class="btn btn-danger btn-icon w-75" title="Informe Proyeccion">
+                                            <a onclick="mostrarPDF('{{route('descargarPDF.proyecto',$sol->informe_id)}}')" target="_blank" class=" text-white btn btn-danger btn-icon w-75" title="Informe Proyeccion">
                                                 Informe Proyección<i class="fas fa-file-pdf"></i></a>
                                         </p>
                                         @endif

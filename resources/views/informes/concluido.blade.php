@@ -1,10 +1,11 @@
 @extends('adminlte::page')
 
 @section('title', 'Concluidos')
-@php
-    $n=1;
-@endphp
+
 @section('content_header')
+@php
+    $n = 0;
+@endphp
 @stop
 
 @section('content')
@@ -30,8 +31,11 @@
         </thead>
         <tbody>
             @foreach ($informes as $inf)
+            @php
+                $n++;
+            @endphp
                 <tr>
-                    <td>{{$n++}}</td>
+                    <td>{{'S-'.$inf->id_solicitud}}</td>
                     <td>{{$inf->zona_sol}}</td>
                     <td>{{$inf->nombre_sol}}</td>
                     <td>@php   echo $inf->fecha_ejecutada == null ? "Sin Fecha Programda" : $inf->fecha_ejecutada @endphp</td>
@@ -53,30 +57,37 @@
                                   </button>
                                 </div>
                                 <div class="modal-body" style="text-align: center;">
+                                    @can('jefe-red')
+                                    <p>
+                                        <a type="button" onclick="mostrarPDF('{{route('solicitud.escaneada',$inf->id_solicitud)}}')"  class=" text-white btn btn-danger btn-icon w-75">
+                                           Solicitud Escaneada <i class="fa fa-file-pdf"></i>
+                                        </a>
+                                    </p>
+                                    @endcan
                                     <p>
                                         <a onclick="mostrarPDF('{{route('descargarPDF.informe',$inf->id_informe)}}')" target="_blank"
-                                            class='btn btn-danger btn-icon w-75'>Informe de Inspección <i class="fas fa-file-pdf"></i></a>
+                                            class='text-white btn btn-danger btn-icon w-75'>Informe de Inspección <i class="fas fa-file-pdf"></i></a>
 
                                     </p>
                                     <p>
                                         <a onclick="mostrarPDF('{{route('pedidoPDF.informe',$inf->id_informe)}}')" target="_blank"
-                                        class='btn btn-danger btn-icon w-75'>Pedido de Material <i class="fas fa-file-pdf"></i></a>
+                                        class='text-white btn btn-danger btn-icon w-75'>Pedido de Material <i class="fas fa-file-pdf"></i></a>
 
                                     </p>
                                     <p>
                                         <a onclick="mostrarPDF('{{route('reportePDF.informe_material',$inf->id_informe)}}')" target="_blank"
-                                            class='btn btn-danger btn-icon w-75'>Informe de Ampliacion <i class="fas fa-file-pdf"></i></a>
+                                            class='text-white btn btn-danger btn-icon w-75'>Informe de Ampliacion <i class="fas fa-file-pdf"></i></a>
 
                                     </p>
                                     <p>
                                         <a onclick="mostrarPDF('{{route('descargarPDF.proyecto',$inf->id_informe)}}')" target="_blank"
-                                            class="btn btn-danger btn-icon w-75">Informe de Proyección <i class="fas fa-file-pdf"></i></a>
+                                            class="text-white btn btn-danger btn-icon w-75">Informe de Proyección <i class="fas fa-file-pdf"></i></a>
 
                                     </p>
                                     @if($inf->estado == 'ejecutando')
                                     <p>
                                         <a onclick="mostrarPDF('{{route('reportePDF.informe_descargo_material',$inf->id_informe)}}')" target="_blank"
-                                            class='btn btn-danger btn-icon w-75'>Informe de Ejecución de Proyecto<i class="fas fa-file-pdf"></i></a>
+                                            class='text-white btn btn-danger btn-icon w-75'>Informe de Ejecución de Proyecto<i class="fas fa-file-pdf"></i></a>
 
                                     </p>
                                     @endif

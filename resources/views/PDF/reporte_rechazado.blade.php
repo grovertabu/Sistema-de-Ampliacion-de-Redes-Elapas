@@ -5,8 +5,8 @@ setlocale(LC_TIME,"es_ES");
     $mes=date("M", $fecha);
     $dia=date("d", $fecha);
     setlocale(LC_TIME,"es_ES");
-			
-    $Mes_ = strftime("%B", strtotime($mes));   
+
+    $Mes_ = strftime("%B", strtotime($mes));
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -14,9 +14,7 @@ setlocale(LC_TIME,"es_ES");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
-    <title>INFORME</title>
+    <title>INFORME RECHAZADO</title>
 </head>
 
 <style>
@@ -33,7 +31,7 @@ setlocale(LC_TIME,"es_ES");
       width: 100%;
       padding: 5px;
     }
-    
+
     #table1{
       border-collapse: collapse;
       border-spacing: 10px;
@@ -52,7 +50,10 @@ setlocale(LC_TIME,"es_ES");
 <body>
 
         <h3 class="centrar">INFORME DE SOLICITUD RECHAZADA</h3>
-        <p>Estimado usuario <strong>{{$solicitud->nombre_sol}}</strong>, en respuesta a su solicitud realiazada el dia {{$dia}} de {{$Mes_}} de {{$anio}}  le imformamos que lamentablemente no se no se podrá realiazar la instalación de agua potable en su domicilio ubicado en la calle <strong>{{$solicitud->calle_sol}}</strong> zona <strong>{{$solicitud->zona_sol}}</strong> debido al siguiente mottivo: <br><br> {{$solicitud->observaciones}}
+        <div align="center">
+            <img src="{{asset('rechazadas/'.$solicitud->sol_rechazada)}}" width="680px" height="350px" alt="">
+        </div>
+        <p style="margin:5px 20px 5px 40px ">Estimado usuario <strong>{{$solicitud->nombre_sol}}</strong>, en respuesta a su solicitud realiazada el dia {{$dia}} de {{$Mes_}} de {{$anio}}  le imformamos que lamentablemente no se no se podrá realiazar la instalación de agua potable en su domicilio ubicado en la calle <strong>{{$solicitud->calle_sol}}</strong> zona <strong>{{$solicitud->zona_sol}}</strong> debido al siguiente mottivo: <br><br> {{$solicitud->observaciones}}
         </p>
 
 

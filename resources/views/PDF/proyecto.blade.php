@@ -119,7 +119,7 @@
 
     <tr>
         <td colspan="4" class="centrar">
-            <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('storage/'.$informe->imagen_amp))) }}" width="680px" height="350px" alt="">
+                <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('storage/'.$informe->imagen_amp))) }}" width="680px" height="350px" alt="">
 
         </td>
     </tr>

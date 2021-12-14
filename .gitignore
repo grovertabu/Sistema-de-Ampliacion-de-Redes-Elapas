@@ -2,6 +2,7 @@
 /public/hot
 /public/storage
 /public/solicitudes
+/public/rechazadas
 /storage/*.key
 /vendor
 .env
