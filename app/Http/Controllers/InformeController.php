@@ -105,7 +105,7 @@ class InformeController extends Controller
 
     public function aprobar_proyecto(Informe $informe)
     {
-        $informe->estado_in = "en proyeccion";
+        $informe->estado_in = "ejecutandose";
         $informe->save();
         return redirect()->route('proyectos.index');
         // return $solicitud->estado_in;
@@ -193,8 +193,8 @@ class InformeController extends Controller
                 )
                 ->where('cronogramas.user_id', $id)
                 ->where(function ($query) {
-                    $query->where('informes.estado_in', 'en proyeccion')
-                        ->orWhere('informes.estado_in', 'ejecutando');
+                    $query->where('informes.estado_in', 'ejecutandose')
+                        ->orWhere('informes.estado_in', 'ejecutado');
                 })
                 ->get();
         } else {
@@ -212,8 +212,8 @@ class InformeController extends Controller
                     'ejecucions.fecha_ejecutada as fecha_ejecutada'
 
                 )
-                ->where('informes.estado_in', 'en proyeccion')
-                ->orWhere('informes.estado_in', 'ejecutando')
+                ->where('informes.estado_in', 'ejecutandose')
+                ->orWhere('informes.estado_in', 'ejecutado')
                 ->get();
         }
 

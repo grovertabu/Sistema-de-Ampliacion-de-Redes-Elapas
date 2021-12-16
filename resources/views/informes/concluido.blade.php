@@ -84,7 +84,7 @@
                                             class="text-white btn btn-danger btn-icon w-75">Informe de Proyección <i class="fas fa-file-pdf"></i></a>
 
                                     </p>
-                                    @if($inf->estado == 'ejecutando')
+                                    @if($inf->estado == 'ejecutado')
                                     <p>
                                         <a onclick="mostrarPDF('{{route('reportePDF.informe_descargo_material',$inf->id_informe)}}')" target="_blank"
                                             class='text-white btn btn-danger btn-icon w-75'>Informe de Ejecución de Proyecto<i class="fas fa-file-pdf"></i></a>
@@ -99,7 +99,7 @@
                             </div>
                           </div>
                           @can('inspector')
-                          @if($inf->estado== "en proyeccion")
+                          @if($inf->estado== "ejecutandose")
                           <button type="button" class='btn btn-success btn-icon' data-toggle="modal" data-target=".bd-example-modal-lg{{$inf->id_ejecucion}}"
                               onclick="" title="Generar Informes"><i class="fas fa-file-signature"></i></button>
                               <!-- Large modal -->

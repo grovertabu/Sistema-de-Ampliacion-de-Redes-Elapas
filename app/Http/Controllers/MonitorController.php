@@ -49,8 +49,8 @@ class MonitorController extends Controller
 
             )
             ->where('informes.estado_in', 'firmado')
-            ->orWhere('informes.estado_in', 'ejecutando')
-            ->orWhere('informes.estado_in', 'en proyeccion')
+            ->orWhere('informes.estado_in', 'ejecutado')
+            ->orWhere('informes.estado_in', 'ejecutandose')
             ->get();
         return view('monitoreo.index', compact('solicitudall'));
     }
@@ -60,5 +60,10 @@ class MonitorController extends Controller
         $materials = Material::all();
         $mano_obras = Actividad_mano_obra::all();
         return view('monitoreo.reporte', compact('materials', 'mano_obras'));
+    }
+
+    public function reporte_ampliaciones()
+    {
+        return view('monitoreo.reporte_ampliaciones');
     }
 }

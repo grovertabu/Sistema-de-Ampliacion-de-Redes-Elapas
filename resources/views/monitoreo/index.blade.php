@@ -71,7 +71,7 @@
                                     class='text-white btn btn-danger btn-icon w-75'>Informe de Inspección <i class="fas fa-file-pdf"></i></a>
 
                             </p>
-                            @if ($sol->estado_in == "firmado" || $sol->estado_in == "en proyeccion" || $sol->estado_in == "ejecutando")
+                            @if ($sol->estado_in == "firmado" || $sol->estado_in == "ejecutandose" || $sol->estado_in == "ejecutado")
                             <p>
                                 <a onclick="mostrarPDF('{{route('pedidoPDF.informe',$sol->informe_id)}}')" target="_blank"
                                 class='text-white btn btn-danger btn-icon w-75'>Pedido de Material <i class="fas fa-file-pdf"></i></a>
@@ -81,7 +81,7 @@
                             @endif
 
 
-                            @if($sol->estado_in  == 'ejecutando')
+                            @if($sol->estado_in  == 'ejecutado')
                             <p>
                                 <a onclick="mostrarPDF('{{route('reportePDF.informe_descargo_material',$inf->informe_id)}}')" target="_blank"
                                     class='text-white btn btn-danger btn-icon w-75'>Informe de Ejecución de Proyecto<i class="fas fa-file-pdf"></i></a>
@@ -119,7 +119,7 @@
                                             <a onclick="mostrarPDF('{{route('reportePDF.informe_material',$sol->informe_id)}}')" target="_blank"
                                                 class=' text-white btn btn-danger btn-icon w-75'>Informe Ampliacion <i class="fas fa-file-pdf"></i></a>
                                         </p>
-                                        @if ($sol->estado_in =='en proyeccion' || $sol->estado_in =='ejecutando')
+                                        @if ($sol->estado_in =='ejecutandose' || $sol->estado_in =='ejecutado')
                                         <p>
                                             <a onclick="mostrarPDF('{{route('descargarPDF.proyecto',$sol->informe_id)}}')" target="_blank" class=" text-white btn btn-danger btn-icon w-75" title="Informe Proyeccion">
                                                 Informe Proyección<i class="fas fa-file-pdf"></i></a>

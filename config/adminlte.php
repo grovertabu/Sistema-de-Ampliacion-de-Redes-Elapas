@@ -403,11 +403,23 @@ return [
             'can' => 'jefe-red'
         ],
         [
-            'text' => 'Reportes de inversion',
-            'route'  => 'proyectos.reporte',
-            'icon' => 'fas fa-fw fa-folder',
-            'can' => 'jefe-red',
+            'text'    => 'Reportes',
+            'submenu' => [
+                [
+                    'text' => 'Reporte Inversión',
+                    'route'  => 'proyectos.reporte',
+                    'icon' => 'fas fa-fw fa-folder ',
+                    'can' => 'jefe-red',
+                ],
+                [
+                    'text' => 'Reporte Ampliaciones',
+                    'icon' => 'fas fa-fw fa-folder',
+                    'route' => 'proyectos.reporte_ampliaciones',
+                    'can' => 'jefe-red'
+                ],
 
+            ],
+            'can' => 'jefe-red'
         ],
         // [
         //     'text'       => 'information',

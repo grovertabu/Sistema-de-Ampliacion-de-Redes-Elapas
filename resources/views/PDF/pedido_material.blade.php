@@ -118,7 +118,7 @@ u {
             <td width="200px">Pedido Por: <br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$inspector->name}} <br>&nbsp;&nbsp;&nbsp;<img width="120" height="60" src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('images/'.$inspector->name.'.png'))) }}"></strong></td>
 
                 <td>Autorizado Por:<br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$jefe_r->name}} <br>&nbsp;&nbsp;&nbsp;
-                    @if($inspector->estado=='firmado' || $inspector->estado=='ejecutando' || $informe->estado_in=='en proyeccion')
+                    @if($inspector->estado=='firmado' || $inspector->estado=='ejecutado' || $informe->estado_in=='ejecutandose')
                     <img width="120" height="60" src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('images/'.$jefe_red.'.png'))) }}">
                     @endif
                 </td>

@@ -51,7 +51,7 @@
                             <i class="fas fa-eye"></i></a>
 
                         @can('inspector')
-                        @if($inf->estado=='autorizado' || $inf->estado=='en proyeccion')
+                        @if($inf->estado=='autorizado' || $inf->estado=='ejecutandose')
                         <button type="button" class='btn btn-warning btn-icon ' data-toggle="modal" data-target=".bd-example-modal-lg"
                         onclick="llamar('{{route('informes.show',$inf->id_informe)}}','material')" title="Material"><i class="fas fa-box"></i></button>
                         <button type="button" onclick="llamar('{{route('mano_obra.show',$inf->id_ejecucion)}}','mano_obra')" data-toggle="modal" data-target="#modal_mano_obra"
