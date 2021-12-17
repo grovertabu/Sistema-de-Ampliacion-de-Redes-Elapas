@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Actividad_mano_obra;
 use App\Models\Material;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -64,6 +65,10 @@ class MonitorController extends Controller
 
     public function reporte_ampliaciones()
     {
-        return view('monitoreo.reporte_ampliaciones');
+        $inspectores = User::select(
+            'users.id as id_inspector',
+            'users.name as nombre_inspector'
+        )->where('tipo_user', 'Inspector')->get();
+        return view('monitoreo.reporte_ampliaciones', compact('inspectores'));
     }
 }

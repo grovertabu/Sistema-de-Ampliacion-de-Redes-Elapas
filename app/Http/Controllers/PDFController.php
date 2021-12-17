@@ -269,4 +269,13 @@ class PDFController extends Controller
         $solicitud = Solicitud::find($id);
         return view('PDF/solicitud_escaneada', compact('solicitud'));
     }
+
+    public function generar_reporte_ampliacciones(Request $request)
+    {
+        $ampliaciones = DB::table('solicituds')
+            ->leftJoin('informes', 'informes.solicitud_id', '=', 'solicituds.id')
+            ->leftJoin('ejecucions', 'ejecucuins.informe_id', '=', '')
+            ->get();
+        return response(compact('ampliaciones'));
+    }
 }
