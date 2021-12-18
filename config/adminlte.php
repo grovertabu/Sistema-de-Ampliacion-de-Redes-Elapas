@@ -234,12 +234,7 @@ return [
             'text' => 'Inicio',
             'route'  => 'dash',
         ],
-        ['header' => 'GESTION USUARIOS'],
-        [
-            'text' => 'Perfil',
-            'url'  => 'user/profile',
-            'icon' => 'fas fa-fw fa-user',
-        ],
+
         [
             'text' => 'Lista Usuarios',
             'route'  => 'users.index',
@@ -262,6 +257,26 @@ return [
 
         ],
 
+        [
+            'text'    => 'Programación',
+            'icon' => 'fas fa-calendar-alt',
+            'submenu' => [
+                [
+                    'text'       => 'Asignar inspector',
+                    'icon_color' => 'red',
+                    'route'  => 'cronograma.index',
+                    'can' => 'jefe-red',
+                ],
+                [
+                    'text'       => 'Cronograma de inspecciones',
+                    'icon_color' => 'yellow',
+                    'route'  => 'cronograma.reporte',
+                    'can' => 'jefe-red',
+                ]
+
+            ],
+            'can' => 'jefe-red'
+        ],
 
         [
             'header' => 'INFORMES DE AMPLIACION',
@@ -303,7 +318,7 @@ return [
 
         // ],
         [
-            'text'    => 'Informes de Ampliación',
+            'text'    => 'Informes Ampliación',
             'icon'    => 'fa fa-fw fa-file-pdf',
             'submenu' => [
                 [
@@ -333,26 +348,7 @@ return [
 
 
 
-        [
-            'text'    => 'Programación',
-            'icon' => 'fas fa-calendar-alt',
-            'submenu' => [
-                [
-                    'text'       => 'Asignar inspector',
-                    'icon_color' => 'red',
-                    'route'  => 'cronograma.index',
-                    'can' => 'jefe-red',
-                ],
-                [
-                    'text'       => 'Cronograma de inspecciones',
-                    'icon_color' => 'yellow',
-                    'route'  => 'cronograma.reporte',
-                    'can' => 'jefe-red',
-                ]
 
-            ],
-            'can' => 'jefe-red'
-        ],
         // [
         //     'text'       => 'Ampliacion en ejecucion',
         //     'icon_color' => 'yellow',
@@ -361,7 +357,7 @@ return [
         // ],
 
         [
-            'text'    => 'Recursos de Ampliación',
+            'text'    => 'Recursos Ampliación',
             'icon' => 'fas fa-tools',
             'submenu' => [
                 [

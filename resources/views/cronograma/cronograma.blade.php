@@ -6,7 +6,6 @@
     $n=1;
 @endphp
 @section('content_header')
-    {{$valor}}
     <div class="card">
         <h5 class="card-header">ELAPAS - CRONOGRAMA DE INSPECCIONES</h5>
         <div class="card-body">
