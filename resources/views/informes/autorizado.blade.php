@@ -46,90 +46,91 @@
                         {{$inf->fecha_programada}}
                     </td>
                     <td align="center"><span class="badge badge-primary">{{$inf->estado}}</span></td>
-                    <td>
-                        <a type="button" class="d-inline btn btn-warning btn-icon" title="Visualizar" onclick="visualizarMapa({{$inf->x_exact}},{{$inf->y_exact}}, '{{route('solicitud.obtenerAmpliaciones',$inf->id_solicitud)}}')">
-                            <i class="fas fa-eye"></i></a>
+                    <td width="200px">
+                            <a type="button" class="w-25 d-inline btn btn-warning btn-icon" title="Visualizar" onclick="visualizarMapa({{$inf->x_exact}},{{$inf->y_exact}}, '{{route('solicitud.obtenerAmpliaciones',$inf->id_solicitud)}}')">
+                                <i class="fas fa-eye"></i></a>
 
-                        @can('inspector')
-                        @if($inf->estado=='autorizado' || $inf->estado=='ejecutandose')
-                        <button type="button" class='btn btn-warning btn-icon ' data-toggle="modal" data-target=".bd-example-modal-lg"
-                        onclick="llamar('{{route('informes.show',$inf->id_informe)}}','material')" title="Material"><i class="fas fa-box"></i></button>
-                        <button type="button" onclick="llamar('{{route('mano_obra.show',$inf->id_ejecucion)}}','mano_obra')" data-toggle="modal" data-target="#modal_mano_obra"
-                            class='btn btn-warning btn-icon' title="Registrar Mano de Obra" ><i class="fas fa-hammer"></i></button>
-                        @endif
-                        @endcan
+                            @can('inspector')
+                            @if($inf->estado=='autorizado' || $inf->estado=='ejecutandose')
+                            <button type="button" class='w-25 btn btn-warning btn-icon ' data-toggle="modal" data-target=".bd-example-modal-lg"
+                            onclick="llamar('{{route('informes.show',$inf->id_informe)}}','material')" title="Material"><i class="fas fa-box"></i></button>
+                            <button type="button" onclick="llamar('{{route('mano_obra.show',$inf->id_ejecucion)}}','mano_obra')" data-toggle="modal" data-target="#modal_mano_obra"
+                                class='w-25 btn btn-warning btn-icon' title="Registrar Mano de Obra" ><i class="fas fa-hammer"></i></button>
+                            @endif
+                            @endcan
 
 
 
-                        <button type="button" class="d-inline btn btn-primary btn-icon" title="Informes" data-toggle="modal" data-target="#exampleModal{{$num}}">
-                        <i class="fa fa-file"></i>
-                        </button>
+                            <button type="button" class="btn btn-primary btn-icon" title="Informes" data-toggle="modal" data-target="#exampleModal{{$num}}">
+                            <i class="fa fa-file"></i>
+                            </button>
 
-                        <div class="modal fade" id="exampleModal{{$num}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">Informes</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div style="text-align: center;" >
-                                            @can('jefe-red')
-                                            <p>
-                                                <a type="button" onclick="mostrarPDF('{{route('solicitud.escaneada',$inf->id_solicitud)}}')"  class=" text-white btn btn-danger btn-icon w-75">
-                                                Solicitud Escaneada <i class="fa fa-file-pdf"></i>
-                                                </a>
-                                            </p>
-                                            @endcan
-                                            <p >
-                                                <a  onclick="mostrarPDF('{{route('descargarPDF.informe',$inf->id_informe)}}')" target="_blank"
-                                                    class='text-white btn btn-danger btn-icon w-75'>Informe de Inspección <i class="fas fa-file-pdf"></i></a>
-                                            </p>
-                                            @can('inspector')
-                                                @if ($inf->estado == "firmado")
+                            <div class="modal fade" id="exampleModal{{$num}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Informes</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div style="text-align: center;" >
+                                                @can('jefe-red')
+                                                <p>
+                                                    <a type="button" onclick="mostrarPDF('{{route('solicitud.escaneada',$inf->id_solicitud)}}')"  class=" text-white btn btn-danger btn-icon w-75">
+                                                    Solicitud Escaneada <i class="fa fa-file-pdf"></i>
+                                                    </a>
+                                                </p>
+                                                @endcan
+                                                <p >
+                                                    <a  onclick="mostrarPDF('{{route('descargarPDF.informe',$inf->id_informe)}}')" target="_blank"
+                                                        class='text-white btn btn-danger btn-icon w-75'>Informe de Inspección <i class="fas fa-file-pdf"></i></a>
+                                                </p>
+                                                @can('inspector')
+                                                    @if ($inf->estado == "firmado")
+                                                        <p>
+                                                            <a onclick="mostrarPDF('{{route('pedidoPDF.informe',$inf->id_informe)}}')" target="_blank"
+                                                            class='text-white btn btn-danger btn-icon w-75'>Pedido de Material <i class="fas fa-file-pdf"></i></a>
+                                                        </p>
+                                                    @endif
+                                                @endcan
+                                                @can('jefe-red')
                                                     <p>
                                                         <a onclick="mostrarPDF('{{route('pedidoPDF.informe',$inf->id_informe)}}')" target="_blank"
                                                         class='text-white btn btn-danger btn-icon w-75'>Pedido de Material <i class="fas fa-file-pdf"></i></a>
                                                     </p>
-                                                @endif
-                                            @endcan
-                                            @can('jefe-red')
+                                                @endcan
                                                 <p>
-                                                    <a onclick="mostrarPDF('{{route('pedidoPDF.informe',$inf->id_informe)}}')" target="_blank"
-                                                    class='text-white btn btn-danger btn-icon w-75'>Pedido de Material <i class="fas fa-file-pdf"></i></a>
+                                                    <a onclick="mostrarPDF('{{route('reportePDF.informe_material',$inf->id_informe)}}')" target="_blank"
+                                                        class='text-white btn btn-danger btn-icon w-75'>Informe Ampliacion <i class="fas fa-file-pdf"></i></a>
                                                 </p>
-                                            @endcan
-                                            <p>
-                                                <a onclick="mostrarPDF('{{route('reportePDF.informe_material',$inf->id_informe)}}')" target="_blank"
-                                                    class='text-white btn btn-danger btn-icon w-75'>Informe Ampliacion <i class="fas fa-file-pdf"></i></a>
-                                            </p>
-                                            {{-- @if($inf->fecha_ejecutada != null)
-                                                <p>
-                                                    <a href='{{route('reportePDF.informe_descargo_material',$inf->id_informe)}}' target="_blank"
-                                                        class='btn btn-danger btn-icon w-75'>Informe Descargo Material<i class="fas fa-box-open"></i></a>
+                                                {{-- @if($inf->fecha_ejecutada != null)
+                                                    <p>
+                                                        <a href='{{route('reportePDF.informe_descargo_material',$inf->id_informe)}}' target="_blank"
+                                                            class='btn btn-danger btn-icon w-75'>Informe Descargo Material<i class="fas fa-box-open"></i></a>
 
-                                                </p>
+                                                    </p>
 
-                                                reportePDF.informe_material',$inf->id_informe
-                                            @endif --}}
+                                                    reportePDF.informe_material',$inf->id_informe
+                                                @endif --}}
+                                        </div>
+
                                     </div>
-
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          </div>
 
-                        @can('jefe-red')
-                        @if($inf->estado=='autorizado')
-                            <a href='{{route('informes.firmar',$inf->id_informe)}}'
-                            class='btn btn-success btn-icon ' title="firmar"><i class="fas fa-pencil-alt"></i></a>
-                        @endif
-                        @endcan
+                            @can('jefe-red')
+                            @if($inf->estado=='autorizado')
+                                <a href='{{route('informes.firmar',$inf->id_informe)}}'
+                                class='btn btn-success btn-icon ' title="firmar"><i class="fas fa-pencil-alt"></i></a>
+                            @endif
+                            @endcan
+
 
                     </td>
 
@@ -236,7 +237,7 @@
     <script src="{{asset('js/informes.js') }}"></script>
 @stop
 @section('css')
-    <link rel="stylesheet" href="{{asset('vendor/leaflet/css/leaflet.css')}}" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+    <link rel="stylesheet" href="{{asset('vendor/leaflet/css/leaflet.css')}}"  crossorigin="" />
         <link rel="stylesheet" href="{{asset('vendor/leaflet/css/esri-leaflet-geocoder.css')}}" integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g==" crossorigin="">
     <link rel="stylesheet" href="{{asset('vendor/leaflet/css/easy-button.css')}}">
     <style>

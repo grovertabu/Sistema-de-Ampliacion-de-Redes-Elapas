@@ -18,7 +18,7 @@
 
 @section('content_header')
     <div class="row col-sm-12">
-        <h1 class="col-sm-10">ELAPAS - GENERAR REPORTES DE AMPLIACINES</h1>
+        <h1 class="col-sm-10">ELAPAS - GENERAR REPORTES DE AMPLIACIONES</h1>
         <button style="display:none;" id="btnVolver" onclick="ocultarVolver()" class=" col-sm-2 btn btn-danger btn-icon"><i class="fas fa-arrow-circle-left"> Volver</i></button>
     </div>
 
@@ -33,22 +33,13 @@
         @method("POST")
         @csrf
         <div class="row">
-            <div class="form-group col-sm-3">
+            <div class="form-group col-sm-4">
                 <label for="nombre_material">De :&nbsp;</label>
                 <input type="date" name='fecha_i' id="fecha_i" required class="form-control" >
             </div>
-            <div class="form-group col-sm-3">
+            <div class="form-group col-sm-4">
                 <label for="nombre_material">Hasta :&nbsp;</label>
                 <input type="date" name='fecha_h' id="fecha_h" required class="form-control" >
-            </div>
-            <div class="form-group mx-sm-3">
-                <label for="nombre_material">Nombre del Inspector :&nbsp;</label>
-                    <select class="form-control  select2" name="user_id" id="user_id">
-                        <option selected value="0">---Seleccione Inspector---</option>
-                        @foreach ($inspectores as $inspector )
-                            <option  value="{{$inspector->id_inspector}}">{{$inspector->nombre_inspector}}</option>
-                        @endforeach
-                    </select>
             </div>
             <button type="submit" id="btnGenerarReporte" class='mt-4 h-25 btn btn-danger btn-icon' >Generar Informe </button>
         </div>
@@ -57,15 +48,12 @@
     </form>
 
     </div>
-    <div style="display:none;" id="tabla_respuesta" class="m-3">
+    <div id="tabla_respuesta" class="m-3">
         <div class="row">
-            <div class="col-md-9">
-                <h3 id="titulo_reporte"></h3>
+            <div class="col-md-10">
+                <h3 id="titulo_reporte">Informe de Ampliaciones</h3>
             </div>
-            <div class="col-md-3">
-                <button class="btn btn-success">
-                    Exportar a CSV <i class="fas fa-file-csv"></i>
-                </button>
+            <div class="col-md-2">
                 <button class="btn btn-danger">
                     Imprimir <i class="fas fa-print"></i>
                 </button>
@@ -89,7 +77,18 @@
                     </tr>
                 </thead>
                 <tbody id="contenido_tabla">
-
+                    <tr>
+                        <td>S-1</td>
+                        <td>Carolina Herrera</td>
+                        <td>Fancesa</td>
+                        <td>17-12-2021</td>
+                        <td>Patricio Condori</td>
+                        <td>18-12-2021</td>
+                        <td>18-12-2021</td>
+                        <td>25-12-2021</td>
+                        <td>EJECUTADO</td>
+                        <td>98</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

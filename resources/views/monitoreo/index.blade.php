@@ -16,8 +16,13 @@
       position: absolute;
     }
   </style>
+            <h1>ELAPAS - LISTADO DE SOLICITUDES
+            <a href="{{route('solicitud.reject')}}" class="btn btn-warning btn-rounded" style="float: right;">
+                Solicitudes Rechazadas<i class="fa fa-delete"></i>
+            </a>
+            </h1>
 
-  <h1>ELAPAS - LISTADO DE SOLICITUDES</h1>
+
 
 
 @stop
@@ -41,6 +46,7 @@
         @php
             $n++;
         @endphp
+        @if ($sol->estado_in != "rechazado")
         <tr>
             <td>{{'S-'.$sol->solicitud_id}}</td>
             <td>{{$sol->nombre_sol}}</td>
@@ -48,7 +54,7 @@
             <td>{{$sol->zona_sol}}</td>
             <td>{{$sol->calle_sol}}</td>
             <td align="center"><span class="badge badge-primary">{{$sol->estado_in == null ? strtoupper($sol->estado_sol): strtoupper($sol->estado_in)}}</span></td>
-            <td>
+            <td width="200px">
                 <a type="button" class="d-inline btn btn-warning btn-icon" title="Visualizar" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="visualizarMapa({{$sol->x_aprox}},{{$sol->y_aprox}}, {{$sol->solicitud_id}})" id="btn_mostrar_mapa" >
                     <i class="fas fa-eye"></i></a>
                 @can('Monitor')
@@ -66,11 +72,10 @@
                           </button>
                         </div>
                         <div class="modal-body" style="text-align: center;">
-                            <p>
+                            {{-- <p>
                                 <a onclick="mostrarPDF('{{route('descargarPDF.informe',$sol->informe_id)}}')" target="_blank"
                                     class='text-white btn btn-danger btn-icon w-75'>Informe de Inspección <i class="fas fa-file-pdf"></i></a>
-
-                            </p>
+                            </p> --}}
                             @if ($sol->estado_in == "firmado" || $sol->estado_in == "ejecutandose" || $sol->estado_in == "ejecutado")
                             <p>
                                 <a onclick="mostrarPDF('{{route('pedidoPDF.informe',$sol->informe_id)}}')" target="_blank"
@@ -151,6 +156,22 @@
                 @endcan
             </td>
         </tr>
+
+        @else
+        <tr>
+            <td>{{'S-'.$sol->solicitud_id}}</td>
+            <td>{{$sol->nombre_sol}}</td>
+            <td>{{$sol->celular_sol}}</td>
+            <td>{{$sol->zona_sol}}</td>
+            <td>{{$sol->calle_sol}}</td>
+            <td align="center"><span class="badge badge-primary">{{$sol->estado_in == null ? strtoupper($sol->estado_sol): strtoupper($sol->estado_in)}}</span></td>
+            <td width="200px">
+                <a type="button" class="d-inline btn btn-warning btn-icon" title="Visualizar" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="visualizarMapa({{$sol->x_aprox}},{{$sol->y_aprox}}, {{$sol->solicitud_id}})" id="btn_mostrar_mapa" >
+                    <i class="fas fa-eye"></i></a>
+
+            </td>
+        </tr>
+        @endif
         @endforeach
 
         </tbody>
@@ -202,7 +223,7 @@
 
 @stop
 @section('css')
-    <link rel="stylesheet" href="{{asset('vendor/leaflet/css/leaflet.css')}}" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+    <link rel="stylesheet" href="{{asset('vendor/leaflet/css/leaflet.css')}}" crossorigin="" />
     <link rel="stylesheet" href="{{asset('vendor/leaflet/css/esri-leaflet-geocoder.css')}}" integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g==" crossorigin="">
     <link rel="stylesheet" href="{{asset('vendor/leaflet/css/easy-button.css')}}">
 @stop
