@@ -270,12 +270,54 @@ class PDFController extends Controller
         return view('PDF/solicitud_escaneada', compact('solicitud'));
     }
 
-    public function generar_reporte_ampliacciones(Request $request)
+    public function generar_reporte_ampliaciones(Request $request)
     {
-        $ampliaciones = DB::table('solicituds')
-            ->leftJoin('informes', 'informes.solicitud_id', '=', 'solicituds.id')
-            ->leftJoin('ejecucions', 'ejecucuins.informe_id', '=', '')
-            ->get();
+        if ($request->user_id == 0) {
+            $ampliaciones = DB::table('solicituds')
+                ->join('cronogramas', 'cronogramas.solicitud_id', '=', 'solicituds.id')
+                ->join('users', 'users.id', '=', 'cronogramas.user_id')
+                ->leftJoin('informes', 'solicituds.id', '=', 'informes.solicitud_id')
+                ->leftJoin('ejecucions', 'solicituds.id', '=', 'ejecucions.solicitud_id')
+                ->select(
+                    'solicituds.id as id_sol',
+                    'solicituds.nombre_sol as solicitante',
+                    'solicituds.zona_sol as zona',
+                    'informes.fecha_hora_in as fecha_inspeccion',
+                    'users.name as nombre',
+                    'informes.fecha_autorizacion as fecha_autorizacion',
+                    'informes.fecha_visto_bueno as fecha_visto_bueno',
+                    'informes.estado_in as estado',
+                    'informes.longitud_in as longitud',
+                    'ejecucions.fecha_ejecutada as fecha_ejecutada'
+
+                )
+                ->whereBetween('solicituds.fecha_sol', [$request->fecha_i, $request->fecha_h])
+                ->get();
+        } else {
+            $ampliaciones = DB::table('solicituds')
+                ->join('cronogramas', 'cronogramas.solicitud_id', '=', 'solicituds.id')
+                ->join('users', 'users.id', '=', 'cronogramas.user_id')
+                ->leftJoin('informes', 'solicituds.id', '=', 'informes.solicitud_id')
+                ->leftJoin('ejecucions', 'solicituds.id', '=', 'ejecucions.solicitud_id')
+                ->select(
+                    'solicituds.id as id_sol',
+                    'solicituds.nombre_sol as solicitante',
+                    'solicituds.zona_sol as zona',
+                    'informes.fecha_hora_in as fecha_inspeccion',
+                    'users.name as nombre',
+                    'informes.fecha_autorizacion as fecha_autorizacion',
+                    'informes.fecha_visto_bueno as fecha_visto_bueno',
+                    'informes.estado_in as estado',
+                    'informes.longitud_in as longitud',
+                    'ejecucions.fecha_ejecutada as fecha_ejecutada'
+
+                )
+                ->where('cronogramas.user_id', $request->user_id)
+                ->whereBetween('solicituds.fecha_sol', [$request->fecha_i, $request->fecha_h])
+                ->get();
+        }
+
+
         return response(compact('ampliaciones'));
     }
 }

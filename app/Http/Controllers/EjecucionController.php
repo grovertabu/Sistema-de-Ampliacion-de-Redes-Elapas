@@ -17,6 +17,7 @@ class EjecucionController extends Controller
         $ejecucion = new Ejecucion();
         $ejecucion->fecha_progrmada = $request->fecha_programada;
         $ejecucion->informe_id = $request->informe_id;
+        $ejecucion->solicitud_id = $request->solicitud_id;
         $ejecucion->user_id = $request->user_id;
         $ejecucion->save();
 

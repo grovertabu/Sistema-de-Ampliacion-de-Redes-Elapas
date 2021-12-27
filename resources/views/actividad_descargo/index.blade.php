@@ -8,7 +8,7 @@
     $n=1;
 @endphp
 @section('content')
-    <h1>ELAPAS - ACTIVIDAD DE DESCARGOS
+    <h1>ELAPAS - ACTIVIDAD DE MANO DE OBRA
         <a href="{{route('actividad.create')}}" class="btn btn-success btn-rounded" style="float: right;">
             Registrar actividad <i class="fa fa-plus-square"></i>
         </a>

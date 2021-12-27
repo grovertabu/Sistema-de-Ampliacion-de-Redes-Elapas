@@ -75,14 +75,18 @@ class InformeController extends Controller
 
     public function autorizar(Request $request, $id)
     {
+        date_default_timezone_set('America/La_Paz');
+        $fecha = date('Y-m-d');
         $informe = Informe::find($id);
         $informe->estado_in = "autorizado";
+        $informe->fecha_autorizado = $fecha;
         $informe->save();
 
         $ejecucion = new Ejecucion();
         $ejecucion->fecha_progrmada = $request->fecha_programada;
         $ejecucion->user_id = $request->user_id;
         $ejecucion->informe_id = $informe->id;
+        $ejecucion->solicitud_id = $request->solicitud_id;
         $ejecucion->save();
 
         return redirect()->route('informes.index');
@@ -105,7 +109,10 @@ class InformeController extends Controller
 
     public function aprobar_proyecto(Informe $informe)
     {
+        date_default_timezone_set('America/La_Paz');
+        $fecha = date('Y-m-d');
         $informe->estado_in = "ejecutandose";
+        $informe->fecha_visto_bueno = $fecha;
         $informe->save();
         return redirect()->route('proyectos.index');
         // return $solicitud->estado_in;

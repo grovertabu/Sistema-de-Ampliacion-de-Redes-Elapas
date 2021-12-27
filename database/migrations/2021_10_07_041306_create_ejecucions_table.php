@@ -20,11 +20,17 @@ class CreateEjecucionsTable extends Migration
             $table->text('observaciones')->nullable();
             $table->boolean('estado_informe')->default(0);
             $table->unsignedBigInteger('informe_id');
+            $table->unsignedBigInteger('solicitud_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
             $table->foreign('informe_id')
                 ->references('id')
                 ->on('informes')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreign('solicitud_id')
+                ->references('id')
+                ->on('solicituds')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
             $table->foreign('user_id')

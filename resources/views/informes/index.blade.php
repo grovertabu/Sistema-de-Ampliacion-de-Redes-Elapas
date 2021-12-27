@@ -107,6 +107,7 @@
                                                                     <label for="nombre_material">Solicitud</label>
                                                                     <p class="form-control">{{$inf->nombre_sol}} - {{$inf->zona_sol}} </p>
                                                                     <input type="hidden" name="informe_id" value="{{$inf->id_informe}}">
+                                                                    <input type="hidden" name="solicitud_id" value="{{$inf->id_solicitud}}">
                                                                 </div>
                                                                 <input type="hidden" name="user_id" value={{$inf->user_id}}>
                                                                 <div class="form-group col-md-6">
