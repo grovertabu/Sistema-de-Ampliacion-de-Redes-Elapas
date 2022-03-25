@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
     $('#example').DataTable({
         "language": {
@@ -28,8 +27,6 @@ $(document).ready(function() {
             }
         }
         });
-
-    
     });
 
 $(document).ready(function() {
@@ -50,7 +47,7 @@ $('.elimina').submit(function(e){
     }).then((result) => {
     if (result.value) {
         this.submit();
-        
+
     }
     })
 })
@@ -68,7 +65,7 @@ $('.create').submit(function(e){
     }).then((result) => {
     if (result.value) {
         this.submit();
-        
+
     }
     })
 })
@@ -93,7 +90,7 @@ $('.create').submit(function(e){
                 infoWindow.setContent(infowincontent);
                 infoWindow.open(map, marker);
             });
-            // 
+            //
         var infowindow;
         /**
          * Global marker object that holds all markers.
@@ -189,14 +186,14 @@ $('.create').submit(function(e){
             marker.setMap(null); // set markers setMap to null to remove it from map
             delete markers[markerId]; // delete marker instance from markers object
         };
-            // 
-            
+            //
+
         });
-        // 
+        //
 
 
 
-        
+
 // -----------------------------------------------------------------------------------------------------------
         $('#btnMapaExacto').click(function(){
             var lati= parseFloat(document.getElementById('x_exact').value);
@@ -217,7 +214,7 @@ $('.create').submit(function(e){
                 infoWindow.setContent(infowincontent);
                 infoWindow.open(map, marker);
             });
-            // 
+            //
         var infowindow;
         /**
          * Global marker object that holds all markers.
@@ -314,17 +311,16 @@ $('.create').submit(function(e){
             marker.setMap(null); // set markers setMap to null to remove it from map
             delete markers[markerId]; // delete marker instance from markers object
         };
-            // 
-            
+            //
+
         });
         // $('#btn_mostrar_mapa').click(function(){
-            
-            
+
+
 
         // });
-       
+
     })
 
 
 
-  

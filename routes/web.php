@@ -45,7 +45,7 @@ Route::get('Solicitudes/rechazadas', [SolicitudController::class, 'reject'])->mi
 Route::get('solicitud/{solicitud}/reporte_rechazado', [SolicitudController::class, 'PDF_rechazado'])->middleware('can:jefe-red')->name('solicitud.PDFrechazado');
 Route::post('solicitud/{solicitud}/guardar_ampliacion', [SolicitudController::class, 'guardarAmpliacion'])->middleware('can:inspector')->name('solicitud.guardarAmpliacion');
 Route::get('solicitud/{solicitud}/obtener_ampliacion', [SolicitudController::class, 'obtenerAmpliacion'])->name('solicitud.obtenerAmpliaciones');
-Route::get('solicitud/{solicitud}/solicitud_escaneada', [PDFController::class, 'solicitud_escaneada'])->middleware('can:jefe-red')->name('solicitud.escaneada');
+Route::get('solicitud/{solicitud}/solicitud_escaneada', [PDFController::class, 'solicitud_escaneada'])->middleware('can:solicitud.pdf')->name('solicitud.escaneada');
 Route::get('solicitud/{solicitud}/form_rechazar', [SolicitudController::class, 'form_rechazado'])->middleware('can:jefe-red')->name('solicitud.form_rechazado');
 
 // Crud solicitud

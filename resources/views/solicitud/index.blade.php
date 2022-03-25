@@ -35,7 +35,7 @@
             <th>Celular</th>
             <th>Zona</th>
             <th>Calle</th>
-            <th width="155px">Acciones</th>
+            <th width="175px">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -51,7 +51,7 @@
                         <a type="button" class="d-inline btn btn-warning btn-icon" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="visualizarMapa({{$sol->x_aprox}},{{$sol->y_aprox}}, {{$sol->id}})" title="Visualizar" id="btn_mostrar_mapa" >
                             <i class="fas fa-eye"></i></a>
                         @if($sol->estado_sol!='rechazado')
-                        @can('jefe-red')
+                        @can('solicitud.pdf')
                             <a type="button" onclick="mostrarPDF('{{route('solicitud.escaneada',$sol->id)}}')"  class=" text-white btn btn-danger d-line btn-icon">
                                 <i class="fa fa-file-pdf"></i>
                             </a>
