@@ -13,3 +13,5 @@
   /* color: white; */
 }
 
+.custom-file-label::after{content: 'Elegir' !important;}
+

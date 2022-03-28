@@ -1,7 +1,7 @@
 /node_modules
 /public/hot
-/public/storage
 /public/solicitudes
+/public/storage
 /public/rechazadas
 /storage/*.key
 /vendor

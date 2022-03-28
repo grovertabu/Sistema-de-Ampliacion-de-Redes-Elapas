@@ -80,6 +80,5 @@ class UserSeeder extends Seeder
                 'tipo_user' => 'Proyectista',
             ]
         )->assignRole('Proyectista');
-        User::factory(10)->create();
     }
 }

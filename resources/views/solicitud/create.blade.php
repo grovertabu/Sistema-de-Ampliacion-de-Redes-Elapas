@@ -19,13 +19,22 @@
 <div class="container-fluid">
     <div class="justify-content-center row" id="contenedor-tabla">
       <!-- left column -->
+
         <div class="col-md-6">
+        @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+            </ul>
+        </div>
+        @endif
         <!-- general form elements -->
             <div class="card card-primary">
             <div class="card-header">
                 <h3 class="card-title">Registrar Solicitud</h3>
             </div>
-
             <!-- /.card-header -->
             <!-- formulario inicio -->
             <form action="{{route('solicitud.store')}}" method="POST" enctype="multipart/form-data" role="form" class="create" id="form_solicitud">
@@ -86,7 +95,7 @@
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                             </div>
-                            <input type="text"  name="calle_sol" id="calle_sol" class="form-control {{ $errors->has('calle_sol') ? 'is-invalid' : '' }}" value="{{ old('calle_sol') }}" placeholder="Calle">
+                            <input type="text"  name="calle_sol" id="calle_sol" class="form-control {{ $errors->has('zona_sol') ? 'is-invalid' : '' }}" placeholder="Calle">
                             @if($errors->has('calle_sol'))
                             <div class="invalid-feedback">
                                 <strong>{{ $errors->first('calle_sol') }}</strong>
@@ -108,11 +117,30 @@
 
                     <button type="button" class="btn btn-block btn-outline-success"  onclick="editarMapa()" >
                     Registrar ubicacion aproximada</button>
-                    <div class="mt-2 custom-file">
-                        <input type="file" lang="es" accept="jpg,png,jpeg" class="custom-file-input" name="sol_escaneada" id="validatedCustomFile" required>
+
+                    <div class=" mt-2 form-group">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file"
+                                lang="es" accept="image/*"
+                                class=" custom-file-input @error('sol_escaneada') is-invalid @enderror"
+                                onchange="$(this).next().after().text($(this).val().split('\\').slice(-1)[0])"
+                                id="sol_escaneada"
+                                name="sol_escaneada">
+                                <label class="custom-file-label" for="sol_escaneada">Subir Solicitud Escaneada</label>
+                            </div>
+                        </div>
+                        @error('sol_escaneada')
+                            <div class="invalid-feedback">
+                                <strong>{{ $message }}</strong>
+                            </div>
+                        @enderror
+                    </div>
+                    {{-- <div class="mt-2 custom-file">
+                        <input lang="es" accept="image/*" type="file" class="custom-file-input" name="sol_escaneada" id="validatedCustomFile" required>
                         <label class="custom-file-label" for="validatedCustomFile">Subir Solicitud Escaneada</label>
                         <div class="invalid-feedback">Imagen Requerida</div>
-                    </div>
+                    </div> --}}
                 </div>
 
 
@@ -140,20 +168,6 @@
       </div>
 </div>
 <hr>
-{{-- Modal para el registrar coordenadas --}}
-{{-- <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div id="map" class="modal-content">
-
-      </div>
-    </div>
-  </div>
-   --}}
-  {{-- Modal fin --}}
-
-
-
-
 
 @stop
 
@@ -189,6 +203,7 @@
     @endif
 <script >
 
+
 function editarMapa(){
     const lat = -19.034432;
     const long = -65.264812;
@@ -198,16 +213,8 @@ function editarMapa(){
 </script>
 @stop
 @section('css')
-    <style>
-    $custom-file-text: (
-        en: "Browse",
-        es: "Elegir"
-    );
-    </style>
     <link rel="stylesheet" href="{{asset('vendor/leaflet/css/leaflet.css')}}"  crossorigin="" />
     <link rel="stylesheet" href="{{asset('vendor/leaflet/css/esri-leaflet-geocoder.css')}}" integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g==" crossorigin="">
     <link rel="stylesheet" href="{{asset('vendor/leaflet/css/easy-button.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw-src.css"/>
-
-
 @stop

@@ -35,7 +35,7 @@ class SolicitudController extends Controller
             'calle_sol' => 'required',
             'x_aprox' => 'required',
             'y_aprox' => 'required',
-            'sol_escaneada' => 'required'
+            'sol_escaneada' => 'required|image'
         ]);
         $sol_anterior = DB::table('solicituds')->orderby('created_at', 'DESC')->take(1)->get();;
         $sol = new Solicitud();
@@ -72,7 +72,8 @@ class SolicitudController extends Controller
             'zona_sol' => 'required',
             'calle_sol' => 'required',
             'x_aprox' => 'required',
-            'y_aprox' => 'required'
+            'y_aprox' => 'required',
+            'sol_escaneada' => 'required|image'
         ]);
         $solicitud->nombre_sol = $request->nombre_sol;
         $solicitud->celular_sol = $request->celular_sol;
