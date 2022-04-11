@@ -10,8 +10,9 @@
 @section('content_header')
   <style>
   #map {
-      height: 70%;
-      padding: 40%;
+      margin-top: 20px;
+      width: 100%;
+      height: 400px;
     }
   </style>
   @can('jefe-red')
@@ -27,7 +28,7 @@
 @stop
 @section('content')
 
-    <div class="table table-bordered table-hover dataTable table-responsive">
+    <div class="table table-bordered table-hover dataTable table-responsive" id="contenedor-tabla">
         <table class="table table-bordered datatable" id="example">
         <thead>
           <tr>
@@ -119,8 +120,10 @@
                   </div>
 
 
-                  <a type="button" class="d-inline btn btn-warning btn-icon" title="Visualizar" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="mimapa({{$sol->x_aprox}},{{$sol->y_aprox}})" id="btn_mostrar_mapa">
-                      <i class="fas fa-eye"></i></a>
+                  <a type="button" class="d-inline btn btn-warning btn-icon" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="visualizarMapa({{$sol->x_aprox}},{{$sol->y_aprox}}, {{$sol->id}})" title="Visualizar" id="btn_mostrar_mapa" >
+                    <i class="fas fa-eye"></i></a>
+                  {{-- <a type="button" class="d-inline btn btn-warning btn-icon" title="Visualizar" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="mimapa({{$sol->x_aprox}},{{$sol->y_aprox}})" id="btn_mostrar_mapa">
+                      <i class="fas fa-eye"></i></a> --}}
               </td>
           </tr>
       @endforeach
@@ -140,15 +143,25 @@
         </tfoot>
     </table>
 </div>
+<div id="contenedor-mapa" style="display: none">
+    <input type="hidden" id="obtenerAmpliaciones" >
+
+    <button onclick="mostrarTabla(false)" class="btn btn-primary"> <i class="fas fa-arrow-circle-left"></i> Volver </button>
+    <div class="col-md-12">
+        <div id="map">
+        </div>
+
+    </div>
+</div>
 
 {{-- Modal para el registrar coordenadas --}}
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+{{-- <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div id="map" class="modal-content">
 
     </div>
   </div>
-</div>
+</div> --}}
 
 {{-- Modal fin --}}
 
@@ -159,8 +172,12 @@
 
 @stop
 @section('js')
+<script src="{{asset('vendor/leaflet/js/leaflet.js')}}" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+<script src="{{asset('vendor/leaflet/js/esri-leaflet.js')}}" integrity="sha512-6LVib9wGnqVKIClCduEwsCub7iauLXpwrd5njR2J507m3A2a4HXJDLMiSZzjcksag3UluIfuW1KzuWVI5n/cuQ==" crossorigin=""></script>
+<script src="{{asset('vendor/leaflet/js/esri-leaflet-geocoder.js')}}" integrity="sha512-8twnXcrOGP3WfMvjB0jS5pNigFuIWj4ALwWEgxhZ+mxvjF5/FBPVd5uAxqT8dd2kUmTVK9+yQJ4CmTmSg/sXAQ==" crossorigin=""></script>
+<script src="{{asset('vendor/leaflet/js/easy-button.js')}}"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <script>
+    {{-- <script>
          function mimapa(x_aprox,y_aprox){
             var lati= x_aprox;
             var long= y_aprox;
@@ -181,7 +198,14 @@
         $.fn.modal.Constructor.prototype._enforceFocus = function() {};
 
 
-    </script>
+    </script> --}}
+    <script src="{{asset('js/mapas.js') }}"></script>
+    <script src="{{asset('js/solicitud.js')}}"></script>
+    <script src="{{asset('js/informes.js')}}"></script>
     <script src="{{asset('js/cronograma.js')}}"></script>
 @stop
-
+@section('css')
+<link rel="stylesheet" href="{{asset('vendor/leaflet/css/leaflet.css')}}"  crossorigin="" />
+<link rel="stylesheet" href="{{asset('vendor/leaflet/css/esri-leaflet-geocoder.css')}}" integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g==" crossorigin="">
+<link rel="stylesheet" href="{{asset('vendor/leaflet/css/easy-button.css')}}">
+@stop
