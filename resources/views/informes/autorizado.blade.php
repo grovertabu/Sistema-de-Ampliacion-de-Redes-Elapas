@@ -45,7 +45,7 @@
                     <td>
                         {{$inf->fecha_programada}}
                     </td>
-                    <td align="center"><span class="badge badge-primary">{{$inf->estado}}</span></td>
+                    <td align="center"><span class="badge badge-primary">{{strtoupper($inf->estado)}}</span></td>
                     <td width="200px">
                             <a type="button" class="w-25 d-inline btn btn-warning btn-icon" title="Visualizar" onclick="visualizarMapa({{$inf->x_exact}},{{$inf->y_exact}}, '{{route('solicitud.obtenerAmpliaciones',$inf->id_solicitud)}}')">
                                 <i class="fas fa-eye"></i></a>
