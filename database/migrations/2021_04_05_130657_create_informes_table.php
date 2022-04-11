@@ -17,6 +17,7 @@ class CreateInformesTable extends Migration
             $table->id();
             $table->datetime('fecha_hora_in')->nullable();
             $table->date('fecha_autorizacion')->nullable();
+            $table->date('fecha_autorizado')->nullable();
             $table->date('fecha_visto_bueno')->nullable();
             $table->string('espesifiar_in', 100)->nullable();
             $table->string('x_exact')->nullable();

@@ -28,7 +28,7 @@
         "12"=>"Diciembre"
     );
 	$pedido=10000+$informe->id;
-    $Mes_ = $meses[$mes];
+    $Mes_ = $meses[intval($mes)];
     $n=1;
 @endphp
 <style>

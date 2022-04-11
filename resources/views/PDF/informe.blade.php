@@ -20,7 +20,7 @@
     );
     setlocale(LC_TIME, "spanish");
 
-    $Mes_ = $meses[$mes];
+    $Mes_ = $meses[intval($mes)];
 @endphp
 <!DOCTYPE html>
 <html lang="en">

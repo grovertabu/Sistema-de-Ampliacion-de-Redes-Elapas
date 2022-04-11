@@ -20,7 +20,7 @@
     $dia=date("d", $fecha);
     setlocale(LC_TIME, "spanish");
 
-    $Mes_ = $meses[$mes];
+    $Mes_ = $meses[intval($mes)];
 
     setlocale(LC_TIME, "spanish");
     $fecha_sol=strtotime($informe->solicitud->fecha_sol);
@@ -29,7 +29,7 @@
     $dia_sol=date("d", $fecha_sol);
     setlocale(LC_TIME, "spanish");
 
-    $Mes_sol = $meses[$mes_sol];
+    $Mes_sol = $meses[intval($mes_sol)];
     $n =1;
 @endphp
 <!DOCTYPE html>
