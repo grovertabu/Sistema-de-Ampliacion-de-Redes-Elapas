@@ -20,8 +20,9 @@ class PDFController extends Controller
 
             return view('PDF.informe', compact('informe'));
         } else {
-            $pdf = PDF::loadview('PDF/informe', compact('informe'));
-            return $pdf->stream('Informe.pdf');
+            return view('PDF.informe', compact('informe'));
+            // $pdf = PDF::loadview('PDF/informe', compact('informe'));
+            // return $pdf->stream('Informe.pdf');
         }
     }
 

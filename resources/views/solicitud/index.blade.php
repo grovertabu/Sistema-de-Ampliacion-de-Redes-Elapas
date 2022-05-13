@@ -52,7 +52,7 @@
                             <i class="fas fa-eye"></i></a>
                         @if($sol->estado_sol!='rechazado')
                         @can('solicitud.pdf')
-                            <a type="button" onclick="mostrarPDF('{{route('solicitud.escaneada',$sol->id)}}')"  class=" text-white btn btn-danger d-line btn-icon">
+                            <a type="button" onclick="mostrarPDF('{{route('solicitud.escaneada',$sol->id)}}')" title="Mostrar Solicitud" class=" text-white btn btn-danger d-line btn-icon">
                                 <i class="fa fa-file-pdf"></i>
                             </a>
                         @endcan

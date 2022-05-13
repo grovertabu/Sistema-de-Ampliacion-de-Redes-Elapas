@@ -43,6 +43,7 @@ class InformeController extends Controller
                         ->orwhere('informes.estado_in', 'inspeccionado');
                 })
                 ->get();
+                return view('informes.index', compact('informes', 'id'));
         } else if ($aux == 'Jefe de red') {
             $informes = DB::table('informes')
                 ->join('solicituds', 'solicituds.id', '=', 'informes.solicitud_id')
@@ -66,10 +67,13 @@ class InformeController extends Controller
                 ->orWhere('informes.estado_in', 'inspeccionado')
 
                 ->get();
+                return view('informes.index', compact('informes', 'id'));
+        }
+        else{
+            abort(403);
         }
         // $informes = Informe::all();
-        return view('informes.index', compact('informes', 'id'));
-        // return $informes;
+
     }
 
 

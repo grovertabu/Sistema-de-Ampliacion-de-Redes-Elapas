@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +10,10 @@
 </head>
 
 <body>
-    <img src="{{asset('solicitudes/'.$solicitud->sol_escaneada)}}" width="100%" alt="">
+    <x-header/>
+    <div class="container">
+        <img src="{{ asset('solicitudes/' . $solicitud->sol_escaneada) }}" width="100%" alt="">
+    </div>
 </body>
+
 </html>

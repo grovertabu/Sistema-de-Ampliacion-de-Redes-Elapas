@@ -28,55 +28,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{-- <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.css') }}"> --}}
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
     <title>INFORME</title>
 </head>
 
 <style>
-    .botones{
-        width: 700px;
-        margin: 0 auto;
-    }
-    button{
-        width: 100%;
-        background-color:#dc3545;
-        height: 40px;
-        font-size: 20px;
-        color: white;
-    }
     #contenedor{
-        width: 680px;
-        margin: 0 auto;
+        width: 680px !important;
+        margin: 0 auto !important;
     }
     th{
-        padding: 10px;
+        padding: 10px !important;
     }
 
     table, td{
-      border: 1px solid black;
-      width: 100%;
-      padding: 5px;
+      border: 1px solid black !important;
+      width: 100% !important;
+      padding: 5px !important;
     }
 
     #table1{
-      border-collapse: collapse;
-      border-spacing: 10px;
+      border-collapse: collapse !important;
+      border-spacing: 10px !important;
     }
     .centrar{
-        text-align: center;
+        text-align: center !important;
     }
     div.firma{
-        padding-left: 60px;
-        text-align: center;
+        padding-left: 60px !important;
+        text-align: center !important;
     }
     div.firma2{
-        text-align: right;
+        text-align: right !important;
     }
-
     </style>
 <body>
         <div id="contenedor">
+            <x-header-informe/>
             <table id="table1">
                 <tr >
                     <th colspan="4">TRAMITE DE INSTALACIONES</th>
