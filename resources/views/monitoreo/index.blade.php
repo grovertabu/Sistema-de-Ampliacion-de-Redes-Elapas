@@ -22,6 +22,7 @@
                 Solicitudes Rechazadas<i class="fa fa-delete"></i>
             </a>
 
+
             @endcan
             </h1>
 
@@ -60,6 +61,10 @@
             <td width="200px">
                 <a type="button" class="d-inline btn btn-warning btn-icon" title="Visualizar" data-toggle="modal" data-target=".bd-example-modal-lg" onclick="visualizarMapa({{$sol->x_aprox}},{{$sol->y_aprox}}, {{$sol->solicitud_id}})" id="btn_mostrar_mapa" >
                     <i class="fas fa-eye"></i></a>
+
+                <a type="button" onclick="mostrarPDF('{{route('solicitud.escaneada',$sol->solicitud_id)}}')" title="Mostrar Solicitud" class=" text-white btn btn-danger d-line btn-icon">
+                    <i class="fa fa-file-pdf"></i>
+                </a>
                 @can('Monitor')
 
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{$n}}">
