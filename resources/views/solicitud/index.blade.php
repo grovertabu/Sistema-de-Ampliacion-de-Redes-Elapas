@@ -31,6 +31,7 @@
         <thead>
           <tr>
             <th>Nro</th>
+            <th>Fecha de solicitud</th>
             <th>Nombre solicitante</th>
             <th>Celular</th>
             <th>Zona</th>
@@ -43,6 +44,7 @@
             @foreach ($solicitud as $sol)
                 <tr>
                     <td>{{'S-'.$sol->id}}</td>
+                    <td>{{$sol->fecha_sol}}</td>
                     <td>{{$sol->nombre_sol}}</td>
                     <td>{{$sol->celular_sol}}</td>
                     <td>{{$sol->zona_sol}}</td>
@@ -90,6 +92,7 @@
         <tfoot>
             <tr>
                 <th>Nro</th>
+                <th>Fecha de solicitud</th>
                 <th>Nombre solicitante</th>
                 <th>Celular</th>
                 <th>Zona</th>

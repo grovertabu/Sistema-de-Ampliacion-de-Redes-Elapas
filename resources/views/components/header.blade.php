@@ -1,13 +1,24 @@
+<style>
+    .izquierdo{
+        float: left;
+        text-align: center !important;
+        display: flex;
+        font-size: 10px;
+    }
+    .derecha{
+        float: right;
+        text-align: right !important;
+        font-size: 10px;
+    }
+</style>
 
-<link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.css') }}">
-<div class="row ">
-    <table class="table1">
-        <tr>
-            <td><img src="{{ asset('images/pedido.png') }}" style="width:100px; height:50px" alt=""></td>
-            <td>
-                <b>Sistema informático de Ampliación de Redes de agua</b>
-            </td>
-            <td class="float-right"><b>Fecha de Impresión: </b>{{ date('Y-m-d H:i:s') }}</td>
-        </tr>
-    </table>
+<div class="header">
+    <div class="izquierdo">
+        <img src="{{ asset('images/pedido.png') }}" style="width:100px; height:50px" alt="">
+        <b>Sistema informático de Ampliación de agua</b>
+    </div>
+
+    <div class="derecha">
+        <b>Fecha de Impresión: </b><br>{{ date('Y-m-d H:i:s') }}
+    </div>
 </div>
